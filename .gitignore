@@ -26,3 +26,7 @@ main\.log
 main\.out
 
 main\.run\.xml
+
+*.log
+
+main\.pdf
