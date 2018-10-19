@@ -1,5 +1,8 @@
 \documentclass[smallabstract,smallcaptions]{dccpaper}
 %
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[journal]{../sty/IEEEtran}
 \usepackage{amssymb,amsthm}
 \usepackage{thmtools}
 \usepackage{amsxtra,amsfonts}
@@ -7,6 +10,7 @@
 \usepackage{enumitem}
 \usepackage{mathtools}
 \usepackage{enumitem}
+%\usepackage[pdftex]{graphicx}
 \usepackage{latexsym}
 \usepackage{mathrsfs}
 \newtheorem{prop}{Proposition}
@@ -134,7 +138,7 @@
 %\newcommand{\junstart}{\color{Red}}
 \newcommand{\junstart}{\color{black}}
 \newcommand{\junend}{\color{black}}
-
+%\usepackage{subcaption}
 \begin{document}
 %
 % paper title
@@ -143,6 +147,9 @@
 
 \newtheorem{corollary}{Corollary}
 
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
 
 \author{Jun~Guo, Philipp~Walk, and Hamid~Jafarkhani\\
 {\small\begin{minipage}{\linewidth}\begin{center}

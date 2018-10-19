@@ -1,0 +1,35 @@
+\section{UAV as flying Base-Stations}
+%
+We will extend our UAV setup to a flying base-station scenario, where each UAV act as a relay between the base-station
+and a ground terminal user, see for example \cite{AG18}.
+We assume that the GTs are placed on $\Omega$ according to a time-invariant density function
+$f:\mathbb{R}^2\to\mathbb{R}$, where $\int_{\Omega}f(\omega)d\omega=1$ \cite{GJ,Erdem1,ML,MLCS}. Further, the $N$ UAVs
+are positioned at $(\vP,\vH)$ and will relay the communication from a base-station at $q^B=(p^B_x,p^B_y,h^B)$
+as in \figref{fig:uavbasestation}. Thus, the total UAV
+transmit power or average GT transmit power can be rewritten as
+%
+\begin{equation}
+D\left(\bP,\bH\right)=\int_{\Omega}\min_{n}\left\{\beta\frac{\left(\|p_n-\omega\|^2+h^2_n\right)^{\frac{1+\alpha}{2}}}{h_n}
++ {\underbrace{\Norm{q_n-q^B}}_{=d_n^B}}^{{\alp}}\right\}f\left(\omega\right)d\omega,
+\label{eq:Dbasestation}
+\end{equation}
+%
+where we assume that the UAV has a directed perfectly aligned antenna to the base station, such that for $\tht=0$ by
+\eqref{eq:Gdirected} it holds for the antenna relative radiation intensity $G_{BS}=1$. Hence, only the path loss exponent remains.
+By setting the base-station at $q^B=(0,0,h^B)$ we get
+\begin{align}
+D\left(\bP,\bH\right)=\int_{\Omega}\min_{n}\left\{\beta\frac{\left(\|p_n-\omega\|^2+h^2_n\right)^{\frac{1+\alpha}{2}}}{h_n}
++ (\Norm{p_n}^2+(h_n-h^B)^2)^{\frac{\alp}{2}}\right\}f\left(\omega\right)d\omega.
+\label{eq:Dbasestation2}
+\end{align}
+
+%
+\begin{figure}
+  \centering
+  \def\svgwidth{.9\textwidth} \scriptsize{
+    \input{UAVquacopter2_relay.pdf_tex}}
+    \caption{UAV base-station deployment with directed antenna beam for $\alp=2$ and $N=2$ for a uniform GT distribution
+    and perfect antenna alignment to the ground base-station at $q^B=(0,0,h^B)$.}
+    \label{fig:uavbasestation}
+\end{figure}
+

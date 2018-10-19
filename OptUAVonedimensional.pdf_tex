@@ -1,0 +1,77 @@
+%% Creator: Inkscape inkscape 0.92.1, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'OptUAVonedimensional.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{329.64214091bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.44244003)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{OptUAVonedimensional.pdf}}%
+    \put(0.63344439,0.27679271){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\hq^{(2)}_2$}}}%
+    \put(0.74020179,0.00722584){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\Omega$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{OptUAVonedimensional.pdf}}%
+    \put(0.29179604,0.27679271){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\hq^{(2)}_1$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{OptUAVonedimensional.pdf}}%
+    \put(0.44834128,0.0040127){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x$}}}%
+    \put(0.79217852,0.03919675){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$1$}}}%
+    \put(0.11780859,0.03838415){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$0$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{OptUAVonedimensional.pdf}}%
+    \put(0.1130217,0.17207553){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(0.06325633,0.39320114){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h$}}}%
+    \put(0.4561449,0.03838415){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.5$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{OptUAVonedimensional.pdf}}%
+    \put(0.27424548,0.35119396){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(0.00732987,0.2224348){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\hh^{(2)}=.144$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{OptUAVonedimensional.pdf}}%
+    \put(0.27652369,0.03919675){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.25$}}}%
+    \put(0.61703354,0.03838415){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.75$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{OptUAVonedimensional.pdf}}%
+    \put(-0.00226631,0.13959971){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\hh^{(4)}=.072$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{OptUAVonedimensional.pdf}}%
+    \put(0.27662643,0.19131395){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\tht_{\text{max}}$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{OptUAVonedimensional.pdf}}%
+  \end{picture}%
+\endgroup%

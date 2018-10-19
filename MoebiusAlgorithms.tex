@@ -1,0 +1,58 @@
+\section{Algorithms for deriving Möbius diagrams}
+%
+To obtain the ground terminal cells we need to derive for a given UAV deployment $\vQ=(\vP,\vH)$ its Möbius diagram. 
+Since our performance function is a special case of a Möbius diagram, we might be simplify the algorithms for this
+non-affine construction \cite{BWY07}.
+
+Let us observe that for each $n\not=m$ we have by \lemref{lem:moebiusdia}
+%
+\begin{align}
+  c_{nm}=c_{mn} \quad, \quad r_{nm}=r_{mn}
+\end{align}
+%
+and by \eqref{eq:moebius}
+%
+\begin{align}
+  V_{nm}=V_{mn}^c. 
+\end{align}
+%
+Hence, we will reorder the $N$ coordinates $q_1,\dots,q_N$ in ascending order of their heights, i.e.,
+%
+\begin{align}
+  \tQ=(\tq_1,\tq_2,\dots,\tq_N) \quad,\quad \tilde{h}_1\geq \tilde{h}_2\geq \dots\geq \tilde{h}_N.
+\end{align}
+%
+This allows to derive two symmetric centroid and radii matrices
+%
+%\newcommand{\tilr}{\ensuremath{\tilde{r}}}
+\begin{align}
+  \tC=\begin{pmatrix}
+    \tc_{11} & \tc_{12} & \dots & \tc_{1N}\\ 
+    \tc_{21} & \tc_{22} & \dots & \tc_{2N}\\ 
+    \vdots   &          & \ddots & \vdots\\
+    \tc_{N1} & \tc_{N2} & \dots & \tc_{NN}\\ 
+  \end{pmatrix}
+  \quad,\quad
+  \tR=\begin{pmatrix}
+    \tilr_{11} & \tilr_{12} & \dots & \tilr_{1N}\\ 
+    \tilr_{21} & \tilr_{22} & \dots & \tilr_{2N}\\ 
+    \vdots   &          & \ddots & \vdots\\
+    \tilr_{N1} & \tilr_{N2} & \dots & \tilr_{NN}\\ 
+  \end{pmatrix}
+\end{align}
+%
+Then $n$th row will generate the $n$th Möbius region by
+%
+\begin{align}
+  \tV_n= \Big( \bigcap_{1\leq i< n}  B(\tc_{ni},\tilr_{ni})\Big) \cap \Big( \bigcap_{n<i\leq N}
+  B(\tc_{ni},\tilr_{ni})^c\Big)
+\end{align}
+%
+Obviously, if the centroids of two balls have distance larger then the sum of their radii, then the intersection will be
+empty. We will therefore need to calculate  for $n<i<j\leq N$
+%
+\begin{align}
+  d^{(n)}_{i,j}= |\tc_{ni}-\tc_{nj}|\quad,\quad \tilr^{(n)}_{i,j}=\tilr_{ni}+\tilr_{nj} 
+\end{align}
+%
+Furthermore, if $\tilr_{ni}=\min\{\tilr_{ni},\tilr_{nj}\}\leq d^{(n)}_{i,j}$, then $C_{ni}$ is contained in $C_{nj}$ 

@@ -1,0 +1,166 @@
+% Detailed proof of uniform scalar quantizer (bounded)
+\section{Proof of Uniform Scalar Quantizer}\label{app:UniformScalarQuantizer}
+\begin{proof}[Proof of \lemref{lem:UniformScalarQuantizer}]
+  By the \emph{conservation law of
+  mass} \cite[Thm.2.2]{CMB05}, the partial derivatives of $H_V(\vx)$ after $x_n$ are given by
+  %
+  \begin{align}
+   \frac{\partial H_V(\vx)}{\partial x_n} &= \int_{\Vor_n(\vx)} \frac{ \partial (x_n-\ome)^2}{\partial x_n} d\ome 
+    &\RA\quad   0\overset{!}{=}  \int_{\Vor_n(\vx^*)}(x_n^*-\ome) d\ome \LRA x_n^*=\frac{\int_{\Vor_n(\vx^*)}
+  \ome d\ome}{\int_{\Vor_n(\vx^*)} d\ome}
+    \label{eq:nint}
+  \end{align}
+  %
+  which is the centroid of the optimal Voronoi region $\Vor_n(\vx^*)$. 
+  %
+  Since the Voronoi region depend on all $x_n$ we need the explicit parameterization of the regions.  W.l.o.g. we can
+  label the $N$ quantizer points such that their ground positions are in increasing order, i.e., $0\leq x_1 < x_2 < \dots < x_N\leq
+  A$, where we assume that all $N$ points are different and contained in the target region $\Ome=[0,A]$,
+  otherwise not all points would be active and the number of effective points would be less than $N$. We will show later,
+  that inactive points will increase the objective function and therefore not yield the global minimum. Each Euclidean
+  Voronoi region is by definition  the intersection of $N-1$ dominance regions $\Vor_{nm}(\vx)=[0,(x_m+x_n)/2]$ for
+  $n<m$ and $[(x_n+x_m)/2,A]$ for $n>m$ given by
+  %
+   \begin{align}
+       \Vor_n(\vx) &= \bigcap_m \Vor_{nm}(\vx)=\bigcap_{n<m} [0,\frac{x_m\!+\!x_n}{2}] \bigcap_{n>m} [\frac{x_n\!+\!x_m}{2},A] \\
+       &=[b_{n-1},b_n]
+       =\begin{cases} 
+       [0,\frac{x_2+x_1}{2}] &, n=1\\
+       [\frac{x_{N}+x_{N-1}}{2},A] &, n=N\\
+       [\frac{x_{n}+x_{n-1}}{2},\frac{x_{n+1}+x_n}{2}] &,\text{else}
+       \end{cases}\label{eq:Vorn}
+  \end{align}
+  %
+  The integral of the centroid \eqref{eq:nint} can then be calculated  as
+  %
+  \begin{align}
+      x_n^* &= \frac{ \frac{1}{2} \ome^2 \Big|_{a_n^*}^{b_n^*}}{ b_n^*-a_n^*}
+      = \frac{1}{2} \frac{(b_n^*)^2-(a_n^*)^2}{b_n^*-a_n^*} = \frac{b_n^*+a_n^*}{2} \label{eq:xniterative}.
+  \end{align}
+  %
+  For $1<n<N$ we get
+  %
+  \begin{align}
+    x_n^*=\frac{x_{n+1}^*+ 2x_n^*+x_{n-1}^*}{4} = \frac{x_{n+1}^*+x_{n-1}^*}{4} +\frac{x_n^*}{2}\quad\RA \quad x_n^*
+    =\frac{x_{n+1}^*+x_{n-1}^*}{2}\label{eq:midpoints}.
+  \end{align}
+  %
+  For $n=1$ and $n=N$ we get 
+  %
+  \begin{align}
+      x_1^*=\frac{1}{3}x_2^* \quad,\quad x_N^* = \frac{1}{3}(2A+x^*_{N-1})\label{eq:firstlast}.
+  \end{align}
+  %
+  The two equations contain $4$ unknowns and are therefore under-determined. To resolve the positions, we need to
+  extract from \eqref{eq:midpoints} two more equations in the same $4$ unknowns $x_1,x_2,x_N,x_{N-1}$
+  (Let us omit the star-index for now).
+  We prove by induction that it holds for each $N-1\geq m\geq 2$ 
+  %
+  \begin{align}
+    P(m) :\LRA x_1 = m x_{m} -(m-1) x_{m+1} \label{eq:Pm}.
+  \end{align}
+  %
+  Let us resolve \eqref{eq:midpoints} to 
+  %
+  \begin{align}
+    x_{n-1}=2x_n-x_{n+1} \quad,\quad N-1\geq n\geq 2\label{eq:xn1}
+  \end{align}
+  %
+  then for $m=n=2$ this proofs the induction start $P(2)$. Let us assume $P(m)$ is true, than we get with
+  $m=n-1\geq 2$ in \eqref{eq:xn1}  
+  %
+  \begin{align}
+    x_1=mx_m - (m-1)x_{m+1} = m(2x_{m+1} -x_{m+2})-(m-1)x_{m+1}= (m+1)x_{m+1}  -mx_{m+2}\notag
+  \end{align}
+  %
+  which proofs  $P(m+1)$ and therefore the assumption $P(m)$ for all $N-1\geq m\geq 2$.
+  %
+  Similar we can show for $N-1\geq m\geq 2$ the assertion 
+  %
+  \begin{align}
+    \tP(m):\LRA x_N= mx_{N-(m-1)} - (m-1)x_{N-m}.
+  \end{align}
+  %
+  Resolving \eqref{eq:xn1} to $x_{n+1}=2x_n-x_{n-1}$ yields for $m=2$ and $n=N-m+1$ the
+  induction start $\tP(2)$ and with $\tP(m)$ and $n=N-m$ this shows $\tP(m+1)$.  
+  Then from \eqref{eq:firstlast}, $P(N-1)$, and $\tP(N-1)$ we get the two equations
+  %
+  \begin{align}
+    x_1 &= (N-1)(3x_{N}-2A)-(N-2)x_{N} = (2N-1)x_{N} -2(N-1)A\\
+    x_N &= (N-1)x_{2} -(N-2)x_1=(N-1)3x_1-(N-2)x_1=(2N-1)x_1\label{eq:xN}
+  \end{align}
+  %
+  which yields to
+  %
+  \begin{align}
+    x_1= (2N-1)(2N-1)x_1-2(N-1)A \LRA A = \frac{4N^2-4N+1-1}{2(N-1)} x_1 \LRA x_1= \frac{A}{2N}.\label{eq:x1A}
+  \end{align}
+  %
+  Inserting in \eqref{eq:xN} gives
+  %
+  \begin{align}
+    x_N= \frac{(2N-1)A}{2N}.\label{eq:xNA}
+  \end{align}
+  %
+  Together with \eqref{eq:xn1} this shows $x_n=(2n-1)A/(2N)$ for $n=1,2,\dots,N$ and $N=1,2,3$.
+  For $N\geq 4$ we need to derive the pairwise ground distances, given for $N-1\geq m\geq 3$ by
+  %
+  \begin{align}
+    \Del_m &= x_m-x_{m-1}\overset{P(m-1)}{=}x_m -\frac{x_1+(m-2)x_m}{m-1} = \frac{x_m-x_1}{m-1}\\
+    \Del_m &= x_m-x_{m-1}\overset{\tP(N-m+1)}{=} x_m + \frac{x_N -(N-m+1)x_m}{N-m} = \frac{x_N-x_m}{N-m}  
+  \end{align}
+  %
+  Eliminating $x_m$ yields to 
+  %
+  \begin{align}
+    (m-1)\Del_m + x_1 = x_N-\Del_m(N-m) \LRA \Del_m= \frac{x_N-x_1}{N-1}
+  \end{align}
+  %
+  Finally, inserting \eqref{eq:xNA} and \eqref{eq:x1A} yields to
+  %
+  \begin{align}
+    \Del_m=\Del=\frac{(2N-1)A-A}{2N(N-1)}= \frac{A}{N}\label{eq:Del}
+  \end{align}
+  %
+  and since $x_2-x_1= A/N=x_N-x_{N-1}$ by \eqref{eq:firstlast} and \eqref{eq:xN} resp. \eqref{eq:xNA}  \eqref{eq:Del}
+  holds for $2\leq m\leq N$.  Hence, we get for $n=1,2,\dots,N$ and any $N\geq 1$
+  %
+  \begin{align}
+      x_n^* =x_1^*+ (n-1) \Del=\frac{(2n-1)A}{2N}\label{eq:quantizern}.
+  \end{align}
+  %
+  To derive the optimal height we need to calculate $H_V(\vx^*)$.  
+  Calculating explicitly the integrals we get for the Euclidean distortion 
+  %
+  \begin{align}
+   A H_V(\vx^{*}):= (\frac{1}{3} \Big((\ome-x_1^*)^3\Big|_{0}^{b_1}+ (\ome-x_N^*)^3\Big|_{b_{N-1}}^A \Big)
+    + \sum_{n=2}^{N-1} \frac{1}{3}(\ome-x_n^{*})^3 \Big|_{b_{n-1}}^{b_n}
+  \intertext{with the bisectors given by \eqref{eq:Vorn} and \eqref{eq:quantizern}}
+    b_{n-1}=\frac{x^*_n+x^*_{n-1}}{2}= \frac{(2n-1 +(2(n-1)-1)))A}{2\cdot 2N}= \frac{(n-1)A}{N} \quad\text{and}\quad b_0=0,
+    b_N=A.
+  \end{align}
+  %
+  The difference is then given by
+  %
+  \begin{align}
+     \frac{1}{3}\sum_n \left( \Big(\frac{(2n - (2n-1))A }{2N}\Big)^3-\Big(\frac{(2n-2-(2n-1))A}{2N}\Big)^3\right)
+     = \sum_n \frac{2 A^3}{3 \cdot 8 N^3} = (N-2)\frac{A^3}{12 N^3} \notag
+  \end{align}
+  %
+  which yields with the first and last cell
+  %
+  \begin{align}
+    \frac{1}{3}\left(\Big( \frac{2A\!-\!A}{2N}\Big)^3- \frac{-A^3}{(2N)^3} +
+    \Big(\frac{2N A- (2N\!-\!1)A}{2N}\Big)^3 - \Big(\frac{2(N\!-\!1)A-(2N\!-\!1)A}{2N}\Big)^3\right)
+    = \frac{4}{3} \Big(\frac{A}{2N}\Big)^3\notag
+  \end{align}
+  %
+  to
+  %
+  \begin{align}
+     H_V(\vx^{*})= \frac{1}{A} \left( (N-2) \frac{A^3}{12 N^3} + 2 \frac{A^3}{12 N^3}\right)= \frac{A^2}{12N^2}.
+  \end{align}
+  %
+  Now we see, that if there are inactive quantization points, $N$ would decrease and the power consumption increase. Therefore, inactive
+  point configurations can be seen as local minima and the all active case as the global minima.  
+\end{proof}

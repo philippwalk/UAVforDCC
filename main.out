@@ -1,0 +1,15 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.3}{System model}{}% 2
+\BOOKMARK [1][-]{section.15}{Optimal Static UAV deployment}{}% 3
+\BOOKMARK [2][-]{subsection.41}{Static UAV Deployment: Local Optimality}{section.15}% 4
+\BOOKMARK [3][-]{subsubsection.55}{Same flight heights}{subsection.41}% 5
+\BOOKMARK [1][-]{section.63}{The Optimal UAV deployment over one-dimensional ground}{}% 6
+\BOOKMARK [2][-]{subsection.64}{Optimal UAV deployment for common height and uniform user density}{section.63}% 7
+\BOOKMARK [2][-]{subsection.114}{Optimal UAV deployment for different heights and uniform user density}{section.63}% 8
+\BOOKMARK [2][-]{subsection.144}{Non-uniform distribution over the one-dimensional ground}{section.63}% 9
+\BOOKMARK [1][-]{section.153}{Algorithms for deriving M\366bius diagrams}{}% 10
+\BOOKMARK [1][-]{section.160}{UAV as flying Base-Stations}{}% 11
+\BOOKMARK [1][-]{section.164}{Dynamic UAV deployment}{}% 12
+\BOOKMARK [1][-]{section.179}{Simulation Results}{}% 13
+\BOOKMARK [1][-]{section.180}{Future Work}{}% 14
+\BOOKMARK [1][-]{appendix.181}{Proof of Uniform Scalar Quantizer}{}% 15
