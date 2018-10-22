@@ -1,8 +1,5 @@
 \documentclass[smallabstract,smallcaptions]{dccpaper}
 %
-% If IEEEtran.cls has not been installed into the LaTeX system files,
-% manually specify the path to it like:
-% \documentclass[journal]{../sty/IEEEtran}
 \usepackage{amssymb,amsthm}
 \usepackage{thmtools}
 \usepackage{amsxtra,amsfonts}
@@ -10,7 +7,6 @@
 \usepackage{enumitem}
 \usepackage{mathtools}
 \usepackage{enumitem}
-%\usepackage[pdftex]{graphicx}
 \usepackage{latexsym}
 \usepackage{mathrsfs}
 \newtheorem{prop}{Proposition}
@@ -138,29 +134,27 @@
 %\newcommand{\junstart}{\color{Red}}
 \newcommand{\junstart}{\color{black}}
 \newcommand{\junend}{\color{black}}
-%\usepackage{subcaption}
+
 \begin{document}
 %
 % paper title
-\title{Minimal Average Distortion of non-convex distortion functions for optimal UAV deployments}
+\title{On Average Distortion of Non-Convex Quantization Sets and UAV deployments}
 
 
 \newtheorem{corollary}{Corollary}
 
-% author names and affiliations
-% use a multiple column layout for up to three different
-% affiliations
-
+%\begin{center}
 \author{Jun~Guo, Philipp~Walk, and Hamid~Jafarkhani\\
-{\small\begin{minipage}{\linewidth}\begin{center}
+  {\small\hspace{-0.5cm}\begin{minipage}{\textwidth}
 \begin{tabular}{c}
 University of California Irvine, Department of Electrical Engineering and Compute Science\\
 Center for Pervasive Communications and Computing, Electrical Engineering Hall  \\
 Irvine, CA 92697-2625, USA \\
-{\it\{junguo4,pwalk,hamidj\}@uci.edu}
+{\it\{guoj4,pwalk,hamidj\}@uci.edu}
 \end{tabular}
-\end{center}\end{minipage}}
+\end{minipage}}
 }
+%\end{center}
 
 \maketitle
 
@@ -181,20 +175,19 @@ Therefore, I formulate UAV's antenna gain as a cosine function.  On the other ha
 made a common assumption that all UAVs have the identical height.  In this report, we will study the UAVs with variant
 heights which is more reasonable in practice.
 
-\philippstart
-\paragraph{Notation} We denote the positive integers by $\N=\{1,2,3,\dots\}$ and for $N\in\N$ the first $N$ positive
-integers by $[N]=\{1,2,\dots,N\}$. We will denote by $\vx\in\R^d$ a $d-$dimensional real-valued row vector
-$\vx=(x_1,\dots,x_d)$ and by bold capital letters a matrix $\vX=\R^{d\times N}$. We denote by $(\cdot)^T$ the transpose
-of a vector or matrix.   For convenience, let $\Ball\left(\vc,r\right)=\set{\vome}{\|\vome-\vc\|^2\le r}$ be the open ball in
-$\R^d$ centered at $\vc\in\R^d$ with radius $r\geq 0$. Note that $\Ball\left(\vc,0\right)$ is an empty set. We denote by
-$\partial V$ the boundary of the set $V\subset\R^d$ and by $V^c$ its complement. In particular, $\partial
-\Ball(\vc,r)$ is the sphere with center at $\vc$ and radius $r$. We will denote the positive numbers by
-$\R_+:=\set{a\in\R}{a>0}$.  Let equation $E\vq + F = 0$, where
-$E\in\mathbb{R}^{1\times2}$ is a $1\times2$ vector and $F\in\mathbb{R}$ is a scalar, define the perpendicular bisector
-hyperplane between the two points.  Then, the equations $E\vq +F\ge0$ and $E\vq +F\le0$ define two half spaces.
-Moreover, for two points $\va,\vb\in\R^d$, we denote
-the generated half space between them, which contains $\va\in\R^d$ by $HS(\va, \vb)$.
-\philippend
+\philippstart \paragraph{Notation} We denote the positive integers by $\N=\{1,2,3,\dots\}$ and for $N\in\N$ the first
+$N$ positive integers by $[N]=\{1,2,\dots,N\}$. We will denote row vectors by bold letters $\vx=(x_1,\dots,x_d)$ and
+matrices by bold capital letters $\vX=\R^{d\times N}$. We denote by $(\cdot)^T$ the transpose of a vector or matrix.
+For convenience, let $\Ball\left(\vc,r\right)=\set{\vome}{\|\vome-\vc\|^2\le r}$ be the open ball in $\R^d$ centered at
+$\vc\in\R^d$ with radius $r\geq 0$. Note that $\Ball\left(\vc,0\right)$ is an empty set. We denote by $\partial V$ the
+boundary of the set $V\subset\R^d$ and by $V^c$ its complement. In particular, $\partial \Ball(\vc,r)$ is the sphere
+with center at $\vc$ and radius $r$. We will denote the positive numbers by $\R_+:=\set{a\in\R}{a>0}$.
+%
+%Let equation $E\vq + F = 0$, where $E\in\mathbb{R}^{1\times2}$ is a $1\times2$ vector and $F\in\mathbb{R}$ is a scalar,
+%define the perpendicular bisector hyperplane between the two points.  Then, the equations $E\vq +F\ge0$ and $E\vq
+%+F\le0$ define two half spaces. 
+Moreover, for two points $\va,\vb\in\R^d$, we denote the generated half space between them, which contains $\va\in\R^d$
+by $HS(\va, \vb)$.  \philippend
 
 \section{System model}\label{sec:model}
 %
@@ -203,7 +196,7 @@ low-altitude UAVs in the sky.  Let $\vP=(\vp_1^T,\dots,\vp_N^T)$ be the UAV (gro
 $\vp_n=(x_n, y_n)\in\mathbb{R}^2$ is the projected location on the ground $\Omega$, and $\bH=(h_1,\dots,h_N)$ be the
 UAV vertical (height) deployment, where $h_n\in\R_+$ is UAV $n$'s height.  In particular, UAV $n$'s 3-dimensional
 location is defined as $\vq_n=(\vp_n,h_n)=(x_n,y_n, h_n)$.  The elevation angle, $\theta\in[0,\frac{\pi}{2}]$, from
-a GT at $\vome$ to UAV $n$ is defined as the angle between the ground distance $\overline{\vome \vp_n}$ to the flight
+a GT at $\vome$ to UAV $n$ is defined as the angle between the ground distance $\overline{\vome \vp_n}$ and flight
 height $h_n$.
 
 
@@ -223,10 +216,10 @@ model \cite[(2.51)]{AG} as:
 where $K$ is a unitless constant depending on the antenna characteristics, $d_0$ is a reference distance, $\alpha\geq 1$
 is the terrestrial path loss exponent, and $\psi_{dB}$ is a Gaussian random variable following
 $\mathcal{N}\left(0,\sigma^2_{\psi_{dB}}\right)$. This air-to-ground or terrestrial path loss model is widely used for
-UAV basestation path-loss models \cite{MSBD16a}. Practical values are between $2$ and $6$ and depends on the
-distance $d$ and the shadowing due to low altitude.  For common practical measurements see for example \cite{AG18}.
-Typically maximal altitudes for UAV are $<1000$m, due to flight zone restrictions of aircrafts.
-Therefore, the received power at UAV $n$ can be represented as
+UAV basestation path-loss models \cite{MSBD16a}. Practical values are between $2$ and $6$ and depends on the distance
+$d$ and the shadowing due to low altitude.  For common practical measurements see for example \cite{AG18}.  Typically
+maximal altitudes for UAV are $<1000$m, due to flight zone restrictions of aircrafts.  Therefore, the received power at
+UAV $n$ can be represented as
 %
 \begin{equation}
   P_{RX}=P_{TX}G_{TX}G_{RX}PL=\frac{P_{TX}G_{TX}G_{RX}Kd^{\alpha}_0}{d^{\alpha}10^{\frac{\psi_{dB}}{10}}}, \label{eq:Prx}
@@ -288,22 +281,23 @@ where $B$ is the channel bandwidth and $N_0$ is the noise power.  The minimum tr
 %heterogeneous UAV network if $s_n\not=s_m$ for any $n\not=m$.  Note, that we could assume different noise powers at the
 %receiver or different transmit powers associated to the $n$th UAV cell. 
 %
-The expectation of the minimum transmitter power of the $n$th UAV or user in the $n$th cell is then
+The expectation of the minimum transmitter power of the $n$th UAV at $\vq_n=(p_n,h_n)$ to a ground user in the $n$th cell at
+$(\vome,0)$ is then
 %
 \begin{align}
   \Expect{P_{TX,n}}& =
-  \frac{\left(2^{\frac{\Rb}{B}}-1\right) d((p_n,h_n),(\ome,0))^{\alpha+1}}{ h_n \GGT Kd^{\alpha}_0}
-   \frac{N_0}{\sqrt{2\pi}\sigma_{\psi_{dB}}} \int_{-\infty}^{+\infty}
+  \frac{(2^{\frac{\Rb}{B}}-1)N_0 }{ h_n \GGT Kd^{\alpha}_0}
+   \frac{d(\vq_n,(\vome,0))^{\alpha+1}}{\sqrt{2\pi}\sigma_{\psi_{dB}}} \int_{-\infty}^{+\infty}
      \exp\left(-\frac{\psi^2_{dB}}{2\sigma^2_{\psi_{dB}}}+ \ln(10) \frac{\psi_{dB}}{10}\right)d\psi_{dB}\notag\\
-  &=\frac{\left(2^{\frac{\Rb}{B}}-1\right)  d((p_n,h_n),(\ome,0))^{\alpha+1} N_0 \exp\left(-\frac{\sigma^2_{\psi_{dB}}(\ln{10})^2}{200}\right)}
-  {h_n \GGT Kd^{\alpha}_0}\notag\\
-  &=\bet \cdot  \frac{d( (p_n,h_n),(\ome,0))^{2\gam}}{h_n}=:P(\ome,p_n,h_n) \label{eq:Eptx}
+  %&=\frac{(2^{\frac{\Rb}{B}}-1)   N_0 \exp\big(-\frac{\sigma^2_{\psi_{dB}}(\ln{10})^2}{200}\big)d(\vq_n,(\vome,0))^{\alpha+1}}
+  %{h_n \GGT Kd^{\alpha}_0 } \notag\\
+  &=\bet \cdot  \frac{d( \vq_n,(\vome,0))^{2\gam}}{h_n}=:P(\vq_n,\vome) \label{eq:Eptx}
 \end{align}
 %
 where the fixed parameters
 %
 \begin{align}
-  \bet=\frac{(2^{\frac{\Rb}{B}}-1) N_0 \exp(-\frac{\sig_{\psi_{dB}}^2 (\ln 10)^2}{200})}{\GGT K d_0^{\alp}}\quad,\quad
+  \bet=\frac{(2^{\frac{\Rb}{B}}-1) N_0 \exp\big(-\frac{\sig_{\psi_{dB}}^2 (\ln 10)^2}{200}\big)}{\GGT K d_0^{\alp}}\quad,\quad
   \gam=\frac{\alp+1}{2}
 \end{align}
 %
@@ -348,7 +342,7 @@ To find local extrema of \eqref{eq:optPbar} analytically, we will need that the 
 continuously differentiable at any point in $\Qset^N=\Omega^N\times \R_+^N$, i.e., the gradient exists and is a
 continuous function, as was shown for piecewise continuous non-decreasing distortion functions in the Euclidean metric
 over $\Ome^N$ \cite[Thm.2.2]{CMB05} and \cite{GJ16a}. We could extend this result in \cite{WJ18} to continuous
-\disfunction s on $\Ome\times\Qset$ for arbitrary $D-$dimensional parameter sets $\Qset\subset \R^D$, which are multivariate polynomials of finite degree
+\disfunction s on $\Ome\times\Qset$ for arbitrary $d-$dimensional parameter sets $\Qset\subset \R^d$, which are multivariate polynomials of finite degree
 if restricted to $\Omega$.  Then the necessary condition for a local extrema is the vanishing of the gradient at a
 critical point\footnote{Note, if $\nabla \Pbar$ is not continuous in $\Qset^N$ than any jump-point is a potential
   critical point and has to be checked individually.}.  To derive the partial derivatives we will need to rewrite the
@@ -402,7 +396,7 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   \begin{align}
     \abPo\left(\vP,\fH\right)=\!\int_{\Omega}\min_{n}
        \left\{\frac{\left(\|\gp_n-\vome\|^2+h^2_n\right)^{\gam}}{h_n}\right\}\df(\vome)d\vome
-       = \sum_{n=1}^{N} \int_{\Vor_n} \! \frac{ (\Norm{\gp_n- \vome}^2 +h_n^2)^{\gam}}{h_n} \df(\ome)d\ome
+       = \sum_{n=1}^{N} \int_{\Vor_n} \! \frac{ (\Norm{\gp_n- \vome}^2 +h_n^2)^{\gam}}{h_n} \df(\vome)d\vome
        \label{eq:minimizationmoebius}
   \end{align}
   %
@@ -455,7 +449,8 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   %
   \begin{align}
     \Vor_{n} =\Vor_n(\gP,\bH):=
-  &\set{\vome\in\Ome}{\frac{(\Norm{\vp_n-\vome}^2 +h_n^2)^{\gam}}{h_n}\leq\frac{(\Norm{\vp_m-\vome}^2 +h_m^2)^{\gam}}{h_m}, m\not=n}\\
+  &\set{\vome\in\Ome}{\frac{(\Norm{\vp_n-\vome}^2 +h_n^2)^{\gam}}{h_n}\leq\frac{(\Norm{\vp_m-\vome}^2
+  +h_m^2)^{\gam}}{h_m}, m\not=n}\notag\\
     =&\set{\vome\in\Ome}{ a_n\Norm{\vp_n-\vome}^2 +b_n \leq  a_m\Norm{\vp_m-\vome}^2 +b_m, m\not=n}
   \end{align}
   %
@@ -475,15 +470,16 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   \end{align}
   %
   If $h_n=h_m$ then $a_n=a_m$ and $b_n=b_m$, such that $\Vor_{nm}=HS(\vp_n,\vp_m)$, the left half-space between $\vp_n$
-  and $\vp_m$. For $a_n\not=a_m$ we can rewrite the inequality as 
+  and $\vp_m$. For $a_n>a_m$ we can rewrite the inequality as 
   %
   \begin{align*}
-    a_n \Norm{\vp_n}^2 + a_n \Norm{\vome}^2 -2a_n\skprod{\vp_n}{\ome} - a_m\Norm{\vp_m}^2 - a_m\Norm{\vome}^2
-    +2a_m\skprod{\vp_m}{\vome} + (b_n-b_m) \leq &0\\
-     (a_n\!-\!a_m)\Norm{\vome}^2 -2 \skprod{a_np_n- a_mp_m}{\vome} + a_n \Norm{\vp_n}^2 - a_m \Norm{\vp_m}^2 +(b_n-b_m) \leq & 0 \\
-     (a_n\!-\!a_m)\left[ \Norm{\vome}^2 -2 \skprod{\vc_{nm}}{\vome} 
+    a_n \Norm{\vp_n}^2\! +\! a_n \Norm{\vome}^2\! -\! 2a_n\skprod{\vp_n}{\ome} \!-\! a_m\Norm{\vp_m}^2 \!-\! a_m\Norm{\vome}^2
+    \!+\!2a_m\skprod{\vp_m}{\vome} \!+\! (b_n-b_m) \leq &0\\
+     (a_n\!-\!a_m)\Norm{\vome}^2 -2 \skprod{a_n \vp_n- a_m \vp_m}{\vome} + a_n \Norm{\vp_n}^2 - a_m \Norm{\vp_m}^2 +(b_n-b_m)
+     \leq & 0 \\
+      \Norm{\vome}^2 -2 \skprod{\vc_{nm}}{\vome} 
     + \frac{a_n^2 \Norm{\vp_n}^2 \!+\!a_m^2 \Norm{\vp_m}^2 \!-\! a_na_m(\Norm{\vp_n}^2 \!+\!\Norm{\vp_m}^2)}{(a_n-a_m)^2} + \frac{b_n-b_m}{a_n-a_m}
-   \right]\leq & 0
+   \leq & 0
   \end{align*}
   %
   where the center point is given by
@@ -552,7 +548,7 @@ placed on
 If the second UAV reaches an altitude of $h_2\geq 2.3$ its Voroni cell $\Vor_{2}=\Vor_{2,1}$ will be empty and hence become inactive.
 \end{example}
 
-\subsection{Static UAV Deployment: Local Optimality}
+\subsection{Local optimality conditions for arbitrary heights}
 %
 To find the global optimal deployment for $N$ static UAVs we have to minimize the average power consumption for all GTs
 in $\Ome$ over its locational-parameter set $\Qset^N$, i.e., we have to solve the following non-convex
@@ -560,32 +556,32 @@ in $\Ome$ over its locational-parameter set $\Qset^N$, i.e., we have to solve th
 %
 \begin{align}
   \min_{\vQ\in\Qset^N} \Pbar(\vQ)= \min_{\vP\in\Omega^N,\bH\in \R_+^N} \sum_{n=1}^{N} \int_{\Vor_n(\vP,\bH)}
-  h_n^{-1}(\Norm{p_n-\vome}^2 +h_n^2)^{\gam}\df(\vome)d\vome\label{eq:phoptlocal} 
+  h_n^{-1}(\Norm{\vp_n-\vome}^2 +h_n^2)^{\gam}\df(\vome)d\vome\label{eq:phoptlocal} 
 \end{align}
 %
-where $\Vor_n(\vp,h)$ are the Möbius regions given in \eqref{eq:moebius} for each fixed 
-$\vq=(\vp,h)$.
+where $\Vor_n(\vp,h)$ are the Möbius regions given in \eqref{eq:moebius} for each fixed $\vq=(\vp,h)$.
 
 
-\begin{theorem}\label{thm:necessarycond}
-  Let $\alp \geq 1$ be fixed. Then a point $\vq^*=(\vp^*,h^*)$ with Voronoi tessellation
-  $\Vor^*=\Vor(\vp^*,h^*)=(\Vor_1^*,\dots,\Vor^*_N)$ given by \lemref{lem:moebiusdia} is a critical point of
+\begin{prop}\label{prop:necessarycond}
+  Let $\alp \geq 1$. The point $\vQ^*=(\vP^*,\vh^*)$ with generalized Voronoi tessellation
+  $\Vor^*=\Vor(\vp^*,\vh^*)=(\Vor_1^*,\dots,\Vor^*_N)$ given by \lemref{lem:moebiusdia} is a critical point of
   \eqref{eq:phoptlocal} if  and only if for each $n\in[N]$ it holds
   %
   \begin{align}
-    0&= \int_{\Vor^*_n} (\vp^*_{n}-\vome) (\Norm{\vp^*_n-\vome}^2 +h_n^{*2})^{\frac{\alp-1}{2}} \df(\vome)d \vome\\
+    0&= \int_{\Vor^*_n} (\vp^*_{n}-\vome) (\Norm{\vp^*_n-\vome}^2 +h_n^{*2})^{\frac{\alp-1}{2}} \df(\vome)d
+    \vome\label{eq:pnopt}\\
     0&= \int_{\Vor^*_n} (\Norm{\vp^*_n-\vome}^2 +h_n^{*2})^{\frac{\alp-1}{2}}\cdot (\Norm{\vp_n^*-\vome}^2 - \alp
     h_n^{*2} ) \df(\vome)d\vome
   \label{eq:criticalpoint}
   \end{align}
-\end{theorem}
+\end{prop}
 %
 \begin{proof}
   %
 Since the power function 
 %
 \begin{align}
-  P(\vome,\vp,h)= (h_n^{-\frac{2}{1+\alp}}\Norm{\vp-\vome}^2 + h_n^{\frac{2\alp}{1+\alp}})^{\frac{\alp+1}{2}}
+  P(\vome,\vp,h)= (h^{-\frac{2}{1+\alp}}\Norm{\vp-\vome}^2 + h^{\frac{2\alp}{1+\alp}})^{\frac{\alp+1}{2}}
 \end{align}  
 %
 is a polynomial in $\vome$ of degree less than $1+\alp$ for each fixed $\vq=(\vp,h)$, the average distortion function is continuous
@@ -596,35 +592,42 @@ differentiable, and we obtain by \cite[Thm.1]{WJ18} for the partial derivatives
   \df(\vome)d\vome\quad,\quad i\in\{1,2,3\},n\in\{1,2,\dots,N\}.
 \end{align}
 %
-Hence, a critical point is only attained if all its partial derivatives are vanishing, i.e.,  for  $n=1,2,\dots,N$ 
+Hence, $\vQ^*=(\vP^*,\vh^*)$ is a critical point if and only if all partial derivatives vanish 
 %
 \begin{align}
- 0\overset{!}{=} \nabla_n \Pbar(\vp,h) &= \begin{pmatrix} 
-   \int_{\Vor_n} h_n^{-1} \gam 2 (p_{n}-\vome)  (\Norm{\vp_n-\vome}^2 +h_n^2)^{\gam-1}  \df(\vome)d \vome\\
-    \int_{\Vor_n} \left[-h_n^{-2}(\Norm{\vp_n-\vome}^2 + h_n^2)^{\gam} + 2\gam (\Norm{\vp_n-\vome}^2 +h_n^2)^{\gam-1}\right]
+ 0\overset{!}{=} \nabla_n \Pbar(\vQ^*) &= \begin{pmatrix} 
+   \int_{\Vor_n} h_n^{*-1} \gam 2 (\vp^*_{n}-\vome)  (\Norm{\vp_n^*-\vome}^2 +h_n^{*2})^{\gam-1}  \df(\vome)d \vome\\
+   \int_{\Vor_n} \left[-h_n^{*-2}(\Norm{\vp^*_n-\vome}^2 + h_n^{*2})^{\gam} + 2\gam (\Norm{\vp_n^*-\vome}^2 +h_n^{*2})^{\gam-1}\right]
     \df(\vome)d \vome
-  \end{pmatrix} \in\R^3\notag\\
+  \end{pmatrix} \notag\\
 \LRA 0&= \begin{pmatrix}
-  \int_{\Vor_n} (\vp_{n}-\vome) (\Norm{\vp_n-\vome}^2 +h_n^2)^{\gam-1} \df(\vome)d \vome\\
-  \int_{\Vor_n} (\Norm{\vp_n-\vome}^2 +h_n^2)^{\gam-1}\cdot \big(\Norm{\vp_n-\vome}^2+h_n^2 - 2\gam h_n^2 \big)
+  \int_{\Vor_n} (\vp^*_{n}-\vome) (\Norm{\vp^*_n-\vome}^2 +h_n^{*2})^{\gam-1} \df(\vome)d \vome\\
+  \int_{\Vor_n} (\Norm{\vp^*_n-\vome}^2 +h_n^{*2})^{\gam-1}\cdot \big(\Norm{\vp^*_n-\vome}^2+h_n^{*2} - 2\gam h_n^{*2} \big)
   \df(\vome)d \vome
  \end{pmatrix}\notag\\
  \LRA 0&= \begin{pmatrix}
-   \int_{\Vor_n} (\vp_{n}-\vome) (\Norm{\vp_n-\vome}^2 +h_n^2)^{\frac{\alp-1}{2}} \df(\vome)d \vome\\
-   \int_{\Vor_n} (\Norm{\vp_n-\vome}^2 +h_n^2)^{\frac{\alp-1}{2}}\cdot (\Norm{\vp_n-\vome}^2 - \alp h_n^2 )
+   \int_{\Vor_n} (\vp_{n}^*-\vome) (\Norm{\vp^*_n-\vome}^2 +h_n^{*2})^{\frac{\alp-1}{2}} \df(\vome)d \vome\\
+   \int_{\Vor_n} (\Norm{\vp_n^*-\vome}^2 +h_n^{*2})^{\frac{\alp-1}{2}}\cdot (\Norm{\vp_n^*-\vome}^2 - \alp h_n^{*2} )
    \df(\vome)d \vome
   \end{pmatrix}\label{eq:graddph}
 \end{align}
 %
 \end{proof}
 %
+\begin{remark}
+  For $\alp=1$, the optimal ground user tessellation of the UAVs is by \eqref{eq:pnopt} centroidal. However, the shape of
+  the user cells depend on the heights, which are different and therefore the cells are spherical and not polyhedral. 
+\end{remark}
+
+\if0% old algorithm approch of jun
 When UAV vertical deployment $\bH$ and cell partition are fixed, the distortion is a convex function.  Similarly, when
 UAV horizontal deployment $\bP$ and cell partition are fixed, the distortion is also convex.  In what follows,
 we proposed a Lloyd-like algorithm to optimize the UAV deployments.  The proposed algorithm iterates between three
 steps: (1) Partition optimization: Partitioning is done by LVDs; (2) The horizontal deployment optimization: each sensor
 moves horizontally via gradient descent.  (3) The vertical deployment optimization: each sensor moves vertically via
 gradient descent.
-
+\fi % old end
+\if0 % old philipp: not needed anymore, i think
 If $\alp>1$ the integral kernel will be a polynomial in $h_n$ and $p_n$ of order $>1$, which results in multiple
 solutions for \eqref{eq:graddph}. A closed form solution for $\vp_n^*$ and $h_n^*$ is hence not possible for arbitrary
 $\alp$. Let us investigate some tractable special cases.   
@@ -654,18 +657,14 @@ $\alp$. Let us investigate some tractable special cases.
   \end{align}
   %
 \end{proof}
+\fi % end old philipp
 %
-\begin{remark}
-  For $\alp=1$, the optimal ground user tessellation of the UAVs is by \eqref{eq:pnhn} centroidal. However, the shape of
-  the user cells depend on the heights, which are different and therefore the cells are spherical and not polyhedral. 
-\end{remark}
-
-\subsubsection{Same flight heights}
+\subsection{Optimality conditions for common heights}
 
 If $h_n=h>0$ for all $n$, then the locational-parameter problem becomes
 %
 \begin{align}
-  \min_{\bP\in\Omega^N,h\in\R_+} \Pbar(\bP,h) \label{eq:sepopt}
+  \min_{\vP\in\Omega^N,h\in\R_+} \Pbar(\vP,h) \label{eq:sepopt}
 \end{align}
 % 
 Since the minimization of the distortion functions in \eqref{eq:minimizationmoebius}   does not depend on a {\bfseries
@@ -673,12 +672,12 @@ common} flight
 height, the Voronoi diagram will be independent of $h$, in which case the Möbius diagram becomes the ordinary Euclidean
 Voronoi diagram by \lemref{lem:moebiusdia}.
 %
-Hence, for all $h$ the Voronoi diagram is $\Vor(\bP)=\Vor(\bP,h)$, i.e., independent of $h$. This allows to separate the
+Hence, for all $h$ the Voronoi diagram is $\Vor(\vP)=\Vor(\vP,h)$, i.e., independent of $h$. This allows to separate the
 optimization in \eqref{eq:sepopt} in an optimization over the ground positions and an optimization over the common
 flight height $h>0$. An optimal height is then given if the gradient vanishes
 %
 \begin{align}
-  \frac{\partial \Pbar(\bP,h)}{\partial h} &= \sum_n{\int_{\Vor_n} \left[-h^{-2}(\Norm{\vp_n-\vome}^2 + h^2)^{\gam} + 2\gam 
+  \frac{\partial \Pbar(\vP,h)}{\partial h} &= \sum_n{\int_{\Vor_n} \left[-h^{-2}(\Norm{\vp_n-\vome}^2 + h^2)^{\gam} + 2\gam 
     (\Norm{\vp_n-\vome}^2 +h^2)^{\gam-1}\right]
     \df(\vome)d \vome} \notag\\
   \LRA\quad 0 &= \sum_n\int_{\Vor_n(\vP)} (\Norm{\vome-\vp_n}^2+h^2)^{\gam-1} \cdot ((2\gam\!-1)h^2 -\Norm{\vome-\vp_n}^2)
@@ -701,10 +700,10 @@ Hence we have shown
      (\Norm{\vome-\vp_n}^2+h^{*2})^{\frac{\alp-1}{2}} \df(\vome)d\vome}}.
    \end{align}
    %
-   If $\alp=1$ then this reduces to the global optimal flight height for $\bP$ 
+   If $\alp=1$ then this reduces to the global optimal flight height 
    %
    \begin{align}
-      h^{**} =  \sqrt{\sum_n \int_{\Vor_n} \Norm{\vome-\vp_n}^2 \df(\vome)d\vome}.
+      h^{*} =  \sqrt{\sum_n \int_{\Vor_n} \Norm{\vome-\vp_n}^2 \df(\vome)d\vome}.
    \end{align}
    %
 \end{corollary}
@@ -721,25 +720,25 @@ Hence we have shown
 \section{The Optimal UAV deployment over one-dimensional ground}
 
 In this section, we discuss the optimal UAV deployment when users are placed on a one-dimensional ground and restrict
-them to a convex target area $\Omega = [s,t]$.  Under such circumstances, UAVs' ground projections are degenerated to
-scalars, i.e., $p_n\in[s, t], \forall n\in\{1, \dots, N\}$.
-\philippstart
-If we shift the target area $\Ome$ by an arbitrary number
-$a\in\R$, then the power consumption, i.e., the objective function, will not change if we shift all UAV ground
-positions by the same number $a$. Hence, if we set $a=-s$ we can shift any deployment $[s,t]$ to $[0,A]$ where $A=t-s$
-without changing the average power consumption. Hence we will only consider here target areas of the
-form $[0,A]$ with $A>0$.
-\philippend
+them to a convex target area, i.e., to an interval $\Omega = [s,t]$.  Under such circumstances, the UAVs ground positions
+are degenerated to scalars, i.e., $p_n\in[s, t], \forall n\in\{1, \dots, N\}$.  \philippstart If we shift the target
+area $\Ome$ by an arbitrary number $a\in\R$, then the power consumption, i.e., the objective function, will not change
+if we shift all UAV ground positions by the same number $a$. Hence, if we set $a=-s$ we can shift any deployment $[s,t]$
+to $[0,A]$ where $A=t-s$ without changing the average power consumption. Hence we will only consider here target areas
+of the form $[0,A]$ with $A>0$.  \philippend
 
 \subsection{Optimal UAV deployment for common height and uniform user density}
 
 If $d=1$ the ground users will be located on a line and we have $\vp_n=x_n\in\R$ for each $n$. Let us assume a uniform
 distribution on $\Omega$, i.e.  $\df(\ome)=1/\mu(\Omega)$ where $\mu$ is the Lebesgue measure and
-$0<A=\mu(\Omega)<\infty$.  Let us first recall the uniform scalar quantizer for the interval $[0,A]$.
+$0<A=\mu(\Omega)<\infty$. 
+%
+\if0 % not needed anymore
+Let us first recall the scalar quantizer.
 %
 \begin{lemma}[Uniform Scalar Quantization]\label{lem:UniformScalarQuantizer}
   Let $N$ be a positive integer and $A>0$. Then the optimal $N-$point quantizer in $[0,A]$ with respect to the
-  Euclidean norm and for a uniform density, $\lam(\ome)=1/A$ for each $\ome\in[0,A]$,  is the unique global minimizer of
+  Euclidean norm and for a uniform density, $\lam(\ome)=A^{-1}$ for $\ome\in[0,A]$,  is the unique global minimizer of
   %
   \begin{align}
     H_V(\vx^*)=\frac{A^2}{12N^2}=\min_{\vx\in[0,A]^N} H_V(\vx) 
@@ -753,179 +752,95 @@ $0<A=\mu(\Omega)<\infty$.  Let us first recall the uniform scalar quantizer for 
   \end{align}
 \end{lemma}
 %
-\begin{proof}
-  For a  proof see  \appref{app:UniformScalarQuantizer}.  See also  the scalar quantization theorem in \cite{GN98} or
+  %For a  proof see  \appref{app:UniformScalarQuantizer}.  
+For a proof of the scalar quantization theorem see \cite{GN98} or
   \cite{KJ17}.  The proof of \cite[Thm.1]{KJ17} uses the optimal
-  Euclidean  embedding and a sharp reverse Hölder inequality, which allows one to prove the result without derivations (take
-  the homogeneous special case). 
-\end{proof}
- 
-
-
+  Euclidean  embedding and a sharp reverse Hölder inequality, which allows one to prove the result without derivations (
+  homogeneous special case). 
+\fi
 %
-\newcommand{\pGlob}{\ensuremath{x^{*}}}
-\newcommand{\hGlob}{\ensuremath{h^{*}}}
-\newcommand{\qGlob}{\ensuremath{{\mathbf q}^{*}}}
-\newcommand{\qLoc}{\ensuremath{{\mathbf q}^{*}}}
+To show the existence of a unique global deployment and to derive the optimal height we need to derive the minimum of a
+integral function. 
 %
-%
-\philippstart
-%
-\begin{theorem}\label{thm:commonheight}
-  Let $N\in\N$ and $\Ome=[0,A]$ for some $A> 0$. The \emph{global optimal deployment} for $N$ UAVs located  at
-   $\qLoc_n=(x_n^{*},h^{*})\in \Ome\times
-  \R_+$ with path loss $\alp\geq 1$, common flight height $h^*=h_n^*$, and a uniform ground user density is given
-  by uniform ground positions   
-   %
-   \begin{align}
-     \forall n \colon \pGlob_n=  \frac{(n-1/2)A}{N}, 
-  \end{align}
-  %
-  and optimal common height
+\begin{lemma}\label{lem:ggam}
+  The function 
   %
   \begin{align}
-    h^*= \frac{A}{2N} g(\alp)\quad\text{with}\quad g(\alp):= \arg\min_{h>0} \int_0^{1}
-    \frac{(\ome^2+h^2)^{\frac{1+\alp}{2}}}{h}d\ome.\label{eq:optimalheight}
+    F(h,\gam)=\int_0^1  f(h,\ome,\gam) d\ome \quad\text{with}\quad f(h,\ome,\gam)=\frac{(\ome^2+h^2)^{\gam}}{h} 
   \end{align}
   %
-  with minimal average power consumption
+  is for any fixed $\gam\geq 1$ continuous and convex over $\R_+$ and obtains for 
   %
   \begin{align}
-    \Pbar(\vx^*,h^*)=\left(\frac{A}{2N}\right)^{\alp}  \int_0^1
-    \frac{(\ome^2+g^2(\alp))^{\frac{1+\alp}{2}}}{g(\alp)}
-    d\ome\label{eq:optimumavpow}.
+    g(\gam)=\arg\min_{h>0} F(h,\gam),
   \end{align}
   %
-  For $\alp\in\{1,3,5\}$ we can derive the integral minimization in closed form 
+  the global minimum, which can be derived in closed form for integer valued $\gam$ as 
   %
   \begin{align}
-    g(1) = \frac{1}{\sqrt{3}}\label{eq:alponedonehequal2},\ \  g(3) = \frac{\sqrt{\sqrt{32/5}-1}}{3}, 
-   \ \  g(5) = \sqrt{\frac{ (\frac{32}{7})^{1/3}-1}{5}}
-    %  \Pbar(\qLoc)= \frac{A}{\sqrt{3}N}\quad\text{with}\quad 
-  \end{align}
-  which is decreasing with increasing $\alp$.
-\end{theorem}
+    g(1) = \frac{1}{\sqrt{3}},\ \  g(3) = \frac{\sqrt{\sqrt{32/5}-1}}{3}, 
+    \ \  g(5) = \sqrt{\frac{ (\frac{32}{7})^{1/3}-1}{5}}.\label{eq:ggam}
+ \end{align}
+\end{lemma}
 %
 \begin{proof}
-  The average-communication power is given for a common height $h=h_n$ by
+  Surprisingly, it can be shown that for each $\gam\geq 1$ the integral kernel $f$ is a convex function in
+  $\vx=(h,\ome)$ over $\R_+^2$. Let us rewrite $f$ as
+  %
   \begin{align}
-    \Pbar(\vq)= \frac{1}{hA} \int_{\Vor_n(\vx)} ((x_n-\ome)^2+h^2)^{\gam}d\ome\label{eq:comonheightobj}
-\end{align}
+    f(h,\ome,\gam)= \frac{\Norm{(\ome,h)}_2^{2\gam}}{h}.
+  \end{align}
+  %
+  Clearly, $\Norm{\vx}_2$ is a convex and continuous function in $\vx$ over $\R^2$ and since $(\cdot)^{2\gam}$ with
+  $2\gam\geq2$ is a strictly increasing continuous function the concatenation $f(\vx,\gam)$ is a strict convex and
+  continuous function over $\R_+^2$. Hence, for any $\vx_1,\vx_2\in\R^2$ we have
+  %
+  \begin{align}
+    \Norm{\lam\vx_1+(1-\lam)\vx_2}_2^{2\gam}<\lam \Norm{\vx_1}_2^{2\gam} + (1-\lam)\Norm{\vx_2}_2^{2\gam}
+  \end{align}
+  %
+  for all $\lam\in(0,1)$. But then we have also for any $h_1,h_2\in\R^2_+$ and $\ome\geq 0$ 
+  %
+  \begin{align}
+    f(\lam h_1 +(1-\lam)h_2,\ome,\gam) < 
+    \frac{\lam\Norm{(\ome,h_1)}_2^{2\gam} + (1-\lam)\Norm{(\ome,h_2)}_2^{2\gam}}{\lam h_1+(1-\lam)h_2}
+    \label{eq:fnormgam}.
+  \end{align}
+  %
+  Since it holds 
+  %
+  \begin{align}
+    \frac{1}{h_1}\! +\!\frac{1}{h_2} &=
+       \left(\frac{1}{h_1}\! + \!\frac{1}{h_2}\right)\frac{\lam h_1 \!+\!(1\!-\!\lam)h_2}{\lam h_1 \!+\! (1\!-\!\lam)h_2}
+       =\frac{ \left(\lam\! +\!\frac{(1\!-\!\lam)h_2}{h_1}\! +\! (1\!-\!\lam) \!+\! \frac{\lam h_1}{h_2}\right)}{\lam
+       h_1 \!+\! (1\!-\!\lam)h_2} 
+       > \frac{1}{\lam h_1\! +\! (1\!-\!\lam)h_2}\notag
+  \end{align}
+  %
+  we get with \eqref{eq:fnormgam}
+  %
+  \begin{align}
+    f(\lam h_1 +(1-\lam)h_2,\ome,\gam) < \lam f(h_1,\ome,\gam) + (1-\lam)f(h_2,\ome,\gam) 
+  \end{align}
+  %
+  for each $\lam\in(0,1)$. Hence the integral kernel is strict convex for every $\ome\geq0,\gam\geq 1$, and since the
+  infinite sum (integral) of convex functions is again a convex function for $h>0$, we have shown convexity of $F(h,\gam)$. 
+  Note, $f(h,\ome,\gam)$ is continuous in $\R_+^2$ since it is a product of the continuous functions
+  $\Norm{(h,\ome)}_2^{2\gam}$ and $1/(h+0\cdot\ome)$, and so is $F(h,\gam)$. 
+  %
+  Therefore, the only critical point of $F(\cdot,\gam)$ will be the unique global minimizer, which is defined by the
+  vanishing of the first derivative:
+  %
+  \begin{align}
+    F'(h)  &=\int_{0}^{1} 2\gam (\ome^2+h^2)^{\gam-1} - h^{-2}(\ome^2+h^2)^{\gam} d\ome d\ome\label{eq:fprime} \\
+           &= \int_0^{1} (\ome^2+h^2)^{\gam-1}( (2\gam\!-\!1)-h^{-2}\ome^2)d\ome
+            =\frac{1}{h^{\gam}}\int_{0}^{\frac{1}{h}} (\ome^2+1)^{\gam-1}(2\gam-1-\ome^2)\notag.
+  \end{align}
+  %
+  Hence, $F'(h)$ can only vanish if $h<1/\sqrt{2\gam-1}$, which is an upper bound on $g(\gam)$.
+  %
+\if0 % old approach for convexity
 %
-Then the optimal ground positions $x_1,\dots,x_n^*$ need to satisfy by \thmref{thm:necessarycond}
-%
-\begin{align}
-  0 = \int_{\Vor_n(\vx^*)} (x_n^*-\ome) ((x_n^*-\ome)^2+h^2)^{\gam-1}d\ome \quad,\quad 1\leq n\leq N\label{eq:vornx}
-\end{align}
-%
-Since the Voronoi regions are intervals given by \lemref{lem:moebiusdia} and \eqref{eq:Vorn} as
-%
-\begin{align}
-  \Vor_n(\vx^*) = [b_{n-1},b_n] \quad\text{with}\quad b_n= \begin{cases} 0, &n=0\\
-    A, &n=N\\
-    \frac{x_{n+1}+x_{n}}{2}, &\text{else}
-  \end{cases}
-\end{align}
-%
-we get by substituting $\tome=x_n^*-\ome$ for each $n$ 
-%
-\begin{align}
-  0=-\int_{x_n-b_{n-1}}^{x_n-b_{n}} (\tome^2+h^2)^{\gam-1}\tome d\tome 
-  =\int_{x_n-b_{n}}^{x_n-b_{n-1}} (\tome^2+h^2)^{\gam-1}\tome d\tome
-\end{align}
-%
-Since the integral kernel $f(\ome)=(\ome^2+h^2)^{\gam-1}\ome$ is  anti-symmetric in $\ome$ it can only
-vanish if the integral boundaries have different signs, i.e., since $b_{n-1}\leq b_n$ we have
-%
-\begin{align}
-  0= \int_{x_n^*-b_{n}}^0 f(\ome)d\ome + \int_0^{x_n^*-b_{n-1}} f(\ome)d\ome \label{eq:conditionintsum}
-\end{align}
-%
-Moreover, we get by the anti-symmetry of $f$ and a substituting by $\tome=-\ome$
-%
-\begin{align}
-  \int_{x_n^*-b_{n}}^0 f(\ome)d\ome =-\int_{x_n^*-b_{n}}^0f(-\ome)d\ome =\int_0^{x_n^*-b_{n}}f(-\ome)d\ome =
-  -\int_{0}^{b_{n}-x_n^*} f(\tome)d\tome 
-\end{align}
-%
-Hence, we get by inserting in \eqref{eq:conditionintsum}
-%
-\begin{align}
-  \int_0^{b_n-x_n^*} f(\ome)d\ome = \int_0^{x_n^*-b_{n-1}}f(\ome)d\ome 
-\end{align}
-%
-Hence it must hold  for $2\leq n\leq N-1$
-%
-\begin{align}
-  b_{n} -x_n^*= \frac{x_{n+1}^* -x_n^*}{2}= \frac{x^*_n-x^*_{n-1}}{2} =x_n^*-b_{n-1} \LRA
-  x_n^*=\frac{x_{n+1}^*+x_{n-1}^*}{2}
-\end{align}
-%
-and for $n=1$ and $n=N$
-%
-\begin{align}
-  b_1-x_1* &=\frac{x^*_2-x^*_1}{2}=x_1^*\quad \LRA\quad x^*_1=\frac{x^*_2}{3}\\
-  b_N-x_N^*&=A-x_N^*=x_N^*-b_{N-1}=\frac{x_{N}^*-x_{N-1}^*}{2} \quad\LRA \quad x_N^*= \frac{2A+x_{N-1}^*}{3}
-\end{align}
-%
-Hence, by the same argument as in the proof \appref{app:UniformScalarQuantizer} of \lemref{lem:UniformScalarQuantizer}
-we get the uniform scalar quantizer
-%
-\begin{align}
-  x_n^*= \frac{(n-1/2)A}{N}\quad\text{and}\quad \Del = \frac{A}{N}\label{eq:unquant}
-\end{align}
-%
-To obtain the optimal height we need to minimize \eqref{eq:comonheightobj} over $h>0$ with the uniform quantizer. In
-fact, for each ground cell we get for the average power by substituting wit $\tome=\ome-x_n^*$
-%
-\begin{align}
-  \Pbar_n(x_n^*,h) &= \frac{1}{hA} \int_{b_{n-1}}^{b_n} (\ome-x_n^*)^2+h^2)^{\gam}d\ome
- = \frac{1}{hA} \int_{b_{n-1}-x_n^*}^{b_n-x_n^*} (\tome^2+h^2)^{\gam} d\ome\\
-\intertext{where $b_n=(x_{n+1}^*+x_n^*)/2$ and
-$b_{n-1}- x_n^*=(x_{n-1}^*-x_n^*)/2=-(x_{n+1}-x_n^*)/2= -(b_n-x_n^*)$ which is $A/2N$ by \eqref{eq:unquant} for ever
-$n\in[N]$ s.t.}
-&=\frac{1}{hA}\int_{-A/2N}^{A/2N} (\ome^2+h^2)^{\gam}d\ome=\frac{2}{A} \int_0^{A/2N} \frac{(\ome^2+h^2)^{\gam}}{h}d\ome 
-\end{align}
-%
-Hence we get
-%
-\begin{align}
-  h^*(\alp,N,A)=\arg\min_{h>0} \int_0^{A/2N} \frac{(\ome^2+h^2)^{\frac{1+\alp}{2}}}{h}d\ome \label{eq:hstar}
-\end{align}
-%
-We will separate the dependence of $\alp$  from $N$ and $A$. Let us substitute $\tome=N2\ome/A$ and $\tilde{h}=N2h/A$
-which gives
-%
-\begin{align}
-  \int_{0}^{A/2N} \frac{(\ome^2+h^2)^{\frac{1+\alp}{2}}}{h} d\ome
-  &= \int_0^{1} \frac{ (A^2\tome^2/4N^2   + A^2\tilde{h}^2/4N^2)^{\frac{1+\alp}{2}}}{A\tilde{h}/2N}
-  \frac{A}{2N}d\tome\\
-  &= \left(\frac{A}{2N}\right)^{1+\alp}\int_0^{1} \frac{ (\ome^2   + \tilde{h}^2)^{\frac{1+\alp}{2}}}{\tilde{h}^2}
-  d\ome.
-\end{align}
-%
-Hence, we get 
-%
-\begin{align}
-  h^*=\frac{A}{2N} g(\alp)\quad\text{with}\quad  g(\alp):=\arg\min_{h>0} \int_0^{1} \frac{(\ome^2+h^2)^{\frac{1+\alp}{2}}}{h} d\ome
-  \label{eq:galp}
-\end{align}
-%
-where the integral $f(h)$ can only be solved in closed form for integer valued $\alp$. 
-
-We will show that $f$ is actually a strict convex function in $(0,\infty)$, i.e., its second derivative is strictly
-positive. Then, there exists only one critical point in $\R_+$ and hence only one global optimal height $h^*$.
-It is obvious that $f$ is continuous in
-$\R_+$ since the integral kernel function and the integral is continuous.  Let us calculate the 
-first and second derivative 
-%
-\begin{align}
-f'(h)  &=\int_{0}^{1} 2\gam (\ome^2+h^2)^{\gam-1} - h^{-2}(\ome^2+h^2)^{\gam} d\ome d\ome\label{eq:fprime} \\
-&= \int_0^{1} (\ome^2+h^2)^{\gam-1}( (2\gam\!-\!1)-h^{-2}\ome^2)d\ome
-=\frac{1}{h^{\frac{\alp+1}{2}}}\int_{0}^{\frac{1}{h}} (\ome^2+1)^{\frac{\alp-1}{2}}
-(\alp-\ome^2)\notag
-\end{align}
-Hence, $f'(h)$ can only vanish if $h<1/\sqrt{\alp}$, which is a upper bound on $g(\alp)$.
 \begin{align}
 f''(h) &=\int_0^1 4h\gam(\gam-1)(\ome^2+h^2)^{\gam-2} + 2^{-1}h^{-3}(\ome^2+h^2)^\gam - 2h^{-1}\gam(\ome^2+h^2)^{\gam-1}\\
 &= \int (\ome^2+h^2)^{\gam-2}\left[ 4h\gam(\gam-1)+h^{-3}\ome^4 + 2\ome^2 h^{-1} +h -2\gam h^{-1}\ome^2-2\gam h\right]d
@@ -938,12 +853,15 @@ f''(h) &=\int_0^1 4h\gam(\gam-1)(\ome^2+h^2)^{\gam-2} + 2^{-1}h^{-3}(\ome^2+h^2)
 \end{align}
 %
 which shows strict positivity for each $h>0$ if $\eps>1/3$. Since we know that there are only critical points in
-$(0,1/\sqrt{1+2\eps})$ we need to check positivity for $\eps\in[0,1/3]$ only in this range.
-
-Let us set $0<x=h^2$ in \eqref{eq:fprime}, then we get for $\gam\in\N$ a polynomial in $\ome$ of degree $2\gam$
-and in $x$ of degree $\gam$. Furthermore, resolving for $x$ only allows positive real roots, which might not always
-exist. The integral does not have a closed form for arbitrary $\gam$. Since we only are interested in $\alp\in[1,6]$ we
-will calculate by hand for $\alp\in\{1,2,3\}$, yielding to the integral kernel polynomials 
+$(0,1/\sqrt{1+2\eps})$ we need to check positivity for $\eps\in[0,1/3]$ only in this range.  \fi % old approach end
+%
+Let us set $0<x=h^2$ in \eqref{eq:fprime}, then we get for $\gam\in\N$ a polynomial in $\ome$ of degree $2\gam$ and in
+$x$ of degree $\gam$.
+%
+%Furthermore, resolving for $x$ only allows positive real roots, which might not always exist.
+%
+The integral does not have a closed form for arbitrary $\gam$. However, we can calculate by hand the integral if
+$\alp=2\gam-1$ is integer valued, since the kernel becomes a polynomial. For $\gam\in\{1,2,3\}$ we get 
 %
 \begin{align}
   (\ome^2-1x)(\ome^2+x)^0 &=\ome^2-x\\
@@ -964,7 +882,7 @@ which yield with the definite integrals to
 Solving the first for $x$  yields to the only feasible solution
 %
 \begin{align}
-  x=\frac{1}{3} \quad\RA\quad g^*(1)=\frac{1}{\sqrt{3}}\approx 0.577.
+  x=\frac{1}{3} \quad\RA\quad g(1)=\frac{1}{\sqrt{3}}\approx 0.577.
 \end{align}
 %
 The second yields for $x$ to 
@@ -976,7 +894,7 @@ The second yields for $x$ to
 Since only positive roots are allowed we get as only feasible solution
 %
 \begin{align}
-  g^*(3)=\frac{\sqrt{\sqrt{32/5}-1}}{3}\approx 0.412.
+  g(3)=\frac{\sqrt{\sqrt{32/5}-1}}{3}\approx 0.412.
 \end{align}
 %
 Finally, for  $\alp=5$ we get the cubic equation \eqref{eq:ccubic}
@@ -1010,35 +928,160 @@ which computes to
 %
 \begin{align}
   x=\left( \frac{32}{5^3\cdot 7}\right)^{1/3}- \frac{1}{5}
-  =\frac{(\frac{32}{7})^{1/3}-1}{5} \RA g^*(5)=\sqrt{\frac{(\frac{32}{7})^{1/3}-1}{5}} \approx 0.363.
+  =\frac{(\frac{32}{7})^{1/3}-1}{5} \RA g(5)=\sqrt{\frac{(\frac{32}{7})^{1/3}-1}{5}} \approx 0.363.
 \end{align}
+\end{proof}    
+%
+\begin{remark}
+  The convexity of $F$ can be also shown by using extensions of the Hermite-Hadamard inequality, as for example in
+  \cite{ZC10}, which allows to show convexity over any interval. This suggest, that as long as the generalized Voronoi cells remain
+  convex, the objective function might be still convex.  
+\end{remark}
+
+
+
+
+\newcommand{\pGlob}{\ensuremath{x^{*}}}
+\newcommand{\hGlob}{\ensuremath{h^{*}}}
+\newcommand{\qGlob}{\ensuremath{{\mathbf q}^{*}}}
+\newcommand{\qLoc}{\ensuremath{{\mathbf q}^{*}}}
+%
+%
+\philippstart
+%
+\begin{theorem}\label{thm:commonheight}
+  Let $N\in\N$ and $\Ome=[0,A]$ for some $A> 0$. The \emph{unique global optimal deployment} for $N$ UAVs located  at
+   $\qLoc_n=(x_n^{*},h^{*})\in \Ome\times
+  \R_+$ with path loss $\alp\geq 1$, for a common flight height and a uniform ground user density is given
+  by   
+   %
+   \begin{align}
+     h^*= \frac{A}{2N} g((1+\alp)/2)\quad,\quad\forall n \colon \pGlob_n= \frac{A}{2N} (2n-1)\label{eq:optimaldeploy} 
+  \end{align}
+  %
+  with minimal average power consumption
+  %
+  \begin{align}
+    \Pbar(\vx^*,h^*)=\left(\frac{A}{2N}\right)^{\alp}  \int_0^1
+    \frac{(\ome^2+g^2( (1+\alp)/2))^{\frac{1+\alp}{2}}}{g( (1+\alp)/2)}
+    d\ome\label{eq:optimumavpow}.
+  \end{align}
+  %
+  For $\alp\in\{1,3,5\}$ we derived $g((1+\alp)/2)$, which decreases in $\alp$, in closed form \eqref{eq:ggam}.
+\end{theorem}
+%
+\begin{proof}
+  The average-communication power is given for a common height $h=h_n$ by
+  %
+  \begin{align}
+    \Pbar(\vQ)= \frac{1}{hA} \sum_n \int_{\Vor_n(\vx)} ((x_n-\ome)^2+h^2)^{\gam}d\ome\label{eq:comonheightobj}
+  \end{align}
+%
+Then the optimal ground positions $x_1,\dots,x_n^*$ need to satisfy by \propref{prop:necessarycond}
+%
+\begin{align}
+  0 = \int_{\Vor_n(\vx^*)} (x_n^*-\ome) ((x_n^*-\ome)^2+h^2)^{\gam-1}d\ome \quad,\quad 1\leq n\leq N\label{eq:vornx}
+\end{align}
+%
+Since the Voronoi regions are intervals given by \lemref{lem:moebiusdia}  as
+%
+\begin{align}
+  \Vor_n(\vx^*) = [b_{n-1},b_n] \quad\text{with}\quad b_n= \begin{cases} 0, &n=0\\
+    A, &n=N\\
+    \frac{x^*_{n+1}+x^*_{n}}{2}, &\text{else}
+  \end{cases}\label{eq:bns}
+\end{align}
+%
+we get by substituting $\tome=x_n^*-\ome$ for each $n$ 
+%
+\begin{align}
+  0=-\int_{x_n-b_{n-1}}^{x_n-b_{n}} (\tome^2+h^2)^{\gam-1}\tome d\tome 
+  =\int_{x_n-b_{n}}^{x_n-b_{n-1}} (\tome^2+h^2)^{\gam-1}\tome d\tome.
+\end{align}
+%
+Since the integral kernel $f(\ome)=(\ome^2+h^2)^{\gam-1}\ome$ is anti-symmetric in $\ome$ it can only
+vanish if the integral boundaries have different signs, i.e., since $b_{n-1}\leq b_n$ we have
+%
+\begin{align}
+  0= \int_{x_n^*-b_{n}}^0 f(\ome)d\ome + \int_0^{x_n^*-b_{n-1}} f(\ome)d\ome \label{eq:conditionintsum}
+\end{align}
+%
+Moreover, we get by the anti-symmetry of $f$ and a substituting by $\tome=-\ome$
+%
+\begin{align}
+  \int_{x_n^*-b_{n}}^0 f(\ome)d\ome =-\int_{x_n^*-b_{n}}^0f(-\ome)d\ome =\int_0^{x_n^*-b_{n}}f(-\ome)d\ome =
+  -\int_{0}^{b_{n}-x_n^*} f(\tome)d\tome 
+\end{align}
+%
+Hence, we get by inserting in \eqref{eq:conditionintsum}
+%
+\begin{align}
+  \int_0^{b_n-x_n^*} f(\ome)d\ome = \int_0^{x_n^*-b_{n-1}}f(\ome)d\ome 
+\end{align}
+%
+which implies with \eqref{eq:bns} for $2\leq n\leq N-1$ 
+%
+\begin{align}
+  \frac{d^*_n}{2}=\frac{x_{n+1}^* -x_n^*}{2} b_{n} -x_n^*=x_n^*-b_{n-1} = \frac{x^*_n-x^*_{n-1}}{2} =
+  \frac{d^*_{n-1}}{2}=\frac{d^*}{2}
+ % \LRA x_n^*=\frac{x_{n+1}^*+x_{n-1}^*}{2}
+\end{align}
+%
+and for $n=1$ and $n=N$
+%
+\begin{align}
+  \frac{d^*}{2}&=\frac{d^*_1}{2} =\frac{x^*_2-x^*_1}{2} = b_1-x_1* =x_1^*-b_0 =x_1^*=d^*_0 \\%\quad \LRA\quad x^*_1=\frac{x^*_2}{3}\\
+ \frac{d^*}{2} & =\frac{d_{N-1}}{2} =\frac{x_{N}^*-x_{N-1}^*}{2} =x_N^*-b_{N-1} =b_N-x_N^*= A-x_N^* = d_N^* 
+  %\quad\LRA \quad x_N^*= \frac{2A+x_{N-1}^*}{3}
+\end{align}
+%
+Since the distances must sum to $A$ we get
+\begin{align}
+  2 \frac{d^*}{2} + (N-1)d^* = A \quad \LRA \quad d = \frac{A}{N}
+\end{align} 
+and hence we obtain the uniform scalar quantizer, given for $n\in[N]$ by 
+\begin{align}
+  x_n^*= \frac{A}{N}(n-1/2) \label{eq:unquant}.
+\end{align}
+%
+To obtain the optimal height we need to minimize \eqref{eq:comonheightobj} over $h>0$ with the uniform quantizer. In
+fact, for each ground cell we get for the average power by substituting with $\tome=\ome-x_n^*$
+%
+\begin{align}
+  \Pbar_n(x_n^*,h) &= \frac{1}{hA} \int_{b_{n-1}}^{b_n} (\ome-x_n^*)^2+h^2)^{\gam}d\ome
+ = \frac{1}{hA} \int_{b_{n-1}-x_n^*}^{b_n-x_n^*} (\tome^2+h^2)^{\gam} d\tome\\
+\intertext{where $b_n=(x_{n+1}^*+x_n^*)/2$ and
+$b_{n-1}- x_n^*=(x_{n-1}^*-x_n^*)/2=-(x_{n+1}-x_n^*)/2= -(b_n-x_n^*)$ which is $A/2N$ by \eqref{eq:unquant} for ever
+$n\in[N]$ s.t.}
+&=\frac{1}{hA}\int_{-A/2N}^{A/2N} (\ome^2+h^2)^{\gam}d\ome=\frac{2}{A} \int_0^{A/2N} \frac{(\ome^2+h^2)^{\gam}}{h}d\ome.
+\intertext{By substituting $\tome=N2\ome/A$ and $\tilde{h}=N2h/A$ we can separate $A,N$ from the integral}
+  &= \int_0^{1} \frac{ (A^2\tome^2/4N^2   + A^2\tilde{h}^2/4N^2)^{\frac{1+\alp}{2}}}{A\tilde{h}/2N}
+  \frac{A}{2N}d\tome
+  = \left(\frac{A}{2N}\right)^{1+\alp}\int_0^{1} \frac{ (\ome^2   + \tilde{h}^2)^{\frac{1+\alp}{2}}}{\tilde{h}^2}
+  d\ome.\notag
+\end{align}
+%
+Hence, we get with $g(\alp)$  
+%
+\begin{align}
+  h^*=\frac{A}{2N} g(\alp)\quad\text{with}\quad  g(\alp):=\arg\min_{h>0} 
+  \int_0^{1} \frac{(\ome^2+h^2)^{\frac{1+\alp}{2}}}{h} d\ome
+  \label{eq:galp}.
+\end{align}
+%
+
+
 %
 \end{proof}
 \color{black}
 %
+\if0 % not clear anymore
 \begin{remark}
   If $\Omega$ is a union of $M$ disjoint intervals, then the optimal deployment can not necessarily uniform quantize
   each interval, if the intervals have different size. 
   The distortion measure will be larger in such cases.
 \end{remark}
-
-Let us set $\bet=1=A$. Then the optimal UAV deployment is pictured in \figref{fig:uavonedim} for $N=2$ and $N=4$. The
-maximal evaluation angle $\tht_{\text{max}}$ is hereby constant for each UAV and does not change if the number of UAVs.
-Moreover, it is also independent of $A$ and $\bet$, since
-%
-\begin{align}
-  \cos(\tht_\text{max})= \frac{\hh}{\hd_n/2}= \frac{AN}{N\sqrt{3}A}= \frac{1}{\sqrt{3}}.
-\end{align}
-% 
-\begin{figure}
-    \centering
-    \def\svgwidth{.9\textwidth} \scriptsize{
-      \input{OptUAVonedimensional.pdf_tex}}
-      \caption{UAV deployment in one dimension for $\Omega=[0,1]$ for $\alp=1$ and $N=2,4$ for a uniform GT distribution
-      by \eqref{eq:alponedonehequal}.}
-      \label{fig:uavonedim}
-\end{figure}
-%
+\fi
 \subsection{Optimal UAV deployment for different heights and uniform user density}
 
 To extend the previous results to different heights we need first to verify that the optimal deployment of $N-$UAVs
@@ -1054,8 +1097,8 @@ involves only active UAVs.
 \end{lemma}
 %
 \begin{remark}
-  For any optimal deployment all UAVs are active, which is intuitively, since we want to use all UAV
-  antennas for optimal coverage.
+  For any optimal deployment all UAVs are active, which is intuitively, since each UAV
+  antenna should reduces the power if it covers a non-zero user area.
 \end{remark}
 %
 \begin{proof}
@@ -1075,7 +1118,7 @@ involves only active UAVs.
     yielding to the average power 
   %
   \begin{align}
-    \Pbar(\vQ,\Rset)=\sum_{n=1}^N \int_{\Rset_n} P(\vq_n,\ome)\lam(\ome) d\ome &\geq \sum_{n=1}^N \int_{\Rset_n} 
+    \Pbar(\vQ,\Rset) &=\sum_{n=1}^N \int_{\Rset_n} P(\vq_n,\ome)\lam(\ome) d\ome \geq \sum_{n=1}^N \int_{\Rset_n} 
     \left(\min_{m\in[N]} P(\vq_m,\ome) \right) \lam(\ome)d\ome\\
     &=\int_{\Ome} \min_{m\in[N]} P(\vq_m,\ome) \lam(\ome)d\ome
     =\sum_n \int_{\Vor_n(\vQ)} P(\vq_n,\ome) \lam(\ome)d\ome\notag
@@ -1110,23 +1153,19 @@ involves only active UAVs.
 
   Let us assume at least one UAV has a disconnected region, i.e. $K_n>1$ for some $n\in[N]$. Then we will re-arrange the
   partition $\Vor(\vp^*,\vh^*)$ by concatenating the $K_n$ intervals $v_{n,k}$ to $\Rset_n=[b_{n-1},b_{n}]$ such that for
-  all $n\in[N]$ it holds $\mu(\Rset_n)=b_n-b_{n-1}$ where we ordered them such that $b_{n-1}\leq b_{n}$ for all $n\in[N]$
+  all $n\in[N]$ it holds $\mu(\Rset_n)=\mu(\Vor^*_n)=b_n-b_{n-1}$ where we ordered them such that $b_{n-1}\leq b_{n}$ for all $n\in[N]$
   and set $b_0=0$ and $b_N=A$. Then we move each $p_n^*$ to the center of the new arranged cells, i.e.,
-  $\tp_n=\frac{b_n+b_{n-1}}{2}$ without changing the associated heights. This therefore defines a new partition
-  $\Rset=\{\Rset_n(\tvp,\vh^*)\}$ and ground positions $\tvp=(\tp_1,\dots,\tp_N)$. The average power consumption is then
+  $\tp_n=\frac{b_n+b_{n-1}}{2}$ without changing the associated heights. This defines a new partition
+  $\Rset=\{\Rset_n(\tvp,\vh^*)\}$ for the ground positions $\tvp=(\tp_1,\dots,\tp_N)$. The average power consumption is then
   %
   \begin{align}
     \Pbar(\tvp^*,\vh^*,\Rset)=\sum_{n=1}^N \int_{b_{n-1}}^{b_n} \frac{ ((\tp_n-\ome)^2+h_n^{*2})^{\gam}}{h_n^{*}} d\ome
+= 2\sum_{n=1}^N \int_{0}^{\frac{b_n-b_{n-1}}{2}} \frac{ (\ome^2+h_n^{*2})^{\gam}}{h_n^{*}} d\ome
   \end{align}
   %
-  Substituting $\ome$ with $\tp_n-\ome$ we get 
-  %
-  \begin{align}
-    \Pbar(\tvp^*,\vh^*,\Rset)= 2\sum_{n=1}^N \int_{0}^{\frac{b_n-b_{n-1}}{2}} \frac{ (\ome^2+h_n^{*2})^{\gam}}{h_n^{*}} d\ome
-  \end{align}
-  %
-  Since the height is not changing and the function $(\ome^2+h_n^{*2})^{\gam}$ is strictly monotone increasing in $\ome$
-  for each $\gam>0$, it holds for the average power of the $n$th cell (with $K_n>1$)
+  where we substituted $\ome$ by $\tp_n-\ome$. Since the height is not changing and the function
+  $(\ome^2+h_n^{*2})^{\gam}$ is strictly monotone increasing in $\ome$ for each $\gam>0$, it holds for the average power
+  of the $n$th cell 
   %
   \begin{align}
     2\int_{0}^{\frac{b_n-b_{n-1}}{2}} \frac{ (\ome^2+h_n^{*2})^{\gam}}{h_n^{*}} d\ome 
@@ -1135,7 +1174,7 @@ involves only active UAVs.
   %
   since the non-zero gaps in $\Vor_n^*-p_n^*$ will lead to larger $\ome$ and therefore to a strictly larger average
   power consumption, whereas the other cells with $K_n=1$ will not change the average power.  Therefore the deployment
-  $(\tvp,\vh^*)$ with convex partition sets  $\Rset(\tvp,\vh^*)$ has a smaller power consumption which contradicts to
+  $(\tvp,\vh^*)$ with convex partition sets  $\Rset(\tvp,\vh^*)$ has a smaller power consumption which contradicts 
   the assumption that $(\vp^*,\vh^*)$ is the optimal deployment \eqref{eq:optquanteqoptdeploy}. Hence $K_n=1$ for each
   $n\in[N]$ and every $\gam\geq 1$.
 
@@ -1178,17 +1217,18 @@ involves only active UAVs.
   inserting and substituting with $\tome=\ome-p_i^{(2)*}$ we get with $h^*=\sqrt{c}$ 
   %
   \begin{align}
-    \Pbar(\vp^{(2)*},h^*,\Rset_{\eps})&=\frac{1}{\sqrt{c}}\left(\int_{-\frac{\eps}{2}}^{\frac{\eps}{2}} (\tome^2+c)^{\gam}d\tome +
-    \int_{-\frac{b-(a+\eps)}{2}}^{\frac{b-(a+\eps)}{2}} (\tome^2+c)^{\gam} d\ome \right)\\
+    \Pbar(\vp^{(2)*},h^*,\Rset_{\eps})
+   % &=\frac{1}{\sqrt{c}}\left(\int_{-\frac{\eps}{2}}^{\frac{\eps}{2}} (\tome^2+c)^{\gam}d\tome +
+   % \int_{-\frac{b-(a+\eps)}{2}}^{\frac{b-(a+\eps)}{2}} (\tome^2+c)^{\gam} d\ome \right)\\
     &=
     \frac{2}{\sqrt{c}} \left( \int_0^{\eps/2} (\ome^2+c)^{\gam}d\ome
-    +\int_{0}^{\frac{b-a}{2}-\frac{\eps}{2}} (\ome^2+c)^{\gam}d\ome\right)
-  \intertext{  Since $(\ome^2+c)^{\gam}<( (\ome+\eps)^2+c)^{\gam}$ for each $\eps>0$ and $\gam>0$ we have }
+    +\int_{0}^{\frac{b-a}{2}-\frac{\eps}{2}} (\ome^2+c)^{\gam}d\ome\right).
+  \intertext{Since $(\ome^2+c)^{\gam}<( (\ome+\eps)^2+c)^{\gam}$ for each $\eps>0$ and $\gam>0$ we have }
     &< \frac{2}{\sqrt{c}}\left( \int_{\frac{b-a}{2} -\frac{\eps}{2}}^{\frac{b-a}{2}} (\ome^2+c)^{\gam}d\ome
-    +\int_{0}^{\frac{b-a}{2}-\frac{\eps}{2}} (\ome^2+c)^{\gam} d\ome\right)=\Pbar(\vq^{(1)*},[a,b])
+    +\int_{0}^{\frac{b-a}{2}-\frac{\eps}{2}} (\ome^2+c)^{\gam} d\ome\right)=\Pbar(\vq^{(1)*},[a,b])\notag
   \end{align}
   %
-  for any $b-a>\eps>0$. Hence, if we also minimize over the heights, this can only yield to a smaller value
+  for any $b-a>\eps>0$. By minimizing over the heights, we only obtain smaller values
   %
   \begin{align}
     \min_{ \vp\in\Ome^2, \vh\in\R_+^2} \min_{\Rset_{\eps}=\{\Rset_{\eps,n}\}_{n=1}^2}
@@ -1244,20 +1284,9 @@ Now we are now ready to extend \thmref{thm:commonheight} to arbitrary heights.
 %
 
 \begin{theorem}\label{theorem:commonHeight}
-Over the uniform distributed one-dimensional ground, $\Ome=[0,A]$,
-the minimum total power of $N$ UAVs is given by a $N$-level uniform quantizer
-%
-\begin{align}
-  \Pbar(\bP^{*},h^{*})=
-   \frac{(\mu(\Omega))^{2\gam-1}}{N^{2\gam-1}}\int_{-1/2}^{1/2}\frac{\left(\ome^2+g^2(\gam)\right)^{\gam}}{g(\gam)} d\ome\\
-    \text{with}\quad \forall n \colon
-     p^*_n=
-     s+\frac{(n-1/2)A}{N}, h^*_n=
-     \frac{g(\alp)\mu(\Omega)}{N}\label{eq:alponedonehequal}
-  \end{align}
-  %
-  where $\vq_n^*=(p^*_n, h^*_n)$ is UAV $n$'s optimal deployment, and $g(\alp)\triangleq\arg\min\limits_{h}\int_{0}^{1}
-  \frac{\left(\ome^2 + h^2\right)^{\frac{1+\alp}{2}}}{h} d\ome$ is a function of $\alp$.
+  Over the uniform distributed one-dimensional ground $\Ome=[0,A]$ for some $A>0$,
+  the minimum average total power of $N$ UAVs is given by \eqref{eq:optimumavpow},
+  which is only attained for uniform ground positions and common flight heights, given by  \eqref{eq:optimaldeploy}.
 \end{theorem}
 %
 \begin{proof}
@@ -1285,6 +1314,7 @@ the minimum total power of $N$ UAVs is given by a $N$-level uniform quantizer
     0= \int_{x_n^*-b_{n}^*}^0 f(\ome)d\ome + \int_0^{x_n^*-b_{n-1}^*} f(\ome)d\ome 
     \quad    \LRA \quad
         \int_0^{b^*_n-x_n^*} f(\ome)d\ome = \int_0^{x_n^*-b^*_{n-1}}f(\ome)d\ome 
+        \notag
   \end{align}
   %
   Hence it must hold  for $1\leq n\leq N$
@@ -1301,7 +1331,7 @@ the minimum total power of $N$ UAVs is given by a $N$-level uniform quantizer
   \begin{align}
     \Pbar(\vp^*,\vh^*)&=\sum_{n=1}^N \int_{b_{n-1}^*}^{b_n^*} \frac{ ((\pGlob_n-\ome)^2+{\hGlob_n}^2)^{\gam}}{\hGlob_n}\frac{d\ome}{A} 
     = \sum_n \int_{1}^{-1} -\frac{  (\mu_n^2 \tome^2/4 + \tilde{h}_n^2\mu_n^2/4)^{\gam}}{g(\alp)\mu_n/2}
-    \frac{\mu_n}{2A}\\
+    \frac{\mu_n}{2A}\notag\\
     &=\frac{2}{A}\sum_n \int_0^1 \frac{(\ome^2+\tilde{h}^2_n)^{\gam}}{\tilde{h}}d \ome \cdot \mu_n^{1+\alp} 2^{-1-\alp}
   \end{align}
   %
@@ -1322,25 +1352,46 @@ only an uncertainty for $\mu_n$. Hence we get
   1^q}{N}\right)^{p/q}
 \end{align}
 %
-which can be lower bounded by Hölder inequality with $p=1+\alp$ and $q=(1+\alp)/\alp$ to
+which can be lower bounded by Hölder inequality with $p=1+\alp, q=(1+\alp)/\alp$ to
 %
 \begin{align}
   &\geq\frac{1}{2^{\alp}A} 
   \int_0^1 \frac{(\ome^2+g^2(\alp))^{\gam}}{g(\alp)}d\ome\cdot\underbrace{ (\sum_n
     \mu_n)^{1+\alp}}_{=A^{1+\alp}} N^{-\alp}
-    =  \left(\frac{A}{2N}\right)^{\alp}  \int_0^1 \frac{(\ome^2+g^2(\alp))^{\gam}}{g(\alp)}d\ome
+    =  \left(\frac{A}{2N}\right)^{\alp}  \int_0^1 \frac{(\ome^2+g^2(\alp))^{\gam}}{g(\alp)}d\ome\notag
 \end{align}
 %
-which can be achieved if and only if $\mu_n=A/N$. But then this is the average power for the common height case
-\eqref{eq:optimumavpow} , and hence, the only (global) optimal deployment is  the common height deployment with uniform
+which can be achieved if and only if $\mu_n=A/N$. But this is the average power for the common height case
+\eqref{eq:optimumavpow}, and hence, the only (global) optimal deployment is  the common height deployment with uniform
 ground positions given in \thmref{thm:commonheight}. 
 %
 \end{proof}
 \color{black}
 
+Let us set $\bet=1=A$. Then the optimal UAV deployment is pictured in \figref{fig:uavonedim} for $N=2$ and $N=4$. The
+maximal evaluation angle $\tht_{\text{max}}$ is hereby constant for each UAV and does not change if the number of UAVs
+$N$ increase.
+Moreover, it is also independent of $A$ and $\bet$, since with \eqref{eq:optimaldeploy} we have
+$d_n=x^*_n-x^*_{n-1}=A/N$ and
+%
+\begin{align}
+  \cos(\tht_\text{max})= \frac{h^*}{d^*_n/2}= \frac{2N}{A}\frac{A}{2N}   g(1)= \frac{1}{\sqrt{3}}.
+\end{align}
+
+% 
+\begin{figure}
+    \centering
+    \def\svgwidth{.9\textwidth} \scriptsize{
+      \input{OptUAVonedimensional.pdf_tex}}
+      \caption{UAV deployment in one dimension for $\Omega=[0,1]$ for $\alp=1$ and $N=2,4$ for a uniform GT distribution
+      by \eqref{eq:optimaldeploy}.}
+      \label{fig:uavonedim}
+\end{figure}
+%
+
 
 \junstart
-\subsection{Non-uniform distribution over the one-dimensional ground}
+\subsection{Deployment for non-uniform user density}
 %
 Note that a great number of literature assumes the common flight height for convenience when they derive the optimal UAV
 deployment or trajectory.  However, in this section, we show via an example that the common flight height is not a
@@ -1375,7 +1426,7 @@ The best deployment satisfies zero-gradient, i.e.,
     + \frac{1}{4}\int_{0.2}^{1}2\frac{(p_2-\ome)}{h}d\ome = 0\label{dp2a}\\
     &\frac{\partial D}{\partial h} = 4\int_{0}^{b}\frac{h^2\!-\!(p_1\!-\!\ome)^2}{h^2}d\ome 
     + 4\int_{b}^{0.2}\frac{h^2\!-\!(p_2\!-\!\ome)^2}{h^2}d\ome 
-    + \frac{1}{4}\int_{0.2}^1\frac{h^2\!-\!(p_2\!-\!\ome)^2}{h^2}d\ome= 0
+    + \frac{1}{4}\int_{0.2}^1\frac{h^2\!-\!(p_2\!-\!\ome)^2}{h^2}d\ome= 0\notag
 \end{align}
 Solving (\ref{boundary}), (\ref{dp1a}), and (\ref{dp2a}), we get a quadratic function $8b^2-3b+0.4=0$ which has no real root.
 Therefore, $b\le0.2$ is not feasible.\\
@@ -1657,152 +1708,9 @@ Indeed, the optimum is attained for the blue plot with $h=h_1=0.144$ at $\eps=0$
 
 \color{black}
 
-\input{MoebiusAlgorithms}
-\input{UAVbaseStations}
+%\input{MoebiusAlgorithms}
+%\input{UAVbaseStations}
 
-\section{Dynamic UAV deployment}
-%
-%For convenience, we extend the 2-dimensional point, $\omega\in\Omega$, to a 3-dimensional vector, i.e.,
-%$\omega=\left(\omega_x,\omega_y,0\right)\in\mathbb{R}^3$.
-%
-We assume that the GTs are placed on $\Omega$ according to a periodic time-variant density function
-$f:\mathbb{R}^2\times[0,T]\to\mathbb{R}$, where $\int_{\Omega}f(\omega,t)d\omega=1, \forall t\in[0,T]$ and $T$ is the
-period \cite{Erdem}.  To keep track of the UAV trajectory over $[0,T]$, we combine $\bP$ and $\bH$ by
-$\bQ(t)=\left(q_1(t),\dots,q_N(t)\right)$, where
-$q_n(t)=\left(q_{nx}(t),q_{ny}(t),q_{nh}(t)\right)=\left(p_{nx}(t),p_{ny}(t),h_n(t)\right)$ is UAV $n$'s location at
-time instance $t$.
-%
-%Let $\bQ(t)=\left(q_1(t),\dots,q_N(t)\right)$ be the UAV trajectory, where $p_n(t):[0,T]\to\mathbb{R}^2$ is UAV $n$'s
-%trajectory.
-%
-In particular, $\bQ(0)=\left(q_1(0),\dots,q_N(0)\right)$ represents the initial UAV deployment.  For convenience, we
-define $d\left(q,\omega\right)=\sqrt{\left(q_{x}-\omega_x\right)^2+\left(q_{y}-\omega_y\right)^2+q^2_{h}}$ as the
-distance between 3D point $q=\left(q_x,q_y,q_h\right)$ and ground point $\omega=\left(\omega_x,\omega_y\right)$.
-%
-%For example, one may set $T = 24$ hours for the urban communication scenario \cite{Erdem}.
-%
-Then, the total communication energy consumption over one period can be rewritten as
-%
-\begin{equation}
-E_c\left(\bQ\right)=\beta\int_{\tau=0}^{T}\int_{\Omega}\min_{n}\left\{\frac{\left[d\left(q_n(\tau),\omega\right)\right]^{1+\alpha}}{q_{nh}\left(\tau\right)}\right\}f\left(\omega,\tau\right)d\omega d\tau.
-\end{equation}
-%
-%Let $\mathbf{U}(t)=\left(u_1(t),\dots,u_N(t)\right)$ and $\mathbf{Z}(t)=\left(z_1(t),\dots,z_N(t)\right)$ be UAVs' horizontal and vertical control, where $u_n(t)=\dot{p_n}(t)=\left[\frac{dp_{nx}}{dt},\frac{dp_{ny}}{dt}\right]$ is UAV $n$'s horizontal velocity and $z_n(t)=\dot{h_n}(t)=\left[\frac{dh_{n}}{dt},\frac{dh_{n}}{dt}\right]$ is UAV $n$'s vertical velocity.
-Let $\mathbf{U}(t)=\left(u_1(t),\dots,u_N(t)\right)$ be UAVs' dynamic control, where $u_n(t)=\left[u_{nx}(t),u_{ny}(t),u_{nh}(t)\right]=\left[\frac{dq_{nx}(t)}{dt},\frac{dq_{ny}(t)}{dt},\frac{dq_{nh}(t)}{dt}\right]$ is UAV $n$'s velocity.
-As a result, UAV $n$'s locations can be represented as
-\begin{equation}
-q_n(t) = q_n(0) + \int_{\tau=0}^{t}u_n(\tau)d\tau,
-\end{equation}
-Like \cite{ML,MLCS}, we formulate the motion energy over one period as a function of velocity, i.e., 
-\begin{equation}
-E_m\left(\mathbf{U}\right)=\xi\int_{\tau=0}^{T}\bU^T_n(\tau)\bU(\tau)d\tau=\xi\int_{\tau=0}^{T}\sum_{n=1}^{N}u^2_n(\tau)d\tau,
-\end{equation}
-where $\xi$ is a constant which characterizes moving efficiency. 
-Thus, the total energy consumption over one period (or performance cost) can be rewritten as
-\begin{equation}
-\begin{aligned}
-&\bar{J}\left(\bQ,\bU\right) {=} E_c\left(\bQ\right) + E_m\left(\mathbf{U}\right)\\
-{=}& \beta\int_{\tau=0}^{T}\int_{\Omega}\min_{n}\left\{\frac{\left[d\left(q_n(\tau),\omega\right)\right]^{1+\alpha}}{q_{nh}\left(\tau\right)}\right\}f\left(\omega,\tau\right)d\omega d\tau + \xi\int_{\tau=0}\sum_{n=1}^{N}u^2_n(\tau)d\tau\\
-{=}&\beta\int_{\tau=0}^{T}\sum_{n=1}^{N}\left[\int_{V_n\left(\bQ(\tau)\right)}\frac{\left[d\left(q_n(\tau),\omega\right)\right]^{1+\alpha}}{q_{nh}\left(\tau\right)}f\left(\omega,\tau\right)d\omega + \frac{\xi}{\beta} u^2_n(\tau) \right] d\tau,
-\end{aligned}
-\label{distortion2}
-\end{equation}
-where $V_n\left(\bQ(\tau)\right)$ is UAV $n$'s LVD generated by $\bQ\left(\tau\right)$.
-To omit the units of all quantities for brevity, we define
-\begin{equation}
-\begin{aligned}
-J\left(\bQ,\bU\right)
-{=}\int_{\tau=0}^{T}\sum_{n=1}^{N}\left[\int_{V_n\left(\bQ(\tau)\right)}\frac{\left[d\left(q_n(\tau),\omega\right)\right]^{1+\alpha}}{q_{nh}\left(\tau\right)}f\left(\omega,\tau\right)d\omega + \lambda u^2_n(\tau) \right] d\tau,
-\end{aligned}
-\label{distortion3}
-\end{equation}
-where $\lambda=\frac{\xi}{\beta}$ is a constant.
-In what follows, we concentrate on the optimization of $J\left(\bQ,\bU\right)$ over $\bU$.
-%Note that LVDs, $\{V_n\left(\bP(\tau),\bH(\tau)\right)\}s$, are also the optimal cell partition for the above time-variant distortion.
-By using the imbedding principle, we include (\ref{distortion3}) into a larger class of functions \cite{KD}
-\begin{equation}
-J\!\left(\bQ(t), t, \{\bU(\tau)\}_{t\le\tau\le T}\right) =\! \int_{\tau=t}^{T}\sum_{n=1}^{N}\left[\int_{V_n\left(\bQ(\tau)\right)}\!\!\!\!\frac{\left[d\left(q_n(\tau),\omega\right)\right]^{1+\alpha}}{q_{nh}\left(\tau\right)}f\left(\omega,\tau\right)d\omega + \lambda u^2_n(\tau) \right] d\tau.
-\label{Jt}
-\end{equation}
-Note that (\ref{Jt}) represents the performance cost over the time interval $[t,T]$ with starting state (deployment), $\bQ(t)$, and control history (velocities) $\{\bU(\tau)\}_{t\le\tau\le T}$.
-Our final goal is to optimize $J\!\left(\bQ(0), 0, \{\bU(\tau)\}_{0\le\tau\le T}\right)$ where $\bQ(0)$ is the initial UAV deployment.
-The minimum performance cost is then
-\begin{equation}
-\begin{aligned}
-&J^*\left(\bQ(t), t\right) = \min_{\{\bU(\tau)\}_{t\le\tau\le T}}J\!\left(\bQ(t), t, \{\bU(\tau)\}_{t\le\tau\le T}\right)\\
-{=}& \min_{\{\bU(\tau)\}_{t\le\tau\le T}}\bigg\{\int_{\tau=t}^{T}\sum_{n=1}^{N}\left[\int_{V_n\left(\bQ(\tau)\right)}\!\!\!\!\frac{\left[d\left(q_n(\tau),\omega\right)\right]^{1+\alpha}}{q_{nh}\left(\tau\right)}f\left(\omega,\tau\right)d\omega + \lambda u^2_n(\tau) \right] d\tau\bigg\}.
-\end{aligned}
-\end{equation}
-For convenience, we define $J^*_{\bQ}\left(\bQ(t), t\right)\triangleq\frac{\partial J^*}{\partial \bQ}\left(\bQ(t), t\right)=\left[\frac{\partial J^*}{\partial q_1}\left(\bQ(t), t\right),\dots,\frac{\partial J^*}{\partial q_N}\left(\bQ(t), t\right)\right]$ and $J^*_{t}\left(\bQ(t), t\right)\triangleq\frac{\partial J^*}{\partial t}\left(\bQ(t), t\right)$.
-The Hamilton-Jacobi-Bellman equation \cite{KD,FRC} for (\ref{Jt}) is
-\begin{equation}
-J^*_t\left(\bQ(t),t\right)+\inf_{\bU(t)}\left\{\mathcal{H}\left(\bQ(t),\bU(t),J^*_{\bQ},t\right)\right\}=0
-\label{HIJ}
-\end{equation}
-where
-\begin{equation}
-\mathcal{H}\left(\bQ(t),\bU(t),J^*_{\bQ},t\right)=\mathcal{F}\left(\bQ(t),\bU(t)\right)+J^*_{\bQ}\left(\bQ(t),t\right)\cdot \bU\left(t\right)
-\label{mH}
-\end{equation}
-and
-%
-\begin{equation}
-\mathcal{F}\left(\bQ(t),\bU(t)\right)=\sum_{n=1}^{N}\left[\int_{V_n\left(\bQ(t)\right)}\left(\frac{\left[d\left(q_n(t),\omega\right)\right]^{1+\alpha}}{q_{nh}\left(t\right)}\right)f\left(\omega,t\right)d\omega + \lambda u^2_n(t)\right].
-\label{mF}
-\end{equation}
-The boundary value for this partial differential equation is 
-\begin{equation}
-J^*\left(\bQ(T),T\right)=0.
-\end{equation}
-%\begin{equation}
-%\mathcal{G}\left(\mathcal{F}\left(\bQ,\bU\right),\frac{\partial D}{\partial \bQ},\bU\right)=\mathcal{F}\left(\bQ,\bU\right)+\frac{\partial D}{\partial \bQ}\cdot\bU.
-%\label{mG}
-%\end{equation}
-%\begin{equation}
-%\inf_{\bU(\tau)}\left\{\sum_{n=1}^{N}\left[\int_{V_n\left(\bQ(\tau)\right)}\left(\frac{\left[d\left(q_n(\tau),\omega\right)\right]^{1+\alpha}}{q_{nh}\left(\tau\right)}\right)f\left(\omega,\tau\right)d\omega + u^{T}_n(\tau)u_n(\tau)\right]+\left[\frac{\partial D\left(\bQ,\bU\right)}{\partial \bQ}\right]\cdot\bU(\tau)\right\}=0
-%\end{equation}
-Differentiating $\mathcal{H}$ with respect to $u_n(t)$, we get a necessary condition for infimum
-\begin{equation}
-\frac{\partial\mathcal{H}}{\partial u_n(t)}\left(\bQ(t),\bU(t),J^*_{\bQ},t\right)=2\lambda u_n(t)+\frac{\partial J^*}{\partial q_n}\left(\bQ(t), t\right)=0 \Rightarrow \frac{\partial J^*}{\partial q_n}\left(\bQ(t), t\right)=-2\lambda u_n(t)
-\label{pH}
-\end{equation}
-Since it's a necessary condition for the optimal solution, we have
-\begin{equation}
-\frac{\partial J^*}{\partial q_n}\left(\bQ^*(t), t\right)=-2\lambda u^*_n(t)
-\end{equation}
-The partial derivative $J^*_{t}\left(\bQ^*(t), t\right)$ can be calculated as
-\begin{equation}
-J^*_{t}\left(\bQ^*(t), t\right)=-\sum_{n=1}^{N}\left[\int_{V_n\left(\bQ^*(t)\right)}\!\!\!\!\frac{\left[d\left(q^*_n(t),\omega\right)\right]^{1+\alpha}}{q^*_{nh}\left(t\right)}f\left(\omega,t\right)d\omega + \lambda \left(u^*_n(t)\right)^2 \right]
-\end{equation}
-
-Replacing (\ref{pH}) in (\ref{HIJ}) and (\ref{mH}), we get ...\\
-%\begin{equation}
-%J^*_t\left(\bQ(t),t\right)+\int_{V_n\left(\bQ(t)\right)}\left(\frac{\left[d\left(q_n(t),\omega\right)\right]^{1+\alpha}}{q_{nh}\left(t\right)}\right)f\left(\omega,t\right)d\omega-\lambda u^2_n(t)=0, \forall t\in[0,T]
-%\label{zero}
-%\end{equation}
-%
-One possible solution for (\ref{zero}) is ?\\
-%
-\begin{comment}
-\begin{equation}
-u_n(t) = \sqrt{\frac{\int_{V_n\left(\bQ(t)\right)}\left(\frac{\left[d\left(q_n(t),\omega\right)\right]^{1+\alpha}}{q_{nh}\left(t\right)}\right)f\left(\omega,t\right)d\omega}{\lambda}}
-\label{u}
-\end{equation}
-Replacing (\ref{u}) in (\ref{pH}), we have
-\begin{equation}
-\frac{\partial J^*}{\partial q_n}\left(\bQ(t), t\right)=-2\sqrt{\lambda\int_{V_n\left(\bQ(t)\right)}\left(\frac{\left[d\left(q_n(t),\omega\right)\right]^{1+\alpha}}{q_{nh}\left(t\right)}\right)f\left(\omega,t\right)d\omega}
-\end{equation}
-\end{comment}
-{\color{red}{To be continued ...}}
-
-%
-\section{Simulation Results}
- 
-\section{Future Work}
-%
-In the future, we will take (1) maximum transmitter power, (2) motion energy, and (3) time-variant density function
-into consideration.
-%%% APPENDIX
 %\appendices
 \appendix
 
@@ -1953,7 +1861,7 @@ Therefore, the optimal flight heights are $h^*_n=g(\gamma)\mu_n=\frac{g(\gamma)\
 \fi
 \junend
 \philippstart
-\input{UniformScalarQuantizer}
+%\input{UniformScalarQuantizer}
 \philippend
 %\input{derivativeminmum}
 %\input{generalizedVoronoi}

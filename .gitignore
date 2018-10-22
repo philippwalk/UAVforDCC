@@ -30,3 +30,11 @@ main\.run\.xml
 *.log
 
 main\.pdf
+
+long_main-blx\.bib
+
+long_main\.aux
+
+long_main\.bbl
+
+long_main\.blg

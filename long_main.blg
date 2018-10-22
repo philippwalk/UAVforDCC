@@ -1,13 +1,7 @@
-This is 8-bit Big BibTeX version 0.99d
-Implementation:  C for Unix
-Release version: 3.71 (18 mar 2013)
-
-The 8-bit codepage and sorting file: 88591lat.csf
-The top-level auxiliary file: main.aux
+This is BibTeX, Version 0.99d (TeX Live 2016/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: long_main.aux
 The style file: biblatex.bst
-Reallocated glb_str_ptr (elt_size=4) to 10 items from 0.
-Reallocated global_strs (elt_size=20001) to 10 items from 0.
-Reallocated glb_str_end (elt_size=4) to 10 items from 0.
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=20001) to 20 items from 10.
 Reallocated glb_str_end (elt_size=4) to 20 items from 10.
@@ -22,20 +16,8 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-Database file #1: main-blx.bib
+Database file #1: long_main-blx.bib
 Database file #2: jabref_philipp_utf2.bib
-"Ã" immediately follows a string name---line 12 of file jabref_philipp_utf2.bib
- : @string { AE
- :             Ãœ              = {Archiv f. Elektronik u. Ãœbertragungstechnik} }
-I'm skipping whatever remains of this command
-"Ã" immediately follows a field part---line 17057 of file jabref_philipp_utf2.bib
- :   journal   = AE
- :                 Ãœ,
-I'm skipping whatever remains of this entry
-"Ã" immediately follows a field part---line 17102 of file jabref_philipp_utf2.bib
- :   journal   = AE
- :                 Ãœ,
-I'm skipping whatever remains of this entry
 Database file #3: jun_biblatex.bib
 Biblatex version: 3.3
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
@@ -78,12 +60,45 @@ Name 2 in "B. Galkin and J. Kibilda, and L. A. DaSilva" has a comma at the end f
 while executing---line 2746 of file biblatex.bst
 Name 2 in "B. Galkin and J. Kibilda, and L. A. DaSilva" has a comma at the end for entry BJL
 while executing---line 2746 of file biblatex.bst
-
-Here's how much of BibTeX's memory you used:
- Cites:                29 out of 750
- Fields:             4030 out of 5000
- Hash table:        99319 out of 100000
- Strings:            1939 out of 100000
- Free string pool:  26964 out of 65000
- Wizard functions:   6256 out of 9000
-(There were 22 error messages)
+You've used 29 entries,
+            6256 wiz_defined-function locations,
+            1943 strings with 27044 characters,
+and the built_in function-call counts, 168061 in all, are:
+= -- 11775
+> -- 3764
+< -- 1170
++ -- 4267
+- -- 1361
+* -- 11352
+:= -- 15803
+add.period$ -- 0
+call.type$ -- 29
+change.case$ -- 786
+chr.to.int$ -- 41
+cite$ -- 56
+duplicate$ -- 17963
+empty$ -- 15164
+format.name$ -- 2012
+if$ -- 35452
+int.to.chr$ -- 0
+int.to.str$ -- 83
+missing$ -- 0
+newline$ -- 1005
+num.names$ -- 1718
+pop$ -- 9587
+preamble$ -- 1
+purify$ -- 985
+quote$ -- 0
+skip$ -- 6224
+stack$ -- 0
+substring$ -- 18345
+swap$ -- 4590
+text.length$ -- 679
+text.prefix$ -- 0
+top$ -- 1
+type$ -- 970
+warning$ -- 0
+while$ -- 1901
+width$ -- 0
+write$ -- 977
+(There were 19 error messages)
