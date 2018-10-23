@@ -212,7 +212,7 @@ We consider a network of continuous distributed GTs at zero elevation in the tar
 low-altitude UAVs in the sky.  Let $\vP=(\vp_1^T,\dots,\vp_N^T)$ be the UAV (ground) horizontal deployment, where
 $\vp_n=(x_n, y_n)\in\mathbb{R}^2$ is the projected location on the ground $\Omega$, and $\bH=(h_1,\dots,h_N)$ be the
 UAV vertical (height) deployment, where $h_n\in\R_+$ is UAV $n$'s height.  In particular, UAV $n$'s 3-dimensional
-location is defined as $\vq_n=(\vp_n,h_n)=(x_n,y_n, h_n)$.  The elevation angle, $\theta_n\in[0,\frac{\pi}{2}]$, from
+location is defined as $\vq_n=(\vp_n,h_n)=(x_n,y_n, h_n)$.  The elevation angle, $\frac{\pi}{2}\!-\!\theta_n\in[0,\frac{\pi}{2}]$, from
 a GT at $\vome$ to UAV $n$ is defined as the angle between the ground distance $\overline{\vome \vp_n}$ and flight
 height $h_n$. 
 To capture the power falloff versus distance $d$ along with the random attenuation about the path loss from shadowing, we adopt the propagation
@@ -243,7 +243,7 @@ antenna gains are then given by
 %
 \begin{equation}
 \GGT >0\quad,\quad
-  \GUAV = \cos\left(\theta\right)=\sin\left(\frac{\pi}{2}-\theta\right)=\frac{h}{d((p,h),(\ome,0))}.
+  \GUAV = \cos\left(\theta\right)=\sin\left(\frac{\pi}{2}-\theta\right)=\frac{h}{d(\vq,(\vome,0))}.
 \label{eq:Gdirected}
 \end{equation}
 %
@@ -682,10 +682,10 @@ Hence we have shown
 \end{corollary}
 %
 \begin{remark}
-  To find the optimal ground positions for a common flight height $h_n=h$ and $\alp>1$ was investigated in \cite[Sec.III]{KSS18}.
-  The authors could show asymptotic results for $N\to\infty$ and the one-dimensional case, which reduces to the uniform
-  quantizer $\vP^*=(1/2N,3/2N,\dots,2N-1/2N)$. However, they did not considered the optimal flight height for a given ground
-  position.
+  To find the optimal ground positions for a common flight height $h_n=h$ and $\alp>1$ was investigated in
+  \cite[Sec.III]{KSS18}.  The authors could show asymptotic results for $N\to\infty$ and the one-dimensional case, which
+  reduces to the uniform quantizer $\vP^*=(1/2N,3/2N,\dots,2N-1/2N)$. However, they did not considered the optimal
+  flight height for a given ground position.
 \end{remark}
  
 \fi % no space for Corrolary
