@@ -61,7 +61,7 @@
             firstinits=true, % vornamen = erste buchstabe
             url=false,
             backend=bibtex,
-            doi=true,
+            doi=false,
             maxbibnames=99,
             isbn=false,
             natbib=true,
@@ -85,6 +85,8 @@
 \newcounter{example}[section]
 \newenvironment{example}[1][]{\refstepcounter{example}\par\vspace{1.5ex}\noindent{\em Example~\theexample. #1}}{\par\vspace{1.5ex}}
 \fi
+%
+\newif\ifproof\prooffalse % no proofs
 
 \newcommand{\vhP}{\ensuremath{\hat{\vP}}}   % global optimal ground positions
 \newcommand{\Ball}{\ensuremath{B}}          % Euclidean ball
@@ -140,9 +142,9 @@
 \newcommand{\junstart}{\color{black}}
 \newcommand{\junend}{\color{black}}
 %\renewcommand{\thepage}{\arabic{page}}
-\pagestyle{plain}
 
-\pagenumbering{arabic}
+%\pagestyle{plain}
+%\pagenumbering{arabic}
 \begin{document}
 %
 % paper title
@@ -165,25 +167,37 @@ Irvine, CA 92697-2625, USA \\
 %\end{center}
 
 \maketitle
-
+\begin{abstract}
+  We study the average distortion of quantizers with non-convex quantization sets, resulting from deployment assignments
+  of Unmaned Aerial Vehicles (UAV). 
+\end{abstract}
+%
 \section{Introduction}
 
 %
-In this work, we study the deployment of multiple Unmanned Aerial Vehicles (UAVs) with directional antennas, which provide a wireless communication link to ground terminals (GT).
-By fixing a minimal data-rate , the optimal deployment of the UAVs is given by the minimization of the average communication power for a given GT density in the target area, see for example \cite{Erdem}. Hereby, each GT is assigned to the UAV which requires the smallest communication power. The target area is therefore partitioned into ground cells. 
-This location optimization problem is equivalent to a distortion minimization problem where the quantizer points correspond to the UAVs location and the quantizer sets to the ground cells.
-In the recent decade, UAVs with directional antennas have been widely studied in literature
-\cite{BJL,MSF,HA,KMR,HSYR,MWMM}, to increase the efficiency of wireless links.   In \cite{BJL,MSF,HA,KMR,HSYR,MWMM}, the antenna gain within 3dB beamwidth is
-approximated by a constant \cite{CAB4}. To obtain a more realistic model we will use here a cosine-shaped antenna gain \cite{CAB2}, which will introduce a inverse flight height dependence in the power.
-Moreover, the associated ground cells will become non-convex and even disconnected. 
-The goal of this paper is to understand the trade-off between directional antenna gains and coverage range. For a one-dimensional target area, the optimal deployment could be derived in closed form for arbitrary path-loss exponents and is given for a uniform user density by a uniform ground positions of the UAVs at an optimal common flight height. For two dimensional user areas, we will demonstrate by numerical simulations a similar result, where the optimal ground cells correspond to hexagonal sets in the high-resolution limit (no boundary effects). 
+In this work, we study the deployment of multiple Unmanned Aerial Vehicles (UAVs) with directional antennas, which
+provide a wireless communication link to ground terminals (GT).  By fixing a minimal data-rate , the optimal deployment
+of the UAVs is given by the minimization of the average communication power for a given GT density in the target area,
+see for example \cite{Erdem}. Hereby, each GT is assigned to the UAV which requires the smallest communication power.
+The target area is therefore partitioned into ground cells.  This location optimization problem is equivalent to a
+distortion minimization problem where the quantizer points correspond to the UAVs location and the quantizer sets to the
+ground cells.  In the recent decade, UAVs with directional antennas have been widely studied in literature
+\cite{BJL,MSF,HA,KMR,HSYR,MWMM}, to increase the efficiency of wireless links.   In \cite{BJL,MSF,HA,KMR,HSYR,MWMM}, the
+antenna gain within 3dB beamwidth is approximated by a constant. To obtain a more realistic model we will use here a
+cosine-shaped antenna gain \cite{CAB2}, which will introduce a inverse flight height dependence in the power.  Moreover,
+the associated ground cells will become non-convex and even disconnected.  The goal of this paper is to understand the
+trade-off between directional antenna gains and coverage range. For a one-dimensional target area, the optimal
+deployment could be derived in closed form for arbitrary path-loss exponents and is given for a uniform user density by
+a uniform ground positions of the UAVs at an optimal common flight height. For two dimensional user areas, we will
+demonstrate by numerical simulations a similar result, where the optimal ground cells correspond to hexagonal sets in
+the high-resolution limit (no boundary effects). 
 
 \philippstart \paragraph{Notation} We denote the positive integers by $\N=\{1,2,3,\dots\}$ and for $N\in\N$ the first
 $N$ positive integers by $[N]=\{1,2,\dots,N\}$. We will denote row vectors by bold letters $\vx=(x_1,\dots,x_d)$ and
 matrices by bold capital letters $\vX=\R^{d\times N}$. We denote by $(\cdot)^T$ the transpose of a vector or matrix.
 For convenience, let $\Ball\left(\vc,r\right)=\set{\vome}{\|\vome-\vc\|^2\le r}$ be the open ball in $\R^d$ centered at
-$\vc\in\R^d$ with radius $r\geq 0$. Note that $\Ball\left(\vc,0\right)$ is an empty set. We denote by $\partial V$ the
-boundary of the set $V\subset\R^d$ and by $V^c$ its complement. In particular, $\partial \Ball(\vc,r)$ is the sphere
+$\vc\in\R^d$ with radius $r\geq 0$. Note that $\Ball\left(\vc,0\right)$ is an empty set. We denote by $\partial \Vor$ the
+boundary of the set $\Vor\subset\R^d$ and by $\Vor^c$ its complement. In particular, $\partial \Ball(\vc,r)$ is the sphere
 with center at $\vc$ and radius $r$. We will denote the positive numbers by $\R_+:=\set{a\in\R}{a>0}$.
 %
 %Let equation $E\vq + F = 0$, where $E\in\mathbb{R}^{1\times2}$ is a $1\times2$ vector and $F\in\mathbb{R}$ is a scalar,
@@ -221,11 +235,11 @@ and the shadowing due to low altitude.  For common practical measurements see fo
 maximal heights for UAV are $<1000$m, due to flight zone restrictions of aircrafts.  Hence, the received power at
 UAV $n$ can be represented as
 %
-\begin{equation}
-  P_{RX}=P_{TX}G_{TX}G_{RX}PL=\frac{P_{TX}G_{TX}G_{RX}Kd^{\alpha}_0}{d^{\alpha}10^{\frac{\psi_{dB}}{10}}}, \label{eq:Prx}
-\end{equation}
+  $P_{RX}=P_{TX}G_{TX}G_{RX}PL=P_{TX}G_{TX}G_{RX}Kd^{\alpha}_0 d^{-\alpha}10^{-\frac{\psi_{dB}}{10}}$,
 %
-where $G_{TX}$ and $G_{RX}$ are the antenna gains of the transmitter and the receiver, respectively. Here, we assume perfec omnidirectional transmitter (GT) antennas with an isoroptic gain and directional receiver (UAV) antennas.  The antenna gains are then given by 
+where $G_{TX}$ and $G_{RX}$ are the antenna gains of the transmitter and the receiver, respectively. Here, we assume
+perfect omnidirectional transmitter (GT) antennas with an isotropic gain and directional receiver (UAV) antennas.  The
+antenna gains are then given by 
 %
 \begin{equation}
 \GGT >0\quad,\quad
@@ -240,30 +254,29 @@ $G=\GUAV \GGT K$, see \figref{fig:uavdirected}.
 \begin{figure}
   \centering
   \def\svgwidth{.9\textwidth} \scriptsize{
-    \import{.}{UAVquacopter2.pdf_tex}}
+    \import{.}{UAVquacopter2_new.pdf_tex}}
     \caption{UAV deployment with directed antenna beam and associated GT cells for $\alp=2$ and $N=2$ for a uniform GT distribution.}
     \label{fig:uavdirected}
 \end{figure}
 %
-Accordingly, the received power \eqref{eq:Prx} can be rewritten as
+Accordingly, the received power can be rewritten as
 %
 \begin{equation}
   P_{RX}=\frac{P_{TX}h \GGT K d^{\alpha}_0}{d(\vq,(\vome,0))^{\alpha+1}10^{\frac{\psi_{dB}}{10}}}.
 \end{equation}
 %
-To achieve the reliable communication between GT and UAV with capacity (bit-data-rate) at least $\Rb$, we get for a channel bandwidth $B$  and noise power $N_0$ by Shannons capacity bound
+To achieve the reliable communication between GT and UAV with capacity (bit-rate) at least $\Rb$, we get for a
+channel bandwidth $B$  and noise power $N_0$ by the Shannon capacity 
 $B\log_2\left(1+\frac{P_{RX}}{N_0}\right)\ge\Rb$
 The minimum transmission power is then given by
-%
-\begin{equation}
-  P_{TX}=\frac{\left(2^{\frac{\Rb}{B}}-1\right)N_0d(\vq,(\vome,0))^{\alpha+1}10^{\frac{\psi_{dB}}{10}}}{ h \GGT Kd^{\alpha}_0}.
-\end{equation}
+$P_{TX}=\big(2^{\frac{\Rb}{B}}-1\big)N_0d(\vq,(\vome,0))^{\alpha+1}10^{\frac{\psi_{dB}}{10}} \cdot  (h \GGT
+Kd^{\alpha}_0)^{-1}$.
 %
 %We will also assigned a variable SNR $s_n=S_n /N_0$ to the $n$th UAV as an additional free parameter. This defines a
 %heterogeneous UAV network if $s_n\not=s_m$ for any $n\not=m$.  Note, that we could assume different noise powers at the
 %receiver or different transmit powers associated to the $n$th UAV cell. 
 %
-The expectation of the minimum transmitter power of the $n$th UAV to the GT is 
+The expectation of the minimum transmitter power of the $n$th UAV to the GT is then 
 %
 \begin{align}
   \Expect{P_{TX,n}}& =
@@ -314,16 +327,16 @@ height, due to the directional antenna effect.
 
 %
 
-To find local extrema of \eqref{eq:optPbar} analytically, we will need that the single-objective function $\Pbar$ is
+To find local extrema of \eqref{eq:optPbar} analytically, we will need that the single-objective function $\AvDis$ is
 continuously differentiable at any point in $\Qset^N=\Omega^N\times \R_+^N$, i.e., the gradient exists and is a
 continuous function, as was shown for piecewise continuous non-decreasing distortion functions in the Euclidean metric
 over $\Ome^N$ \cite[Thm.2.2]{CMB05} and \cite{GJ16a}. We could extend this result in \cite{WJ18} to continuous
-\disfunction s on $\Ome\times\Qset$ for arbitrary $d-$dimensional parameter sets $\Qset\subset \R^d$, which are multivariate polynomials of finite degree
-if restricted to $\Omega$.  Then the necessary condition for a local extrema is the vanishing of the gradient at a
-critical point\footnote{Note, if $\nabla \Pbar$ is not continuous in $\Qset^N$ than any jump-point is a potential
-  critical point and has to be checked individually.}.  To derive the partial derivatives we will need to rewrite the
-  integral kernel, which is the minimum of $N$ continuous functions, as a sum of $N$ integrals by using  generalized
-  Voronoi tessellations of $\Ome$.
+\disfunction s on $\Ome\times\Qset$ for arbitrary $d-$dimensional parameter sets $\Qset\subset \R^d$, which are
+multivariate polynomials of finite degree if restricted to $\Omega$.  Then the necessary condition for a local extrema
+is the vanishing of the gradient at a critical point\footnote{Note, if $\nabla \Pbar$ is not continuous in $\Qset^N$
+than any jump-point is a potential critical point and has to be checked individually.}.  To derive the partial
+derivatives we will need to rewrite the integral kernel, which is the minimum of $N$ continuous functions, as a sum of
+$N$ integrals by using  generalized Voronoi tessellations of $\Ome$.
 %
 
 
@@ -399,7 +412,7 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   with the relative flight heights between UAV $n$ and UAV $m$ given by
   %
   \begin{align}
-    h_{nm}= \left(\frac{h_n}{h_m}\right)^{\frac{2}{1+\alp}}.
+    h_{nm}= \left(h_n/h_m\right)^{\frac{2}{1+\alp}}.
   \end{align}
   %
 \end{lemma}
@@ -408,6 +421,7 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   difference is not to large. In all other cases, each UAV will be active, as long as it is not to high or to low. 
 \end{remark}
 %
+\ifproof
 \begin{proof}
   The minimization of the performance functions over $\Omega$ defines an assignment rule for a generalized Voronoi diagram
   $\Vor(\gP,\bH)=\{\Vor_1,\Vor_2,\dots,\Vor_N\}$ where 
@@ -436,13 +450,13 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   and $\vp_m$. For $a_n>a_m$ we can rewrite the inequality as 
   %
   \begin{align*}
-    a_n \Norm{\vp_n}^2\! +\! a_n \Norm{\vome}^2\! -\! 2a_n\skprod{\vp_n}{\ome} \!-\! a_m\Norm{\vp_m}^2 \!-\! a_m\Norm{\vome}^2
-    \!+\!2a_m\skprod{\vp_m}{\vome} \!+\! (b_n-b_m) \leq &0\\
-     (a_n\!-\!a_m)\Norm{\vome}^2 -2 \skprod{a_n \vp_n- a_m \vp_m}{\vome} + a_n \Norm{\vp_n}^2 - a_m \Norm{\vp_m}^2 +(b_n-b_m)
-     \leq & 0 \\
-      \Norm{\vome}^2 -2 \skprod{\vc_{nm}}{\vome} 
-    + \frac{a_n^2 \Norm{\vp_n}^2 \!+\!a_m^2 \Norm{\vp_m}^2 \!-\! a_na_m(\Norm{\vp_n}^2 \!+\!\Norm{\vp_m}^2)}{(a_n-a_m)^2} + \frac{b_n-b_m}{a_n-a_m}
-   \leq & 0
+  %  a_n \Norm{\vp_n}^2\! +\! a_n \Norm{\vome}^2\! -\! 2a_n\skprod{\vp_n}{\ome} \!-\! a_m\Norm{\vp_m}^2 \!-\! a_m\Norm{\vome}^2
+  %  \!+\!2a_m\skprod{\vp_m}{\vome} \!+\! (b_n-b_m) \leq &0\\
+  %   (a_n\!-\!a_m)\Norm{\vome}^2 -2 \skprod{a_n \vp_n- a_m \vp_m}{\vome} + a_n \Norm{\vp_n}^2 - a_m \Norm{\vp_m}^2 +(b_n-b_m)
+  %   \leq & 0 \\
+      \Norm{\vome}^2 -2 \skprod{\vc_{nm}}{\vome} + 
+         \frac{a_n^2 \Norm{\vp_n}^2 \!+\!a_m^2 \Norm{\vp_m}^2 \!-\! a_na_m(\Norm{\vp_n}^2 \!+\!\Norm{\vp_m}^2)}{(a_n-a_m)^2} 
+         + \frac{b_n-b_m}{a_n-a_m} \leq & 0
   \end{align*}
   %
   where the center point is given by
@@ -454,7 +468,7 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   where we introduced the \emph{relative flight height} between the $n$th and $m$th UAV
   %
   \begin{align}
-    h_{nm}:= \frac{a_m}{a_n}=\left(\frac{h_n}{h_m}\right)^{\frac{2}{1+\alp}}>0.
+    h_{nm}:= a_m/a_n=\left(h_n/h_m\right)^{\frac{2}{1+\alp}}>0.
   \end{align}
   %
   If $0<a_n-a_m$, which is equivalent to $h_n<h_m$, then this defines a ball (disc) and for $h_n>h_m$ its complement. Hence we get
@@ -470,8 +484,7 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   where the radius square is given by
   %
   \begin{align}
-    r_{nm}^2 &=  \frac{-2a_n a_m\skprod{\vp_n}{\vp_m}+a_na_m(\Norm{\vp_n}^2 +\Norm{\vp_m}^2)}{(a_n-a_m)^2}
-            - \frac{b_n-b_m}{a_n-a_m}\\
+    r_{nm}^2 
             &= a_na_m\frac{\Norm{\vp_n-\vp_m}^2}{(a_n-a_m)^2} + \frac{b_m-b_n}{a_n-a_m}=
             \frac{a_n}{a_m}\frac{\Norm{\vp_n-\vp_m}^2}{(1-\frac{a_n}{a_m})^2} +
             \frac{b_m-b_n}{a_n-a_m}\label{eq:radiusnm}
@@ -482,8 +495,8 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   \begin{align}
     \frac{b_m -b_n}{a_n -a_m} &
     = \frac{h_m^{2-\frac{2}{1+\alp}} - h_n^{2-\frac{2}{1+\alp}}}{h_n^{-\frac{2}{1+\alp}}-h_m^{-\frac{2}{1+\alp}}}
-    = \frac{h_n^{2} \left(\left(\frac{h_n}{h_m}\right)^{\frac{2}{1+\alp}-2} -
-  1\right)}{1-\left(\frac{h_n}{h_m}\right)^{\frac{2}{1+\alp}}} = h_n^2 \frac{h_{nm}^{-\alp} -1}{1-h_{nm}}
+    = \frac{h_n^{2} \left(\left(h_n/h_m\right)^{\frac{2}{1+\alp}-2} -1\right)}{1-\left(h_n/h_m\right)^{\frac{2}{1+\alp}}} 
+  = h_n^2 \frac{h_{nm}^{-\alp} -1}{1-h_{nm}}
   \label{eq:bmnanm}.
   \end{align}
   %
@@ -492,6 +505,7 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   both cases \eqref{eq:bmnanm} is positive, which implies a radius
   $r_{nm}>0$ whenever $\vp_n\not=\vp_m$. Inserting \eqref{eq:bmnanm} in \eqref{eq:radiusnm} yields the result. 
 \end{proof}
+\fi % end ifproof
 %
 \begin{example}
 We plotted in \figref{fig:uavdirected} for $N=2$ and $\Omega=[0,1]^2$ the GT cells for a uniform distribution with UAVs
@@ -506,12 +520,12 @@ If the second UAV reaches an altitude of $h_2\geq 2.3$ its Voroni cell $\Vor_{2}
 
 \subsection{Local optimality conditions for arbitrary heights}
 %
-To find the global optimal deployment for $N$ static UAVs we have to minimize the average power consumption for all GTs
-in $\Ome$ over its locational-parameter set $\Qset^N$, i.e., we have to solve the following non-convex
-\emph{$N-$facility locational-parameter optimization problem} \cite{WJ18} 
+To find the global optimal deployment for $N$ static UAVs we have to minimize the average distortion (power consumption)
+in \eqref{eq:Pbar}  for all GTs in $\Ome$ over its locational-parameter set $\Qset^N$, i.e., we have to solve the following
+non-convex \emph{$N-$facility locational-parameter optimization problem} \cite{WJ18} 
 %
 \begin{align}
-  \min_{\vQ\in\Qset^N} \Pbar(\vQ)= \min_{\vP\in\Omega^N,\bH\in \R_+^N} \sum_{n=1}^{N} \int_{\Vor_n(\vP,\bH)}
+  \min_{\vQ\in\Qset^N} \AvDis(\vQ)= \min_{\vP\in\Omega^N,\bH\in \R_+^N} \sum_{n=1}^{N} \int_{\Vor_n(\vP,\bH)}
   h_n^{-1}(\Norm{\vp_n-\vome}^2 +h_n^2)^{\gam}\df(\vome)d\vome\label{eq:phoptlocal} 
 \end{align}
 %
@@ -532,6 +546,7 @@ where $\Vor_n(\vp,h)$ are the Möbius regions given in \eqref{eq:moebius} for ea
   \end{align}
 \end{prop}
 %
+\ifproof
 \begin{proof}
   %
 Since the power function 
@@ -570,9 +585,10 @@ Hence, $\vQ^*=(\vP^*,\vh^*)$ is a critical point if and only if all partial deri
 %
 \end{proof}
 %
+\fi
 \begin{remark}
   For $\alp=1$, the optimal ground user tessellation of the UAVs is by \eqref{eq:pnopt} centroidal. However, the shape of
-  the user cells depend on the heights, which are different and therefore the cells are spherical and not polyhedral. 
+  the user cells depend on the heights, which if different, generate spherical and not polyhedral cells. 
 \end{remark}
 
 \if0% old algorithm approch of jun
@@ -615,6 +631,7 @@ $\alp$. Let us investigate some tractable special cases.
 \end{proof}
 \fi % end old philipp
 %
+\if0 % no space in DCC
 \subsection{Optimality conditions for common heights}
 
 If $h_n=h>0$ for all $n$, then the locational-parameter problem becomes
@@ -671,7 +688,7 @@ Hence we have shown
   position.
 \end{remark}
  
-
+\fi % no space for Corrolary
 
 \section{The Optimal UAV deployment over one-dimensional ground}
 
@@ -680,8 +697,7 @@ them to a convex target area, i.e., to an interval $\Omega = [s,t]$.  Under such
 are degenerated to scalars, i.e., $p_n\in[s, t], \forall n\in\{1, \dots, N\}$.  \philippstart If we shift the target
 area $\Ome$ by an arbitrary number $a\in\R$, then the power consumption, i.e., the objective function, will not change
 if we shift all UAV ground positions by the same number $a$. Hence, if we set $a=-s$ we can shift any deployment $[s,t]$
-to $[0,A]$ where $A=t-s$ without changing the average power consumption. Hence we will only consider here target areas
-of the form $[0,A]$ with $A>0$.  \philippend
+to $[0,A]$ where $A=t-s$ without changing the average power consumption.   \philippend
 
 \subsection{Optimal UAV deployment for common height and uniform user density}
 
@@ -710,7 +726,7 @@ Let us first recall the scalar quantizer.
 %
   %For a  proof see  \appref{app:UniformScalarQuantizer}.  
 For a proof of the scalar quantization theorem see \cite{GN98} or
-  \cite{KJ17}.  The proof of \cite[Thm.1]{KJ17} uses the optimal
+  \cite{Erdem}.  The proof of \cite[Thm.1]{Erdem} uses the optimal
   Euclidean  embedding and a sharp reverse Hölder inequality, which allows one to prove the result without derivations (
   homogeneous special case). 
 \fi
@@ -728,17 +744,18 @@ integral function.
   is for any fixed $\gam\geq 1$ continuous and convex over $\R_+$ and obtains for 
   %
   \begin{align}
-    g(\gam)=\arg\min_{h>0} F(h,\gam),
+    g(\gam)=\arg\min_{h>0} F(h,\gam)<1/\sqrt{2\gam-1},
   \end{align}
   %
   the global minimum, which can be derived in closed form for integer valued $\gam$ as 
   %
   \begin{align}
-    g(1) = \frac{1}{\sqrt{3}},\ \  g(3) = \frac{\sqrt{\sqrt{32/5}-1}}{3}, 
-    \ \  g(5) = \sqrt{\frac{ (\frac{32}{7})^{1/3}-1}{5}}.\label{eq:ggam}
+    g(1) = \frac{1}{\sqrt{3}},\ \  g(2) = \frac{\sqrt{\sqrt{32/5}-1}}{3}, 
+    \ \  g(3) = \sqrt{\frac{ (\frac{32}{7})^{1/3}-1}{5}}.\label{eq:ggam}
  \end{align}
 \end{lemma}
 %
+\ifproof
 \begin{proof}
   Surprisingly, it can be shown that for each $\gam\geq 1$ the integral kernel $f$ is a convex function in
   $\vx=(h,\ome)$ over $\R_+^2$. Let us rewrite $f$ as
@@ -891,6 +908,7 @@ which computes to
 \fi % no space in DCC
 \end{proof}    
 %
+\fi % ifproof end
 \begin{remark}
   The convexity of $F$ can be also shown by using extensions of the Hermite-Hadamard inequality, as for example in
   \cite{ZC10}, which allows to show convexity over any interval. This suggest, that as long as the generalized Voronoi cells remain
@@ -918,10 +936,10 @@ which computes to
      h^*= \frac{A}{2N} g((1+\alp)/2)\quad,\quad\forall n \colon \pGlob_n= \frac{A}{2N} (2n-1)\label{eq:optimaldeploy} 
   \end{align}
   %
-  with minimal average power consumption
+  with minimal average distortion
   %
   \begin{align}
-    \Pbar(\vx^*,h^*)=\left(\frac{A}{2N}\right)^{\alp}  \int_0^1
+    \AvDis(\vx^*,h^*)=\left(\frac{A}{2N}\right)^{\alp}  \int_0^1
     \frac{(\ome^2+g^2( (1+\alp)/2))^{\frac{1+\alp}{2}}}{g( (1+\alp)/2)}
     d\ome\label{eq:optimumavpow}.
   \end{align}
@@ -929,6 +947,7 @@ which computes to
   For $\alp\in\{1,3,5\}$ we can derive $g((1+\alp)/2)$ in closed form  \eqref{eq:ggam}.
 \end{theorem}
 %
+\ifproof 
 \begin{proof}
   The average-communication power is given for a common height $h=h_n$ by
   %
@@ -1032,7 +1051,11 @@ Hence, we get with $g(\alp)$
 
 %
 \end{proof}
+\fi
 \color{black}
+We plotted in \figref{fig:goptdopt} the optimal heights and optimal average distortion for a uniform GT density in
+$[0,1]$ over various $\alp$ and $N=2$. Note, that the factor $a=A/2N=1/4$ will play a crucial role for the height and
+distortion scaling. Moreover, the distortion decreases exponentially in $\alpha$ if $a<1$.
 %
 \if0 % not clear anymore
 \begin{remark}
@@ -1049,10 +1072,9 @@ involves only active UAVs.
 \philippstart
 %
 \begin{lemma}\label{lemma:allActive}
-  Let $\Ome=[0,A]$ for some $A>0$. The optimal deployment $\vQ^*\in(\Ome\times\R_+)^N$ of $N$ UAVs for a uniform
-  ground user density has optimal ground cells $\Vor_n(\vQ^*)=[b_{n-1},b_n]$ with $0\leq b_{n-1}<b_n\leq
-  A$ for $n\in[N]$,
-  i.e., each optimal ground cell has positive measure and is served by exactly one UAV. 
+  Let $\Ome=[0,A]$ for some $A>0$. The optimal deployment $\vQ^*\in(\Ome\times\R_+)^N$ of $N$ UAVs for a uniform ground
+  user density in $\Ome$ has optimal ground cells $\Vor_n(\vQ^*)=[b_{n-1},b_n]$ with $0\leq b_{n-1}<b_n\leq A$ for
+  $n\in[N]$, i.e., each optimal ground cell has positive measure and is served by exactly one UAV. 
 \end{lemma}
 %
 \begin{remark}
@@ -1060,6 +1082,7 @@ involves only active UAVs.
   antenna should reduces the power if it covers a non-zero user area.
 \end{remark}
 %
+\ifproof
 \begin{proof}
   Although, this statement seems to be trivial, it is not straight forward to show, since the power function $P$ in
   \eqref{eq:Eptx} is not strictly monotone increasing in $\vq_n=(p_n,h_n)$ for any user $\ome \in\Ome$ and UAV
@@ -1073,7 +1096,7 @@ involves only active UAVs.
   optimal deployment (reproduction points) which generate the generalized Voronoi diagram as the optimal partition
   (tesselation\footnote{Since we take here the continuous case, the integral will not distinguish between open or closed
   sets.}). This holds for any density function $\lam(\ome)$ and target area $\Ome$.  To see this\footnote{We use the
-    same argumentation as in the prove of \cite[Prop.1]{KJ17}.} let us start with any quantizer $(\vQ,\Rset)$ for $\Ome$
+    same argumentation as in the prove of \cite[Prop.1]{Erdem}.} let us start with any quantizer $(\vQ,\Rset)$ for $\Ome$
     yielding to the average power 
   %
   \begin{align}
@@ -1201,7 +1224,7 @@ involves only active UAVs.
   \eqref{eq:optquanteqoptdeploy} a Möbius diagram, each optimal ground cell is given as
   $\Rset^*_n=\Vor_n(\vq^*)=[b_{n-1},b_n]$ with $0 \leq b_{n-1}<b_n\leq A$. 
 \end{proof}
-
+\fi % end ifproof
 %
 \if0
 \junstart
@@ -1244,10 +1267,11 @@ Now we are now ready to extend \thmref{thm:commonheight} to arbitrary heights.
 
 \begin{theorem}\label{theorem:commonHeight}
   Over the uniform distributed one-dimensional ground $\Ome=[0,A]$ for some $A>0$,
-  the minimum average total power of $N$ UAVs is given by \eqref{eq:optimumavpow},
+  the minimum average distortion of $N$ UAVs is given by \eqref{eq:optimumavpow},
   which is only attained for uniform ground positions and common flight heights, given by  \eqref{eq:optimaldeploy}.
 \end{theorem}
 %
+\ifproof
 \begin{proof}
   We can generalize the prove of \thmref{thm:commonheight} to optimal UAV ground positions at different heights by only
   using the all active property of the optimal UAV deployment from  \lemref{lemma:allActive}. We also know, that the
@@ -1325,6 +1349,7 @@ which can be achieved if and only if $\mu_n=A/N$. But this is the average power 
 ground positions given in \thmref{thm:commonheight}. 
 %
 \end{proof}
+\fi % end ifproof
 \color{black}
 
 Let us set $\bet=1=A$. Then the optimal UAV deployment is pictured in \figref{fig:uavonedim} for $N=2$ and $N=4$. The
@@ -1334,17 +1359,26 @@ Moreover, it is also independent of $A$ and $\bet$, since with \eqref{eq:optimal
 $d_n=x^*_n-x^*_{n-1}=A/N$ and
 %
 \begin{align}
-  \cos(\tht_\text{max})= \frac{h^*}{d^*_n/2}= \frac{2N}{A}\frac{A}{2N}   g(1)= \frac{1}{\sqrt{3}}.
+  \cos(\tht_{\text{max}})=\cos(\tht_n)= \frac{h^*}{d^*_n/2}= \frac{2N}{A}\frac{A}{2N}   g(1)= \frac{1}{\sqrt{3}}.
 \end{align}
 
 % 
 \begin{figure}
+\begin{minipage}[c]{0.4\textwidth}
+\def\svgwidth{0.95\textwidth} \scriptsize{
+  \input{galphaDalpha.pdf_tex}}
+  \caption{Optimal height and average distortion for $N=2,A=1$ and uniform GT density.}
+  \label{fig:goptdopt}
+\end{minipage}
+\hfill
+  \begin{minipage}[c]{0.54\textwidth}
     \centering
-    \def\svgwidth{.9\textwidth} \scriptsize{
+    \def\svgwidth{1.08\textwidth} \scriptsize{
       \input{OptUAVonedimensional.pdf_tex}}
-      \caption{UAV deployment in one dimension for $\Omega=[0,1]$ for $\alp=1$ and $N=2,4$ for a uniform GT distribution
+      \caption{Optimal UAV deployment in one dimension for $A=1,\alp=1$ and $N=2,4$ over a uniform GT density
       by \eqref{eq:optimaldeploy}.}
       \label{fig:uavonedim}
+    \end{minipage}
 \end{figure}
 %
 
@@ -1357,6 +1391,14 @@ deployment or trajectory.  However, in this section, we show via an example that
 necessary condition for the optimal deployment over the space including but not limited to the non-uniform distributed
 one-dimensional ground.
 
+
+
+
+
+\section{Conclusion}
+
+
+\if0 % to much. Only put in here simulations, no analytic example.
 In what follows, we provide an example to compare the best deployment with common flight height and an alternative
 deployment with different flight heights.  Consider two UAVs over a one-dimensional ground $[0,1]$ with path loss
 parameter $\gamma=1$ and a non-uniform density function 
@@ -1370,15 +1412,20 @@ parameter $\gamma=1$ and a non-uniform density function
     \end{cases}
 \end{align}
 %
-Let $q_1=\left(p_1, h_1\right)$ and $q_2=\left(p_2, h_2\right)$ be the deployment of UAV 1 and 2.
-First, we derive the best deployment with common flight height assumption, i.e., $h_1=h_2=h$.
-Since the common flight height, the generalized Voronoi partition is degenerated to Voronoi partition, $V_n(p. h)=\{\ome|\|\ome-p_n\|\le\|\ome-p_m\|, \forall m\ne n\}$.
-Without loss of generality, we assume $0<p_1<p_2<1$, and thus the Voronoi partition can be represented as $V_1(p, h) = [0, b]$ and $V_2(p, h) = [b, 1]$, where the boundary is 
+Let $q_1=\left(p_1, h_1\right)$ and $q_2=\left(p_2, h_2\right)$ be the deployment of UAV 1 and 2.  First, we derive the
+best deployment with common flight height assumption, i.e., $h_1=h_2=h$.  Since the common flight height, the
+generalized Voronoi partition is degenerated to Voronoi partition, $V_n(p. h)=\{\ome|\|\ome-p_n\|\le\|\ome-p_m\|,
+\forall m\ne n\}$.  Without loss of generality, we assume $0<p_1<p_2<1$, and thus the Voronoi partition can be
+represented as $V_1(p, h) = [0, b]$ and $V_2(p, h) = [b, 1]$, where the boundary is 
+%
 \begin{align}
-b = \frac{p_1+p_2}{2}.\label{boundary}
+  b = \frac{p_1+p_2}{2}.\label{boundary}
 \end{align}
-(i) If $b\le0.2$, the distortions can be rewritten as $D(p,h)=4\int_{0}^{b}\frac{(p_1-\ome)^2+h^2}{h}+4\int_{b}^{0.2}\frac{(p_2-\ome)^2+h^2}{h} + \frac{1}{4}\int_{0.2}^{1}\frac{(p_2-\ome)^2+h^2}{h}$. 
-The best deployment satisfies zero-gradient, i.e.,
+%
+(i) If $b\le0.2$, the distortions can be rewritten as
+$D(p,h)=4\int_{0}^{b}\frac{(p_1-\ome)^2+h^2}{h}+4\int_{b}^{0.2}\frac{(p_2-\ome)^2+h^2}{h} +
+\frac{1}{4}\int_{0.2}^{1}\frac{(p_2-\ome)^2+h^2}{h}$.  The best deployment satisfies zero-gradient, i.e.,
+%
 \begin{align}
     &\frac{\partial D}{\partial p_1} = 4\int_{0}^{b}2\frac{(p_1-\ome)}{h}d\ome=0 \label{dp1a}\\
     &\frac{\partial D}{\partial p_2} = 4\int_{b}^{0.2}2\frac{(p_2-\ome)}{h}d\ome
@@ -1400,16 +1447,16 @@ The best deployment satisfies zero-gradient, i.e.,
     + \frac{1}{4}\int_{0.2}^{b}\frac{h^2\!-\!(p_1\!-\!\ome)^2}{h^2}d\ome 
     + \frac{1}{4}\int_{b}^1\frac{h^2\!-\!(p_2\!-\!\ome)^2}{h^2}d\ome= 0\label{dhb}
 \end{align}
+%
 Solving (\ref{boundary}), (\ref{dp1b}), (\ref{dp2b}), and (\ref{dhb}), we get $p^*_1=\frac{3\sqrt{5.8}-7}{2}$,
-$p^*_2=\frac{\sqrt{5.8}-1}{2}$, and $h^*=0.096$.
-Hence, the minimum distortion with the common flight height is $D(p^*, h^*)=0.247$.
-Next, let $\widetilde{p}=p^*=(p^{*}_1,p^*_2)$ and $\widetilde{h}=(0.05,0.2)$ be an alternative deployment.
-By straightforward calculation, we get the corresponding distortion $D(\widetilde{p},\widetilde{h})=0.192$ which is smaller than that of $D(p^*, h^*)$.
-In sum, the common flight height is not a necessary condition for the optimal deployment.
-According to our simulations, there is a big performance gap between the "optimal" deployment with common flight height
-and the real optimal deployment.  
+$p^*_2=\frac{\sqrt{5.8}-1}{2}$, and $h^*=0.096$.  Hence, the minimum distortion with the common flight height is $D(p^*,
+h^*)=0.247$.  Next, let $\widetilde{p}=p^*=(p^{*}_1,p^*_2)$ and $\widetilde{h}=(0.05,0.2)$ be an alternative deployment.
+By straightforward calculation, we get the corresponding distortion $D(\widetilde{p},\widetilde{h})=0.192$ which is
+smaller than that of $D(p^*, h^*)$.  In sum, the common flight height is not a necessary condition for the optimal
+deployment.  According to our simulations, there is a big performance gap between the "optimal" deployment with common
+flight height and the real optimal deployment.  
 
-
+\fi % end too much, jun
 \if0
 Let us further assume that
 $\Omega$ is composed on a finite union of intervals  (open or closed does not matter).  Let us further assume all UAVs

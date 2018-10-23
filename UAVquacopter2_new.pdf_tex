@@ -1,0 +1,87 @@
+%% Creator: Inkscape inkscape 0.92.1, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'UAVquacopter2_new.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{457.42949344bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.48335138)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{UAVquacopter2_new.pdf}}%
+    \put(0.59533791,0.09417324){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r_{1,2}$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{UAVquacopter2_new.pdf}}%
+    \put(0.76269477,0.46674192){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\vq_2$}}}%
+    \put(0.5620289,0.11104897){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\vome$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{UAVquacopter2_new.pdf}}%
+    \put(0.76462582,0.26343336){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h_2=2h_1$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{UAVquacopter2_new.pdf}}%
+    \put(0.74785459,0.39694541){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\tht_2$}}}%
+    \put(0.62727257,0.28163473){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$d_2$}}}%
+    \put(0.88735244,0.17197237){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\Omega$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{UAVquacopter2_new.pdf}}%
+    \put(0.70538733,0.38717959){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$G$}}}%
+    \put(0.76669615,0.14087146){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\vp_2$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{UAVquacopter2_new.pdf}}%
+    \put(0.37705283,0.2586777){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\vq_1$}}}%
+    \put(0.34532321,0.1335602){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h_1$}}}%
+    \put(0.38295564,0.0894191){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\vp_1$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{UAVquacopter2_new.pdf}}%
+    \put(-0.00181466,0.01167831){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\vc_{1,2}$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{UAVquacopter2_new.pdf}}%
+    \put(0.57288482,0.02700632){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x$}}}%
+    \put(0.42590898,0.15010223){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$y$}}}%
+    \put(0.28434806,0.36481212){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.8$}}}%
+    \put(0.76231319,0.02986535){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$1$}}}%
+    \put(0.52298608,0.20397791){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$1$}}}%
+    \put(0.30239291,0.03476304){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$0$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{UAVquacopter2_new.pdf}}%
+    \put(0.28592306,0.18758084){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.4$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{UAVquacopter2_new.pdf}}%
+    \put(0.65305417,0.06399323){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\Vor_{1,2}$}}}%
+    \put(0.72070059,0.09004223){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\Vor^c_{1,2}$}}}%
+    \put(0.27161111,0.29844142){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{UAVquacopter2_new.pdf}}%
+  \end{picture}%
+\endgroup%
