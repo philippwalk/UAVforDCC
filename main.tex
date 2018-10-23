@@ -408,15 +408,13 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   difference is not to large. In all other cases, each UAV will be active, as long as it is not to high or to low. 
 \end{remark}
 %
-\begin{proofnoqed}
+\begin{proof}
   The minimization of the performance functions over $\Omega$ defines an assignment rule for a generalized Voronoi diagram
   $\Vor(\gP,\bH)=\{\Vor_1,\Vor_2,\dots,\Vor_N\}$ where 
   %
   \begin{align}
     \Vor_{n} =\Vor_n(\gP,\bH):=
-  &\set{\vome\in\Ome}{\frac{(\Norm{\vp_n-\vome}^2 +h_n^2)^{\gam}}{h_n}\leq\frac{(\Norm{\vp_m-\vome}^2
-  +h_m^2)^{\gam}}{h_m}, m\not=n}\notag\\
-    =&\set{\vome\in\Ome}{ a_n\Norm{\vp_n-\vome}^2 +b_n \leq  a_m\Norm{\vp_m-\vome}^2 +b_m, m\not=n}
+      &\set{\vome\in\Ome}{ a_n\Norm{\vp_n-\vome}^2 +b_n \leq  a_m\Norm{\vp_m-\vome}^2 +b_m, m\not=n}
   \end{align}
   %
   is the $n$th Voronoi region. Here we denoted the weights by the positive numbers
@@ -425,8 +423,8 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
     a_n = h_n^{-\frac{1}{\gam}}, \quad b_n=h_n^{2-\frac{1}{\gam}}
   \end{align}
   %
-  which define a \emph{compoundly weighted power distance}, see \cite[(3.1.12)]{OBSC00}. The resulting diagram is also called
-  a \emph{M{\"o}bius diagram} and its bisectors are circles or lines in $\R^2$ as we will show below, see also \cite{BK06b,BWY07}.
+  which define a \emph{M{\"o}bius diagram} \cite{BK06b,BWY07}. The bisectors of M{\"o}bius diagrams are circles or lines
+  in $\R^2$ as we will show below.
   The $n$th Voronoi region is defined by $N-1$ inequalities, which  can be written as the intersection of the $N-1$
   \emph{dominance regions} of $\vp_n$ over $\vp_m$, given by 
   %
@@ -475,7 +473,8 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
     r_{nm}^2 &=  \frac{-2a_n a_m\skprod{\vp_n}{\vp_m}+a_na_m(\Norm{\vp_n}^2 +\Norm{\vp_m}^2)}{(a_n-a_m)^2}
             - \frac{b_n-b_m}{a_n-a_m}\\
             &= a_na_m\frac{\Norm{\vp_n-\vp_m}^2}{(a_n-a_m)^2} + \frac{b_m-b_n}{a_n-a_m}=
-            \frac{a_n}{a_m}\frac{\Norm{\vp_n-\vp_m}^2}{(1-\frac{a_n}{a_m})^2} + \frac{b_m-b_n}{a_n-a_m}
+            \frac{a_n}{a_m}\frac{\Norm{\vp_n-\vp_m}^2}{(1-\frac{a_n}{a_m})^2} +
+            \frac{b_m-b_n}{a_n-a_m}\label{eq:radiusnm}
   \end{align}
   %
   The second summand can be written as
@@ -483,9 +482,6 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   \begin{align}
     \frac{b_m -b_n}{a_n -a_m} &
     = \frac{h_m^{2-\frac{2}{1+\alp}} - h_n^{2-\frac{2}{1+\alp}}}{h_n^{-\frac{2}{1+\alp}}-h_m^{-\frac{2}{1+\alp}}}
-    = \frac{h_m^{2-\frac{2}{1+\alp}} -
-    h_n^{2-\frac{2}{1+\alp}}}{h_n^{-\frac{2}{1+\alp}}\Big(1-\left(\frac{h_n}{h_m}\right)^{\frac{2}{1+\alp}}\Big)}\\
-    &= \frac{h_m^{2} \left(\frac{h_n}{h_m}\right)^{\frac{2}{1+\alp}} - h_n^{2}}{1-\left(\frac{h_n}{h_m}\right)^{\frac{2}{1+\alp}}}
     = \frac{h_n^{2} \left(\left(\frac{h_n}{h_m}\right)^{\frac{2}{1+\alp}-2} -
   1\right)}{1-\left(\frac{h_n}{h_m}\right)^{\frac{2}{1+\alp}}} = h_n^2 \frac{h_{nm}^{-\alp} -1}{1-h_{nm}}
   \label{eq:bmnanm}.
@@ -494,13 +490,8 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   %
   For any $\alp\geq 1$, we have $h_{nm}=(h_n/h_m)^{2/(1+\alp)}< 1$ if $h_n<h_m$ and $h_{nm}>1$ if $h_m>h_n$.  In
   both cases \eqref{eq:bmnanm} is positive, which implies a radius
-  $r_{nm}>0$ whenever $\vp_n\not=\vp_m$.  Hence, in this case the radius-square is
-  %
-  \begin{flalign}
-   && r_{nm}^2=\frac{h_{nm}}{\left(1-h_{nm}\right)^2}\Norm{\vp_n-\vp_m}^2  + h_n^2 \frac{h_{nm}^{-\alp} -1}{1-h_{nm}} && \notag\qed
-  \end{flalign}
-  %
-\end{proofnoqed}
+  $r_{nm}>0$ whenever $\vp_n\not=\vp_m$. Inserting \eqref{eq:bmnanm} in \eqref{eq:radiusnm} yields the result. 
+\end{proof}
 %
 \begin{example}
 We plotted in \figref{fig:uavdirected} for $N=2$ and $\Omega=[0,1]^2$ the GT cells for a uniform distribution with UAVs
