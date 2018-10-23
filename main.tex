@@ -45,7 +45,7 @@
 
 \graphicspath{{../jpg/}{../pdf/}{../jpeg/}{../eps/}}
 \DeclareGraphicsExtensions{.jpg,.pdf,.jpeg,.png,.eps}
-
+\newenvironment{proofnoqed}{\par\vspace{1.5ex}\noindent{\em Proof\/}.}{\par\vspace{1.5ex}}
 %\usepackage[shortlabels]{enumitem}
 
 % *** SUBFIGURE PACKAGES ***
@@ -125,6 +125,11 @@
 \def \qed {\hfill \vrule height6pt width 6pt depth 0pt}
 \usepackage{caption}
 
+% for DCC version
+\newcommand{\Dis}{\ensuremath{D}}                    %  Distortion
+\newcommand{\AvDis}{\ensuremath{\bar{\Dis}}}         % Average Distortion
+
+
 % Uncommenting Jun and Philipp colors
 %
 %\newcommand{\philippstart}{\color{Sepia}}
@@ -134,7 +139,10 @@
 %\newcommand{\junstart}{\color{Red}}
 \newcommand{\junstart}{\color{black}}
 \newcommand{\junend}{\color{black}}
+%\renewcommand{\thepage}{\arabic{page}}
+\pagestyle{plain}
 
+\pagenumbering{arabic}
 \begin{document}
 %
 % paper title
@@ -158,22 +166,17 @@ Irvine, CA 92697-2625, USA \\
 
 \maketitle
 
-
-
 \section{Introduction}
+
 %
-In this report, we study the optimal deployment of multiple Unmanned Aerial Vehicles (UAVs) with directional antennas.
-Similar to \cite{Erdem}, we consider a wireless network where several ground terminals (GTs) using variable transmission
-power and fixed data rate.  In the recent decade, UAV with direction antenna has been widely studied in literature
-\cite{BJL,MSF,HA,KMR,HSYR,MWMM}.  In \cite{BJL,MSF,HA,KMR,HSYR,MWMM}, the antenna gain within 3dB beamwidth is
-approximated by a constant.  The authors claimed that this approximation comes from the book \cite{CAB4}.
-Unfortunately, I cannot get this reference (fourth edition).  But, I have the second edition of this book \cite{CAB2}.
-In \cite{CAB2}, the maximum antenna (the gain at $0^o$) is approximated by the constant that is mentioned in
-\cite{BJL,MSF,HA,KMR,HSYR,MWMM}.  Moreover, a cosine-shaped antenna gain is proposed in \cite{CAB2}.  Even if antenna
-gain is approximated as a constant in \cite{CAB4}, cosine function seems be a better approximation than a constant.
-Therefore, I formulate UAV's antenna gain as a cosine function.  On the other hand, the existing studies \cite{Erdem}
-made a common assumption that all UAVs have the identical height.  In this report, we will study the UAVs with variant
-heights which is more reasonable in practice.
+In this work, we study the deployment of multiple Unmanned Aerial Vehicles (UAVs) with directional antennas, which provide a wireless communication link to ground terminals (GT).
+By fixing a minimal data-rate , the optimal deployment of the UAVs is given by the minimization of the average communication power for a given GT density in the target area, see for example \cite{Erdem}. Hereby, each GT is assigned to the UAV which requires the smallest communication power. The target area is therefore partitioned into ground cells. 
+This location optimization problem is equivalent to a distortion minimization problem where the quantizer points correspond to the UAVs location and the quantizer sets to the ground cells.
+In the recent decade, UAVs with directional antennas have been widely studied in literature
+\cite{BJL,MSF,HA,KMR,HSYR,MWMM}, to increase the efficiency of wireless links.   In \cite{BJL,MSF,HA,KMR,HSYR,MWMM}, the antenna gain within 3dB beamwidth is
+approximated by a constant \cite{CAB4}. To obtain a more realistic model we will use here a cosine-shaped antenna gain \cite{CAB2}, which will introduce a inverse flight height dependence in the power.
+Moreover, the associated ground cells will become non-convex and even disconnected. 
+The goal of this paper is to understand the trade-off between directional antenna gains and coverage range. For a one-dimensional target area, the optimal deployment could be derived in closed form for arbitrary path-loss exponents and is given for a uniform user density by a uniform ground positions of the UAVs at an optimal common flight height. For two dimensional user areas, we will demonstrate by numerical simulations a similar result, where the optimal ground cells correspond to hexagonal sets in the high-resolution limit (no boundary effects). 
 
 \philippstart \paragraph{Notation} We denote the positive integers by $\N=\{1,2,3,\dots\}$ and for $N\in\N$ the first
 $N$ positive integers by $[N]=\{1,2,\dots,N\}$. We will denote row vectors by bold letters $\vx=(x_1,\dots,x_d)$ and
@@ -191,50 +194,38 @@ by $HS(\va, \vb)$.  \philippend
 
 \section{System model}\label{sec:model}
 %
-We consider a network of several GTs at zero elevation on the target region $\Omega\subset\mathbb{R}^2$ and $N$
+We consider a network of continuous distributed GTs at zero elevation in the target region $\Omega\subset\mathbb{R}^2$ and $N$
 low-altitude UAVs in the sky.  Let $\vP=(\vp_1^T,\dots,\vp_N^T)$ be the UAV (ground) horizontal deployment, where
 $\vp_n=(x_n, y_n)\in\mathbb{R}^2$ is the projected location on the ground $\Omega$, and $\bH=(h_1,\dots,h_N)$ be the
 UAV vertical (height) deployment, where $h_n\in\R_+$ is UAV $n$'s height.  In particular, UAV $n$'s 3-dimensional
-location is defined as $\vq_n=(\vp_n,h_n)=(x_n,y_n, h_n)$.  The elevation angle, $\theta\in[0,\frac{\pi}{2}]$, from
+location is defined as $\vq_n=(\vp_n,h_n)=(x_n,y_n, h_n)$.  The elevation angle, $\theta_n\in[0,\frac{\pi}{2}]$, from
 a GT at $\vome$ to UAV $n$ is defined as the angle between the ground distance $\overline{\vome \vp_n}$ and flight
-height $h_n$.
-
-
-
-
-As Koyuncu et.al. \cite{Erdem}, we consider a fixed-rate variable-power transmission scenario where a GT at location
-$\omega$ wishes to communicate with bit-rate $\Rb$ in bits/s, and transmits with power $P_{TX}$ in J/s. 
- 
-To capture the power
-falloff versus distance along with the random attenuation about the path loss from shadowing, we adopt the propagation
+height $h_n$. 
+To capture the power falloff versus distance $d$ along with the random attenuation about the path loss from shadowing, we adopt the propagation
 model \cite[(2.51)]{AG} as:
 %
 \begin{equation}
-  PL_{dB}=10\log_{10}{K}-\underbrace{10\alpha\log_{10}{\frac{d}{d_0}}}_{\text{terrestrial path-loss}}-\psi_{dB},
+  PL_{dB}=10\log_{10}{K}-10\alpha\log_{10}{\frac{d}{d_0}}-\psi_{dB},
 \end{equation}
 %
 where $K$ is a unitless constant depending on the antenna characteristics, $d_0$ is a reference distance, $\alpha\geq 1$
 is the terrestrial path loss exponent, and $\psi_{dB}$ is a Gaussian random variable following
 $\mathcal{N}\left(0,\sigma^2_{\psi_{dB}}\right)$. This air-to-ground or terrestrial path loss model is widely used for
-UAV basestation path-loss models \cite{MSBD16a}. Practical values are between $2$ and $6$ and depends on the distance
-$d$ and the shadowing due to low altitude.  For common practical measurements see for example \cite{AG18}.  Typically
-maximal altitudes for UAV are $<1000$m, due to flight zone restrictions of aircrafts.  Therefore, the received power at
+UAV basestation path-loss models \cite{MSBD16a}. Practical values are between $2$ and $6$ and depends on the Euclidean distance $d$, given between a ground user $\vome$ and UAV $\vq=(\vp,h)$ as
+%
+\begin{align}
+  d(\vq,(\vome,0))=\sqrt{\|\vp-\vome\|^2+h^2}=\sqrt{(p_{x}-\omega_x)^2+(p_{y}-\omega_y)^2+h^2}\label{eq:eucd}
+\end{align}
+%
+and the shadowing due to low altitude.  For common practical measurements see for example \cite{AG18}.  Typically
+maximal heights for UAV are $<1000$m, due to flight zone restrictions of aircrafts.  Hence, the received power at
 UAV $n$ can be represented as
 %
 \begin{equation}
   P_{RX}=P_{TX}G_{TX}G_{RX}PL=\frac{P_{TX}G_{TX}G_{RX}Kd^{\alpha}_0}{d^{\alpha}10^{\frac{\psi_{dB}}{10}}}, \label{eq:Prx}
 \end{equation}
 %
-where 
-%
-\begin{align}
-  d((\vp,h),(\vome,0))=\sqrt{\|\vp-\vome\|^2+h^2}=\sqrt{(p_{x}-\omega_x)^2+(p_{y}-\omega_y)^2+h^2}\label{eq:eucd}
-\end{align}
-%
-is the Euclidean distance between the UAV at $\vq=(\vp,h)$ and the ground terminal at $\vome=(\omega_x, \omega_y)$ and
-$G_{TX}$ and $G_{RX}$ are the antenna gains of the transmitter and the receiver, respectively.  In this report, we focus
-on omnidirectional transmitter (GT) antennas and directional receiver (UAV) antennas.  The antenna gains are formulated
-as the positive real numbers 
+where $G_{TX}$ and $G_{RX}$ are the antenna gains of the transmitter and the receiver, respectively. Here, we assume perfec omnidirectional transmitter (GT) antennas with an isoroptic gain and directional receiver (UAV) antennas.  The antenna gains are then given by 
 %
 \begin{equation}
 \GGT >0\quad,\quad
@@ -242,47 +233,37 @@ as the positive real numbers
 \label{eq:Gdirected}
 \end{equation}
 %
-see \cite[pp.52]{Bal05}. We model here the GT antennas as perfect omni-directional, with an isotropic gain. 
-The combined antenna intensity is then proportional to
+see \cite[pp.52]{Bal05}. The combined antenna intensity is then proportional to
 %
-\begin{align}
-  G=\GUAV \GGT K=\frac{h \GGT K}{d((p,h),(\ome,0))}
-\end{align}
-%
-see \figref{fig:uavdirected}.
+$G=\GUAV \GGT K$, see \figref{fig:uavdirected}.
 %
 \begin{figure}
   \centering
   \def\svgwidth{.9\textwidth} \scriptsize{
     \import{.}{UAVquacopter2.pdf_tex}}
-    \caption{UAV deployment with directed antenna beam for $\alp=2$ and $N=2$ for a uniform GT distribution.}
+    \caption{UAV deployment with directed antenna beam and associated GT cells for $\alp=2$ and $N=2$ for a uniform GT distribution.}
     \label{fig:uavdirected}
 \end{figure}
 %
 Accordingly, the received power \eqref{eq:Prx} can be rewritten as
 %
 \begin{equation}
-  P_{RX}=\frac{P_{TX}h \GGT K d^{\alpha}_0}{d((p,h),(\ome,0))^{\alpha+1}10^{\frac{\psi_{dB}}{10}}}.
+  P_{RX}=\frac{P_{TX}h \GGT K d^{\alpha}_0}{d(\vq,(\vome,0))^{\alpha+1}10^{\frac{\psi_{dB}}{10}}}.
 \end{equation}
 %
-To achieve the reliable communication between GT and UAV with capacity (bit-data-rate) at least $\Rb$, we have
+To achieve the reliable communication between GT and UAV with capacity (bit-data-rate) at least $\Rb$, we get for a channel bandwidth $B$  and noise power $N_0$ by Shannons capacity bound
+$B\log_2\left(1+\frac{P_{RX}}{N_0}\right)\ge\Rb$
+The minimum transmission power is then given by
 %
 \begin{equation}
-  B\log_2\left(1+\frac{P_{RX}}{N_0}\right)\ge\Rb,
-\end{equation}
-%
-where $B$ is the channel bandwidth and $N_0$ is the noise power.  The minimum transmission power is then given by
-%
-\begin{equation}
-  P_{TX}=\frac{\left(2^{\frac{\Rb}{B}}-1\right)N_0d((p,h),(\ome,0))^{\alpha+1}10^{\frac{\psi_{dB}}{10}}}{ h \GGT Kd^{\alpha}_0}.
+  P_{TX}=\frac{\left(2^{\frac{\Rb}{B}}-1\right)N_0d(\vq,(\vome,0))^{\alpha+1}10^{\frac{\psi_{dB}}{10}}}{ h \GGT Kd^{\alpha}_0}.
 \end{equation}
 %
 %We will also assigned a variable SNR $s_n=S_n /N_0$ to the $n$th UAV as an additional free parameter. This defines a
 %heterogeneous UAV network if $s_n\not=s_m$ for any $n\not=m$.  Note, that we could assume different noise powers at the
 %receiver or different transmit powers associated to the $n$th UAV cell. 
 %
-The expectation of the minimum transmitter power of the $n$th UAV at $\vq_n=(p_n,h_n)$ to a ground user in the $n$th cell at
-$(\vome,0)$ is then
+The expectation of the minimum transmitter power of the $n$th UAV to the GT is 
 %
 \begin{align}
   \Expect{P_{TX,n}}& =
@@ -291,43 +272,38 @@ $(\vome,0)$ is then
      \exp\left(-\frac{\psi^2_{dB}}{2\sigma^2_{\psi_{dB}}}+ \ln(10) \frac{\psi_{dB}}{10}\right)d\psi_{dB}\notag\\
   %&=\frac{(2^{\frac{\Rb}{B}}-1)   N_0 \exp\big(-\frac{\sigma^2_{\psi_{dB}}(\ln{10})^2}{200}\big)d(\vq_n,(\vome,0))^{\alpha+1}}
   %{h_n \GGT Kd^{\alpha}_0 } \notag\\
-  &=\bet \cdot  \frac{d( \vq_n,(\vome,0))^{2\gam}}{h_n}=:P(\vq_n,\vome) \label{eq:Eptx}
+  &=\bet \cdot  \frac{d( \vq_n,(\vome,0))^{2\gam}}{h_n}=:\Dis(\vome,\vq_n) \label{eq:Eptx}
 \end{align}
 %
-where the fixed parameters
+and defines a \emph{distortion measure} in $\vome$ with the independent and fixed parameters
 %
 \begin{align}
   \bet=\frac{(2^{\frac{\Rb}{B}}-1) N_0 \exp\big(-\frac{\sig_{\psi_{dB}}^2 (\ln 10)^2}{200}\big)}{\GGT K d_0^{\alp}}\quad,\quad
-  \gam=\frac{\alp+1}{2}
+  \gam=\frac{\alp+1}{2}.
 \end{align}
 %
-are independent of the UAVs and will be chosen by design.
 
 
-
-\section{Optimal Static UAV deployment}
+\section{Optimal Static UAV deployment at Minimal Average Distortion}
 
 To define an optimization problem over the UAVs we will need a \emph{single-objective function}, depending   
 on the $N$ UAVs ground positions $\vP=(\vp_1^T,\vp_2^T,\dots,\vp^T_N)$ and flight heights
-$\vh=(h_1,h_2,\dots,h_N)$.  We will define the average power over all ground terminals (GTs)
-distributed by $\df$ in $\Omega$ as 
+$\vh=(h_1,h_2,\dots,h_N)$.  The average power over all ground terminals (GTs)
+distributed by $\df$ in $\Omega$ is given by the \emph{average distortion} of the quantizer $\vQ=(\vP,\vh)$
 %
 \begin{equation}
-  \bar{P}(\vP,\bH)=\int_{\Omega}\min_{n} \left\{ P(\vome,\vp_n,h_n) \right\} \df(\vome)d\vome,
+ \int_{\Omega}\min_{n} \left\{ \Dis(\vome,\vq_n) \right\} \df(\vome)d\vome = \sum_{n=1}^N \int_{\Vor_n(\vQ)} \!\!\!\!\!\!\!D(\vome,\vq_n)\lam(\vome)d\vome=\AvDis(\vQ,\Vor(\vQ))=\AvDis(\vQ)
   \label{eq:Pbar}
 \end{equation}
 %
-where we assume that each GT at $\ome$ will chose the UAV which requires the lowest transmit power.  Here  we
-assume a \emph{continuous distribution} of GTs, given by $\df:\Ome\to[0,1]$ with $\int_{\Omega}\df(\vome)d\vome=1$, as
-used in \cite{GJ,Erdem1,ML,MLCS}.  The power function $P$ can be interpret as a  ''distance'' or \emph{distortion}
-function, which measures the
-required power (distortion) between user at $\vome$ to the $n$th UAV, which we seek to minimize.  We also assume that the
+where we assume that each GT at $\vome$ will chose the UAV which requires the lowest transmit power and defines therefore the corresponding quantization cells $\Vor(\vQ)=\{\Vor_n(\vQ)\}$.
+Here  we assume a \emph{continuous distribution} of GTs, given by $\df:\Ome\to[0,1]$ with $\int_{\Omega}\df(\vome)d\vome=1$, as
+used in \cite{GJ,Erdem1,ML,MLCS}.  We also assume that the
 communication between all users and UAVs is orthogonal, i.e., separated in frequency or time (slotted protocols). An
-\emph{optimal static deployment} is then the minimization of the \emph{average power} $\bar{P}$ over all UAVs allowed locations and
-associated parameters
-%
+\emph{optimal static deployment} is then the minimization of the \emph{average power (distortion)} $\AvDis$ over all UAVs ground positions and heights
+%g
 \begin{align}
-  \min_{\vP\in\Omega^N, \bH\in\R_+^{N}} \bar{P}(\vP,\bH)\label{eq:optPbar},
+  \min_{\vP\in\Omega^N, \bH\in\R_+^{N}} \AvDis(\vP,\bH)\label{eq:optPbar},
 \end{align}
 %
 which defines a \emph{locational-parameter optimization problem}.
@@ -394,9 +370,7 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   UAVs. Then the total average transmit power to serve any ground terminal in $\Ome$ distributed by $\df$ for $\bet=1$ is given by 
   %
   \begin{align}
-    \abPo\left(\vP,\fH\right)=\!\int_{\Omega}\min_{n}
-       \left\{\frac{\left(\|\gp_n-\vome\|^2+h^2_n\right)^{\gam}}{h_n}\right\}\df(\vome)d\vome
-       = \sum_{n=1}^{N} \int_{\Vor_n} \! \frac{ (\Norm{\gp_n- \vome}^2 +h_n^2)^{\gam}}{h_n} \df(\vome)d\vome
+    \AvDis\left(\vP,\fH\right) = \sum_{n=1}^{N} \int_{\Vor_n} \! \frac{ (\Norm{\gp_n- \vome}^2 +h_n^2)^{\gam}}{h_n} \df(\vome)d\vome
        \label{eq:minimizationmoebius}
   \end{align}
   %
@@ -432,18 +406,9 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
 \begin{remark}
   If two UAVs have the same ground position, i.e., $\gp_n=\gp_m$, then both of them are active, if the relative height
   difference is not to large. In all other cases, each UAV will be active, as long as it is not to high or to low. 
-  Let us note, that the individual transmit powers of each UAV are only bounded by $P(\gP,\bH)$. To bound the individual
-  average transmit powers of the $n$th UAV, one needs to bound the maximal and minimal flight heights, since it holds
-  %
-  \begin{align}
-    \abPo_n(\gP,\bH)= \int_{V_n} (h_n^{-1/\gam}\Norm{\gp_n-\vome}^2 + h_n^{2-\frac{1}{\gam}})^\gam \df(\vome)d\vome
-  \end{align}
-  %
-  where $h_n^{\alp}$ will dominate the power for large flight heights.  It can be also seen that the radius of the $n$th
-  GT cells will increase if all relative flight heights increase. 
 \end{remark}
 %
-\begin{proof}
+\begin{proofnoqed}
   The minimization of the performance functions over $\Omega$ defines an assignment rule for a generalized Voronoi diagram
   $\Vor(\gP,\bH)=\{\Vor_1,\Vor_2,\dots,\Vor_N\}$ where 
   %
@@ -531,11 +496,11 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   both cases \eqref{eq:bmnanm} is positive, which implies a radius
   $r_{nm}>0$ whenever $\vp_n\not=\vp_m$.  Hence, in this case the radius-square is
   %
-  \begin{align}
-    r_{nm}^2=\frac{h_{nm}}{\left(1-h_{nm}\right)^2}\Norm{\vp_n-\vp_m}^2  + h_n^2 \frac{h_{nm}^{-\alp} -1}{1-h_{nm}}
-  \end{align}
+  \begin{flalign}
+   && r_{nm}^2=\frac{h_{nm}}{\left(1-h_{nm}\right)^2}\Norm{\vp_n-\vp_m}^2  + h_n^2 \frac{h_{nm}^{-\alp} -1}{1-h_{nm}} && \notag\qed
+  \end{flalign}
   %
-\end{proof}
+\end{proofnoqed}
 %
 \begin{example}
 We plotted in \figref{fig:uavdirected} for $N=2$ and $\Omega=[0,1]^2$ the GT cells for a uniform distribution with UAVs
@@ -832,13 +797,12 @@ integral function.
   vanishing of the first derivative:
   %
   \begin{align}
-    F'(h)  &=\int_{0}^{1} 2\gam (\ome^2+h^2)^{\gam-1} - h^{-2}(\ome^2+h^2)^{\gam} d\ome d\ome\label{eq:fprime} \\
-           &= \int_0^{1} (\ome^2+h^2)^{\gam-1}( (2\gam\!-\!1)-h^{-2}\ome^2)d\ome
+    F'(h)  &= \int_0^{1} (\ome^2+h^2)^{\gam-1}( (2\gam\!-\!1)-h^{-2}\ome^2)d\ome
             =\frac{1}{h^{\gam}}\int_{0}^{\frac{1}{h}} (\ome^2+1)^{\gam-1}(2\gam-1-\ome^2)\notag.
   \end{align}
   %
   Hence, $F'(h)$ can only vanish if $h<1/\sqrt{2\gam-1}$, which is an upper bound on $g(\gam)$.
-  %
+ %
 \if0 % old approach for convexity
 %
 \begin{align}
@@ -853,8 +817,11 @@ f''(h) &=\int_0^1 4h\gam(\gam-1)(\ome^2+h^2)^{\gam-2} + 2^{-1}h^{-3}(\ome^2+h^2)
 \end{align}
 %
 which shows strict positivity for each $h>0$ if $\eps>1/3$. Since we know that there are only critical points in
-$(0,1/\sqrt{1+2\eps})$ we need to check positivity for $\eps\in[0,1/3]$ only in this range.  \fi % old approach end
+$(0,1/\sqrt{1+2\eps})$ we need to check positivity for $\eps\in[0,1/3]$ only in this range. 
 %
+\fi % old approach end
+%
+\if0 % no space in DCC
 Let us set $0<x=h^2$ in \eqref{eq:fprime}, then we get for $\gam\in\N$ a polynomial in $\ome$ of degree $2\gam$ and in
 $x$ of degree $\gam$.
 %
@@ -930,6 +897,7 @@ which computes to
   x=\left( \frac{32}{5^3\cdot 7}\right)^{1/3}- \frac{1}{5}
   =\frac{(\frac{32}{7})^{1/3}-1}{5} \RA g(5)=\sqrt{\frac{(\frac{32}{7})^{1/3}-1}{5}} \approx 0.363.
 \end{align}
+\fi % no space in DCC
 \end{proof}    
 %
 \begin{remark}
