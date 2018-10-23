@@ -693,11 +693,11 @@ Hence we have shown
 \section{The Optimal UAV deployment over one-dimensional ground}
 
 In this section, we discuss the optimal UAV deployment when users are placed on a one-dimensional ground and restrict
-them to a convex target area, i.e., to an interval $\Omega = [s,t]$.  Under such circumstances, the UAVs ground positions
-are degenerated to scalars, i.e., $p_n\in[s, t], \forall n\in\{1, \dots, N\}$.  \philippstart If we shift the target
-area $\Ome$ by an arbitrary number $a\in\R$, then the power consumption, i.e., the objective function, will not change
-if we shift all UAV ground positions by the same number $a$. Hence, if we set $a=-s$ we can shift any deployment $[s,t]$
-to $[0,A]$ where $A=t-s$ without changing the average power consumption.   \philippend
+them to a convex target area, i.e., to an interval $\Omega = [s,t]$.  Under such circumstances, the UAVs ground
+positions are degenerated to scalars, i.e., $p_n\in[s, t], \forall n\in[N]$.  \philippstart If we shift the
+target area $\Ome$ by an arbitrary number $a\in\R$, then the power consumption, i.e., the objective function, will not
+change if we shift all UAV ground positions by the same number $a$. Hence, if we set $a=-s$ we can shift any deployment
+$[s,t]$ to $[0,A]$ where $A=t-s$ without changing the average power consumption.   \philippend
 
 \subsection{Optimal UAV deployment for common height and uniform user density}
 
@@ -1364,16 +1364,19 @@ $d_n=x^*_n-x^*_{n-1}=A/N$ and
 
 % 
 \begin{figure}
-\begin{minipage}[c]{0.4\textwidth}
-\def\svgwidth{0.95\textwidth} \scriptsize{
-  \input{galphaDalpha.pdf_tex}}
-  \caption{Optimal height and average distortion for $N=2,A=1$ and uniform GT density.}
+\begin{minipage}[b]{0.4\textwidth}
+  \vspace{1ex}
+\def\svgwidth{1.1\textwidth} \scriptsize{
+  \input{galphaDalpha_bound.pdf_tex}}
+  \vspace{-3.2ex}
+  \caption{Optimal height (solid) with bound (dashed) and average distortion (dotted) for $N=2,A=1$ and uniform GT density.}
   \label{fig:goptdopt}
 \end{minipage}
 \hfill
-  \begin{minipage}[c]{0.54\textwidth}
-    \centering
-    \def\svgwidth{1.08\textwidth} \scriptsize{
+  \begin{minipage}[b]{0.56\textwidth}
+%    \centering
+\hspace{-2ex} 
+    \def\svgwidth{1.1\textwidth} \scriptsize{
       \input{OptUAVonedimensional.pdf_tex}}
       \caption{Optimal UAV deployment in one dimension for $A=1,\alp=1$ and $N=2,4$ over a uniform GT density
       by \eqref{eq:optimaldeploy}.}
