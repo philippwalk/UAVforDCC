@@ -148,7 +148,7 @@
 \begin{document}
 %
 % paper title
-\title{On Average Distortion of Non-Convex Quantization Sets and UAV deployments}
+\title{On the Minimal Average Distortion of Parameter Optimized Quantizers}
 
 
 \newtheorem{corollary}{Corollary}
@@ -168,8 +168,18 @@ Irvine, CA 92697-2625, USA \\
 
 \maketitle
 \begin{abstract}
-  We study the average distortion of quantizers with non-convex quantization sets, resulting from deployment assignments
-  of Unmaned Aerial Vehicles (UAV). 
+  In many quantization problems, the distortion function is given by a convex $\ell_p-$norm to measure the distance of a
+  given source sample to any given reproduction point of the quantizer. We will in this work regard distortion functions
+  which are weighted for each reproduction point resulting in a heterogeneous quantization problem with
+  non-convex quantization sets, as used in deployment problems of sensor networks. Whereas, in such problems, the
+  average distortion is minimized for given weights, we will optimize here the quantization problem over all positive 
+  weights.
+  For a uniform source distribution in one-dimension we derived the unique minimizer, given as the uniform scalar
+  quantizer with an optimal common weight. By numerical simulations this result extends to two-dimensions where
+  asymptotically the optimal quantizer is the hexagonal lattice with common weights. As an application we will
+  demonstrate the optimal deployment of unmanned aerial vehicles (UAV) to provide a wireless communication to ground users
+  under minimal communication power cost. Here, the optimal positive weights refer to the optimal flight heights of the
+  UAVs.
 \end{abstract}
 %
 \section{Introduction}
@@ -378,16 +388,18 @@ parameters $h_n\in\R_+$  associate to the generating (ground) points $p_n$, whic
 diagrams}, introduced in \cite{BK06b} and \cite{BWY07}. 
 %
 \begin{lemma}\label{lem:moebiusdia}
-  Let $\gP=(\gp^T_1,\gp^T_2,\dots, \gp^T_N)\subset \Omega^N\subset (\R^d)^N$ for $d\in\{1,2\}$ be the ground positions and
-  $\fH=(\fh_1,\dots,\fh_N)\in\R_+^N$  the associated flight heights  of the $N$
-  UAVs. Then the total average transmit power to serve any ground terminal in $\Ome$ distributed by $\df$ for $\bet=1$ is given by 
+  Let $\gP=(\gp^T_1,\gp^T_2,\dots, \gp^T_N)\subset \Omega^N\subset (\R^d)^N$ for $d\in\{1,2\}$ be the ground positions
+  and $\fH=(\fh_1,\dots,\fh_N)\in\R_+^N$  the associated flight heights  of the $N$ UAVs. Then the total average
+  transmit power to serve any ground terminal in $\Ome$ distributed by $\df$ for $\bet=1$ and path-loss exponent
+  $\alp\geq1$ is given by 
   %
   \begin{align}
-    \AvDis\left(\vP,\fH\right) = \sum_{n=1}^{N} \int_{\Vor_n} \! \frac{ (\Norm{\gp_n- \vome}^2 +h_n^2)^{\gam}}{h_n} \df(\vome)d\vome
+    \AvDis\left(\vP,\fH\right) 
+    = \sum_{n=1}^{N} \int_{\Vor_n} \! \frac{ (\Norm{\gp_n- \vome}^2 +h_n^2)^{\frac{1+\alp}{2}}}{h_n} \df(\vome)d\vome.
        \label{eq:minimizationmoebius}
   \end{align}
   %
-  where $\gam=(1+\alp)/2$ is given by the path-loss exponent $\alp\geq1$. The generalized Voronoi regions for the ground
+  The generalized Voronoi regions for the ground
   terminals are given by
   %
   \begin{align}
@@ -692,16 +704,14 @@ Hence we have shown
 
 \section{The Optimal UAV deployment over one-dimensional ground}
 
-In this section, we discuss the optimal UAV deployment when users are placed on a one-dimensional ground and restrict
-them to a convex target area, i.e., to an interval $\Omega = [s,t]$.  Under such circumstances, the UAVs ground
-positions are degenerated to scalars, i.e., $p_n\in[s, t], \forall n\in[N]$.  \philippstart If we shift the
+In this section, we discuss the optimal UAV deployment when users are placed on a one-dimensional ground, i.e., $d=1$,
+and restrict them to a convex target area, i.e., to an interval $\Omega = [s,t]$.  Under such circumstances, the UAVs
+ground positions are degenerated to scalars, i.e., $\vp_n=x_n\in[s, t], \forall n\in[N]$.  \philippstart If we shift the
 target area $\Ome$ by an arbitrary number $a\in\R$, then the power consumption, i.e., the objective function, will not
 change if we shift all UAV ground positions by the same number $a$. Hence, if we set $a=-s$ we can shift any deployment
 $[s,t]$ to $[0,A]$ where $A=t-s$ without changing the average power consumption.   \philippend
 
-\subsection{Optimal UAV deployment for common height and uniform user density}
-
-If $d=1$ the ground users will be located on a line and we have $\vp_n=x_n\in\R$ for each $n$. Let us assume a uniform
+Let us assume a uniform
 distribution on $\Omega$, i.e.  $\df(\ome)=1/\mu(\Omega)$ where $\mu$ is the Lebesgue measure and
 $0<A=\mu(\Omega)<\infty$. 
 %
@@ -926,10 +936,31 @@ which computes to
 %
 \philippstart
 %
+%
+\color{black}
+
+For a common height assumption the distortion function is convex and the corresponding Voronoi regions are polyhedron,
+i.e., for $d=1$ intervals, which gives as the optimal deployoment the uniform scalar quantizer. To ensure that different
+heights will not obtain smaller distortions, we proved in \cite{GWJ18a} the following result. 
+%
+\philippstart
+%
+\begin{lemma}\label{lemma:allActive}
+  Let $\Ome=[0,A]$ for some $A>0$. The optimal deployment $\vQ^*\in(\Ome\times\R_+)^N$ of $N$ UAVs for a uniform ground
+  user density in $\Ome$ has optimal ground cells $\Vor_n(\vQ^*)=[b_{n-1},b_n]$ with $0\leq b_{n-1}<b_n\leq A$ for
+  $n\in[N]$, i.e., each optimal ground cell has positive measure and is served by exactly one UAV. 
+\end{lemma}
+%
+\begin{remark}
+  For any optimal deployment all UAVs are active, which is intuitively, since each UAV
+  antenna should reduces the power if it covers a non-zero user area.
+\end{remark}
+%
+This allows to derive our main result for the optimal quanitzer with optimal weights. 
+%
 \begin{theorem}\label{thm:commonheight}
   Let $N\in\N$ and $\Ome=[0,A]$ for some $A> 0$. The \emph{unique global optimal deployment} for $N$ UAVs located  at
-   $\qLoc_n=(x_n^{*},h^{*})\in \Ome\times
-  \R_+$ with path loss $\alp\geq 1$, for a common flight height and a uniform ground user density is given
+  $\qLoc_n=(x_n^{*},h_n^{*})\in \Ome\times \R_+$ with path loss $\alp\geq 1$ and a uniform ground user density is given
   by   
    %
    \begin{align}
@@ -946,141 +977,9 @@ which computes to
   %
   For $\alp\in\{1,3,5\}$ we can derive $g((1+\alp)/2)$ in closed form  \eqref{eq:ggam}.
 \end{theorem}
-%
-\ifproof 
-\begin{proof}
-  The average-communication power is given for a common height $h=h_n$ by
-  %
-  \begin{align}
-    \Pbar(\vQ)= \frac{1}{hA} \sum_n \int_{\Vor_n(\vx)} ((x_n-\ome)^2+h^2)^{\gam}d\ome\label{eq:comonheightobj}
-  \end{align}
-%
-Then the optimal ground positions $x_1,\dots,x_n^*$ need to satisfy by \propref{prop:necessarycond}
-%
-\begin{align}
-  0 = \int_{\Vor_n(\vx^*)} (x_n^*-\ome) ((x_n^*-\ome)^2+h^2)^{\gam-1}d\ome \quad,\quad 1\leq n\leq N\label{eq:vornx}
-\end{align}
-%
-Since the Voronoi regions are intervals given by \lemref{lem:moebiusdia}  as
-%
-\begin{align}
-  \Vor_n(\vx^*) = [b_{n-1},b_n] \quad\text{with}\quad b_n= \begin{cases} 0, &n=0\\
-    A, &n=N\\
-    \frac{x^*_{n+1}+x^*_{n}}{2}, &\text{else}
-  \end{cases}\label{eq:bns}
-\end{align}
-%
-we get by substituting $\tome=x_n^*-\ome$ for each $n$ 
-%
-\begin{align}
-  0=-\int_{x_n-b_{n-1}}^{x_n-b_{n}} (\tome^2+h^2)^{\gam-1}\tome d\tome 
-  =\int_{x_n-b_{n}}^{x_n-b_{n-1}} (\tome^2+h^2)^{\gam-1}\tome d\tome.
-\end{align}
-%
-Since the integral kernel $f(\ome)=(\ome^2+h^2)^{\gam-1}\ome$ is anti-symmetric in $\ome$ it can only
-vanish if the integral boundaries have different signs, i.e., since $b_{n-1}\leq b_n$ we have
-%
-\begin{align}
-  0= \int_{x_n^*-b_{n}}^0 f(\ome)d\ome + \int_0^{x_n^*-b_{n-1}} f(\ome)d\ome \label{eq:conditionintsum}
-\end{align}
-%
-Moreover, we get by the anti-symmetry of $f$ and a substituting by $\tome=-\ome$
-%
-\begin{align}
-  \int_{x_n^*-b_{n}}^0 f(\ome)d\ome =-\int_{x_n^*-b_{n}}^0f(-\ome)d\ome =\int_0^{x_n^*-b_{n}}f(-\ome)d\ome =
-  -\int_{0}^{b_{n}-x_n^*} f(\tome)d\tome 
-\end{align}
-%
-Hence, we get by inserting in \eqref{eq:conditionintsum}
-%
-\begin{align}
-  \int_0^{b_n-x_n^*} f(\ome)d\ome = \int_0^{x_n^*-b_{n-1}}f(\ome)d\ome 
-\end{align}
-%
-which implies with \eqref{eq:bns} for $2\leq n\leq N-1$ 
-%
-\begin{align}
-  \frac{d^*_n}{2}=\frac{x_{n+1}^* -x_n^*}{2} b_{n} -x_n^*=x_n^*-b_{n-1} = \frac{x^*_n-x^*_{n-1}}{2} =
-  \frac{d^*_{n-1}}{2}=\frac{d^*}{2}
- % \LRA x_n^*=\frac{x_{n+1}^*+x_{n-1}^*}{2}
-\end{align}
-%
-and for $n=1$ and $n=N$
-%
-\begin{align}
-  \frac{d^*}{2}&=\frac{d^*_1}{2} =\frac{x^*_2-x^*_1}{2} = b_1-x_1* =x_1^*-b_0 =x_1^*=d^*_0 \\%\quad \LRA\quad x^*_1=\frac{x^*_2}{3}\\
- \frac{d^*}{2} & =\frac{d_{N-1}}{2} =\frac{x_{N}^*-x_{N-1}^*}{2} =x_N^*-b_{N-1} =b_N-x_N^*= A-x_N^* = d_N^* 
-  %\quad\LRA \quad x_N^*= \frac{2A+x_{N-1}^*}{3}
-\end{align}
-%
-Since the distances must sum to $A$ we get
-\begin{align}
-  2 \frac{d^*}{2} + (N-1)d^* = A \quad \LRA \quad d = \frac{A}{N}
-\end{align} 
-and hence we obtain the uniform scalar quantizer, given for $n\in[N]$ by 
-\begin{align}
-  x_n^*= \frac{A}{N}(n-1/2) \label{eq:unquant}.
-\end{align}
-%
-To obtain the optimal height we need to minimize \eqref{eq:comonheightobj} over $h>0$ with the uniform quantizer. In
-fact, for each ground cell we get for the average power by substituting with $\tome=\ome-x_n^*$
-%
-\begin{align}
-  \Pbar_n(x_n^*,h) &= \frac{1}{hA} \int_{b_{n-1}}^{b_n} (\ome-x_n^*)^2+h^2)^{\gam}d\ome
- = \frac{1}{hA} \int_{b_{n-1}-x_n^*}^{b_n-x_n^*} (\tome^2+h^2)^{\gam} d\tome\\
-\intertext{where $b_n=(x_{n+1}^*+x_n^*)/2$ and
-$b_{n-1}- x_n^*=(x_{n-1}^*-x_n^*)/2=-(x_{n+1}-x_n^*)/2= -(b_n-x_n^*)$ which is $A/2N$ by \eqref{eq:unquant} for ever
-$n\in[N]$ s.t.}
-&=\frac{1}{hA}\int_{-A/2N}^{A/2N} (\ome^2+h^2)^{\gam}d\ome=\frac{2}{A} \int_0^{A/2N} \frac{(\ome^2+h^2)^{\gam}}{h}d\ome.
-\intertext{By substituting $\tome=N2\ome/A$ and $\tilde{h}=N2h/A$ we can separate $A,N$ from the integral}
-  &= \int_0^{1} \frac{ (A^2\tome^2/4N^2   + A^2\tilde{h}^2/4N^2)^{\frac{1+\alp}{2}}}{A\tilde{h}/2N}
-  \frac{A}{2N}d\tome
-  = \left(\frac{A}{2N}\right)^{1+\alp}\int_0^{1} \frac{ (\ome^2   + \tilde{h}^2)^{\frac{1+\alp}{2}}}{\tilde{h}^2}
-  d\ome.\notag
-\end{align}
-%
-Hence, we get with $g(\alp)$  
-%
-\begin{align}
-  h^*=\frac{A}{2N} g(\alp)\quad\text{with}\quad  g(\alp):=\arg\min_{h>0} 
-  \int_0^{1} \frac{(\ome^2+h^2)^{\frac{1+\alp}{2}}}{h} d\ome
-  \label{eq:galp}.
-\end{align}
-%
-
-
-%
-\end{proof}
-\fi
-\color{black}
 We plotted in \figref{fig:goptdopt} the optimal heights and optimal average distortion for a uniform GT density in
 $[0,1]$ over various $\alp$ and $N=2$. Note, that the factor $a=A/2N=1/4$ will play a crucial role for the height and
 distortion scaling. Moreover, the distortion decreases exponentially in $\alpha$ if $a<1$.
-%
-\if0 % not clear anymore
-\begin{remark}
-  If $\Omega$ is a union of $M$ disjoint intervals, then the optimal deployment can not necessarily uniform quantize
-  each interval, if the intervals have different size. 
-  The distortion measure will be larger in such cases.
-\end{remark}
-\fi
-\subsection{Optimal UAV deployment for different heights and uniform user density}
-
-To extend the previous results to different heights we need first to verify that the optimal deployment of $N-$UAVs
-involves only active UAVs. 
-%
-\philippstart
-%
-\begin{lemma}\label{lemma:allActive}
-  Let $\Ome=[0,A]$ for some $A>0$. The optimal deployment $\vQ^*\in(\Ome\times\R_+)^N$ of $N$ UAVs for a uniform ground
-  user density in $\Ome$ has optimal ground cells $\Vor_n(\vQ^*)=[b_{n-1},b_n]$ with $0\leq b_{n-1}<b_n\leq A$ for
-  $n\in[N]$, i.e., each optimal ground cell has positive measure and is served by exactly one UAV. 
-\end{lemma}
-%
-\begin{remark}
-  For any optimal deployment all UAVs are active, which is intuitively, since each UAV
-  antenna should reduces the power if it covers a non-zero user area.
-\end{remark}
 %
 \ifproof
 \begin{proof}
@@ -1262,15 +1161,8 @@ The proof of the Corollary is provided in Appendix \ref{proof:linearity}.
 \fi
 %
 \junend
-Now we are now ready to extend \thmref{thm:commonheight} to arbitrary heights.
 %
 
-\begin{theorem}\label{theorem:commonHeight}
-  Over the uniform distributed one-dimensional ground $\Ome=[0,A]$ for some $A>0$,
-  the minimum average distortion of $N$ UAVs is given by \eqref{eq:optimumavpow},
-  which is only attained for uniform ground positions and common flight heights, given by  \eqref{eq:optimaldeploy}.
-\end{theorem}
-%
 \ifproof
 \begin{proof}
   We can generalize the prove of \thmref{thm:commonheight} to optimal UAV ground positions at different heights by only
