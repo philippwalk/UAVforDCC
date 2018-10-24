@@ -166,63 +166,83 @@ University of California, Irvine, CA 92697-2625 \\
 
 \maketitle
 \begin{abstract}
-  In many quantization problems, the distortion function is given by a convex $\ell_p-$norm to measure the distance of a
+  In many quantization problems, the distortion function is given by powers of the Euclidean norm to quantify the distance of a
   source sample to any given reproduction point of the quantizer. We will in this work regard distortion functions,
-  which are weighted by parameters for each reproduction point resulting in a heterogeneous quantization problem, as
+  which are additively and multiplicatively weighted for each reproduction point resulting in a heterogeneous quantization problem, as
   used for example in deployment problems of sensor networks. Whereas, in such problems, the average distortion is
-  minimized for given weights, we will optimize here the quantization problem over all weights.  For a uniform
-  source distribution in one-dimension we derived the unique minimizer, given as the uniform scalar quantizer with an
-  optimal common weight. By numerical simulations, we demonstrate that this result extends to two-dimensions where
-  asymptotically the parameter  optimized quantizer is the hexagonal lattice with common weights. As an application we will determine
-  the optimal deployment of unmanned aerial vehicles (UAV) to provide a wireless communication to ground users under
-  a minimal communication power cost. Here, the optimal weights refer to the optimal flight heights of the UAVs.
+  minimized for given weights (parameters), we will optimize the quantization problem over all weights.  For a uniform source
+  distribution in one-dimension we derived the unique minimizer, given as the uniform scalar quantizer with an optimal
+  common weight. By numerical simulations, we demonstrate that this result extends to two-dimensions where
+  asymptotically the parameter optimized quantizer is the hexagonal lattice with common weights. As an application we
+  will determine the optimal deployment of unmanned aerial vehicles (UAV) to provide a wireless communication to ground
+  terminals under a minimal communication power cost. Here, the optimal weights refer to the optimal flight heights of the
+  UAVs.
 \end{abstract}
 %
 \section{Introduction}
 
 %
-In this work, we study the deployment of multiple Unmanned Aerial Vehicles (UAVs) with directional antennas, which
-provide a wireless communication link to ground terminals (GT).  By fixing a minimal data-rate , the optimal deployment
-of the UAVs is given by the minimization of the average communication power for a given GT density in the target area,
-see for example \cite{Erdem}. Hereby, each GT is assigned to the UAV which requires the smallest communication power.
-The target area is therefore partitioned into ground cells.  This location optimization problem is equivalent to a
-distortion minimization problem where the quantizer points correspond to the UAVs location and the quantizer sets to the
-ground cells.  In the recent decade, UAVs with directional antennas have been widely studied in literature
-\cite{BJL,MSF,HA,KMR,HSYR,MWMM}, to increase the efficiency of wireless links.   In \cite{BJL,MSF,HA,KMR,HSYR,MWMM}, the
-antenna gain within 3dB beamwidth is approximated by a constant. To obtain a more realistic model we will use here a
-cosine-shaped antenna gain \cite{CAB2}, which will introduce a inverse flight height dependence in the power.  Moreover,
-the associated ground cells will become non-convex and even disconnected.  The goal of this paper is to understand the
-trade-off between directional antenna gains and coverage range. For a one-dimensional target area, the optimal
-deployment could be derived in closed form for arbitrary path-loss exponents and is given for a uniform user density by
-a uniform ground positions of the UAVs at an optimal common flight height. For two dimensional user areas, we will
-demonstrate by numerical simulations a similar result, where the optimal ground cells correspond to hexagonal sets in
-the high-resolution limit (no boundary effects). 
+For a given convex target region $\Omega\in\R^d$ in $d=1,2$ dimensions and a given continuous source sample distribution
+$\lam:\Ome\to [0,1]$ a quantizer is given by $N$ reproduction points $\vP=(\vp_1,\dots,\vp_N)\subset \Ome$ associated with
+$N$ quantization regions $\Rset=\{\Rset_1,\dots,\Rset_N\}$, defining a partition of the target region $\Ome$. Here
+$N\in\N$ is a positive integer and we refer in the limit $N\to\infty$ to the high-resolution quantizer.  To measure the
+distortion of the given quantizer usually the Euclidean distance between the source samples and reproduction points is
+used as the distortion function. We will in this work study  quantizers with parameter depending distortion functions
+which minimize the average distortion over a target area at a given source sample distribution, as investigated for
+example in \cite{KJ16b,KJ17}.
+%
+As opposed to a fixed parameter selection \cite{KSS18}, we will assign to each reproduction point $\vp_n$ an
+independent adjustable weight parameter $h_n>0$. For a fixed power parameter $\gam\geq1$, the distortion function is
+then given by the $\gam-$power of the  multiplicative weighted Euclidean square-distance with $h_n^{-1/\gam}$ and
+additively weighted with $h_n^{2-1/\gam}$. To minimize the average distortion, the optimal quantization regions are known
+to be generalized Voronoi (Möbius) regions, which will have in such a weighted quantization problem non-convex and even
+disconnected regions \cite{BWY07}. In many applications, as in sensor or vehicle deployments, the optimal weights and
+parameters are usually unknown and one wishes to optimize the deployment over all admissible parameter selections.
 
-\philippstart \paragraph{Notation} We denote the positive integers by $\N=\{1,2,3,\dots\}$ and for $N\in\N$ the first
-$N$ positive integers by $[N]=\{1,2,\dots,N\}$. We will denote row vectors by bold letters $\vx=(x_1,\dots,x_d)$ and
-matrices by bold capital letters $\vX=\R^{d\times N}$. We denote by $(\cdot)^T$ the transpose of a vector or matrix.
+We will in this work characterize the parameter optimized quantizer  over one-dimensional convex target
+regions. As a motivation we will demonstrate such a parameter driven quantizer for an unmanned aerial vehicle (UAV) deployment
+to provide energy efficiently the communication to ground terminals in a given target region. 
+Here the parameter weight is given by the flight heights of the UAVs.  
+
+\philippstart \paragraph{Notation} We denote the first
+$N$ positive integers by $[N]=\{1,2,\dots,N\}$. We will denote row vectors by bold letters and
+matrices by bold capital letters. We denote by $(\cdot)^T$ the transpose of a vector or matrix.
 For convenience, let $\Ball\left(\vc,r\right)=\set{\vome}{\|\vome-\vc\|^2\le r}$ be the open ball in $\R^d$ centered at
 $\vc\in\R^d$ with radius $r\geq 0$. Note that $\Ball\left(\vc,0\right)$ is an empty set. We denote by $\partial \Vor$ the
 boundary of the set $\Vor\subset\R^d$ and by $\Vor^c$ its complement. In particular, $\partial \Ball(\vc,r)$ is the sphere
 with center at $\vc$ and radius $r$. We will denote the positive numbers by $\R_+:=\set{a\in\R}{a>0}$.
-%
-%Let equation $E\vq + F = 0$, where $E\in\mathbb{R}^{1\times2}$ is a $1\times2$ vector and $F\in\mathbb{R}$ is a scalar,
-%define the perpendicular bisector hyperplane between the two points.  Then, the equations $E\vq +F\ge0$ and $E\vq
-%+F\le0$ define two half spaces. 
 Moreover, for two points $\va,\vb\in\R^d$, we denote the generated half space between them, which contains $\va\in\R^d$
 by $HS(\va, \vb)$.  \philippend
 
 \section{System model}\label{sec:model}
 %
-We consider a network of continuous distributed GTs at zero elevation in the target region $\Omega\subset\mathbb{R}^2$ and $N$
-low-altitude UAVs in the sky.  Let $\vP=(\vp_1^T,\dots,\vp_N^T)$ be the UAV (ground) horizontal deployment, where
-$\vp_n=(x_n, y_n)\in\mathbb{R}^2$ is the projected location on the ground $\Omega$, and $\bH=(h_1,\dots,h_N)$ be the
-UAV vertical (height) deployment, where $h_n\in\R_+$ is UAV $n$'s height.  In particular, UAV $n$'s 3-dimensional
-location is defined as $\vq_n=(\vp_n,h_n)=(x_n,y_n, h_n)$.  The elevation angle, $\frac{\pi}{2}\!-\!\theta_n\in[0,\frac{\pi}{2}]$, from
-a GT at $\vome$ to UAV $n$ is defined as the angle between the ground distance $\overline{\vome \vp_n}$ and flight
-height $h_n$. 
-To capture the power falloff versus distance $d$ along with the random attenuation about the path loss from shadowing, we adopt the propagation
-model \cite[(2.51)]{AG} as:
+\philippstart
+Aerial Vehicles (UAVs) with directional antennas, which provide a wireless communication link to ground terminals (GT).
+By fixing a minimal data-rate , the optimal deployment of the UAVs is given by the minimization of the average
+communication power for a given GT density in the target area, see for example \cite{Erdem}. Hereby, each GT is assigned
+to the UAV which requires the smallest communication power.  The target area is therefore partitioned into ground cells.
+This location optimization problem is equivalent to a distortion minimization problem where the quantizer points
+correspond to the UAVs location and the quantizer sets to the ground cells.  In the recent decade, UAVs with directional
+antennas have been widely studied in literature \cite{BJL,MSF,HA,KMR,HSYR,MWMM}, to increase the efficiency of wireless
+links.   In \cite{BJL,MSF,HA,KMR,HSYR,MWMM}, the antenna gain within 3dB beamwidth is approximated by a constant. To
+obtain a more realistic model we will use here a cosine-shaped antenna gain \cite{CAB2}, which will introduce a inverse
+flight height dependence in the power.  Moreover, the associated ground cells will become non-convex and even
+disconnected.  The goal of this paper is to understand the trade-off between directional antenna gains and coverage
+range. For a one-dimensional target area, the optimal deployment could be derived in closed form for arbitrary path-loss
+exponents and is given for a uniform user density by a uniform ground positions of the UAVs at an optimal common flight
+height. For two dimensional user areas, we will demonstrate by numerical simulations a similar result, where the optimal
+ground cells correspond to hexagonal sets in the high-resolution limit (no boundary effects). 
+\philippend
+
+We consider a network of continuous distributed GTs at zero elevation in the target region $\Omega\subset\mathbb{R}^2$
+and $N$ low-altitude UAVs in the sky.  Let $\vP=(\vp_1^T,\dots,\vp_N^T)$ be the UAV (ground) horizontal deployment,
+where $\vp_n=(x_n, y_n)\in\mathbb{R}^2$ is the projected location on the ground $\Omega$, and $\bH=(h_1,\dots,h_N)$ be
+the UAV vertical (height) deployment, where $h_n\in\R_+$ is UAV $n$'s height.  In particular, UAV $n$'s 3-dimensional
+location is defined as $\vq_n=(\vp_n,h_n)=(x_n,y_n, h_n)$.  The elevation angle,
+$\frac{\pi}{2}\!-\!\theta_n\in[0,\frac{\pi}{2}]$, from a GT at $\vome$ to UAV $n$ is defined as the angle between the
+ground distance $\overline{\vome \vp_n}$ and flight height $h_n$.  To capture the power falloff versus distance $d$
+along with the random attenuation about the path loss from shadowing, we adopt the propagation model \cite[(2.51)]{AG}
+as:
 %
 \begin{equation}
   PL_{dB}=10\log_{10}{K}-10\alpha\log_{10}{\frac{d}{d_0}}-\psi_{dB},
@@ -231,7 +251,8 @@ model \cite[(2.51)]{AG} as:
 where $K$ is a unitless constant depending on the antenna characteristics, $d_0$ is a reference distance, $\alpha\geq 1$
 is the terrestrial path loss exponent, and $\psi_{dB}$ is a Gaussian random variable following
 $\mathcal{N}\left(0,\sigma^2_{\psi_{dB}}\right)$. This air-to-ground or terrestrial path loss model is widely used for
-UAV basestation path-loss models \cite{MSBD16a}. Practical values are between $2$ and $6$ and depends on the Euclidean distance $d$, given between a ground user $\vome$ and UAV $\vq=(\vp,h)$ as
+UAV basestation path-loss models \cite{MSBD16a}. Practical values are between $2$ and $6$ and depends on the Euclidean
+distance $d$, given between a ground user $\vome$ and UAV $\vq=(\vp,h)$ as
 %
 \begin{align}
   d(\vq,(\vome,0))=\sqrt{\|\vp-\vome\|^2+h^2}=\sqrt{(p_{x}-\omega_x)^2+(p_{y}-\omega_y)^2+h^2}\label{eq:eucd}
@@ -297,7 +318,7 @@ The expectation of the minimum transmitter power of the $n$th UAV to the GT is t
 and defines a \emph{distortion measure} in $\vome$ with the independent and fixed parameters
 %
 \begin{align}
-  \bet=\frac{(2^{\frac{\Rb}{B}}-1) N_0 \exp\big(-\frac{\sig_{\psi_{dB}}^2 (\ln 10)^2}{200}\big)}{\GGT K d_0^{\alp}}\quad,\quad
+  \bet=(2^{\frac{\Rb}{B}}-1) N_0 \exp\big(-\frac{\sig_{\psi_{dB}}^2 (\ln 10)^2}{200}\big)(\GGT K)^{-1} d_0^{-\alp}\quad,\quad
   \gam=\frac{\alp+1}{2}.
 \end{align}
 %
@@ -381,7 +402,7 @@ will later find the optimal deployment to minimize the transmit power for guaran
 
 First we will derive the tessellation of $\Ome$ by generalized Voronoi diagrams in $d$ dimensions for any height
 parameters $h_n\in\R_+$  associate to the generating (ground) points $p_n$, which are special cases of \emph{M{\"o}bius
-diagrams}, introduced in \cite{BK06b} and \cite{BWY07}. 
+diagrams}, introduced in \cite{BWY07}. 
 %
 \begin{lemma}\label{lem:moebiusdia}
   Let $\gP=(\gp^T_1,\gp^T_2,\dots, \gp^T_N)\subset \Omega^N\subset (\R^d)^N$ for $d\in\{1,2\}$ be the ground positions
@@ -399,7 +420,7 @@ diagrams}, introduced in \cite{BK06b} and \cite{BWY07}.
   terminals are given by
   %
   \begin{align}
-    \Vor_n= \Vor_{n}(\gP,\fH)= \bigcap_{m\not=n} \Vor_{nm}(\gP,\fH)
+    \Vor_n= \Vor_{n}(\gP,\fH)= \bigcap_{m\not=n} \Vor_{nm}
   \intertext{with the dominance regions of $\gp_n$ over $\gp_m$ are given by}
     \Vor_{nm}=\Omega\cap\begin{cases}
          HS(\gp_n,\gp_m)&, h_m=h_n \\
@@ -698,7 +719,7 @@ Hence we have shown
  
 \fi % no space for Corrolary
 
-\section{The Optimal UAV deployment over one-dimensional ground}
+\subsection{The Optimal UAV deployment over one-dimensional ground}
 
 In this section, we discuss the optimal UAV deployment when users are placed on a one-dimensional ground, i.e., $d=1$,
 and restrict them to a convex target area, i.e., to an interval $\Omega = [s,t]$.  Under such circumstances, the UAVs
@@ -756,8 +777,8 @@ integral function.
   the global minimum, which can be derived in closed form for integer valued $\gam$ as 
   %
   \begin{align}
-    g(1) = \frac{1}{\sqrt{3}},\ \  g(2) = \frac{\sqrt{\sqrt{32/5}-1}}{3}, 
-    \ \  g(3) = \sqrt{\frac{ (\frac{32}{7})^{1/3}-1}{5}}.\label{eq:ggam}
+    g(1) = \sqrt{1/3},\ \  g(2) = \sqrt{ (\sqrt{32/5}-1)/9}, 
+    \ \  g(3) = \sqrt{\Big((\frac{32}{7})^{1/3}-1\Big)/5}.\label{eq:ggam}
  \end{align}
 \end{lemma}
 %
@@ -952,7 +973,7 @@ heights will not obtain smaller distortions, we proved in \cite{GWJ18a} the foll
   antenna should reduces the power if it covers a non-zero user area.
 \end{remark}
 %
-This allows to derive our main result for the optimal quanitzer with optimal weights. 
+This allows to derive our main result for the parameter optimized quantizer.
 %
 \begin{theorem}\label{thm:commonheight}
   Let $N\in\N$ and $\Ome=[0,A]$ for some $A> 0$. The \emph{unique global optimal deployment} for $N$ UAVs located  at
@@ -1275,19 +1296,27 @@ $d_n=x^*_n-x^*_{n-1}=A/N$ and
 
 
 \junstart
+\if0 % no space to discuss this at all
 \subsection{Deployment for non-uniform user density}
 %
 Note that a great number of literature assumes the common flight height for convenience when they derive the optimal UAV
 deployment or trajectory.  However, in this section, we show via an example that the common flight height is not a
 necessary condition for the optimal deployment over the space including but not limited to the non-uniform distributed
 one-dimensional ground.
+\fi % no space for non-uniform
 
-\section{Numerical Algorithms and Simulation Results}
-In this section, we introduce two Lloyd-like algorithms, Lloyd-A and Lloyd-B, to optimize the quantizer. The proposed algorithms iterate between two steps: (1) The reproduction points are optimized through gradient descent while the partitioning is fixed; (ii) The partitioning is optimized while the reproduction points are fixed.
-In Lloyd-A, all UAVs (or reproduction points) share the common flight height while Lloyd-B allows UAVs to flight on different heights.
+\section{Numerical Algorithms and Simulation Results over Two-Dimensions}
+%
+In this section, we introduce two Lloyd-like algorithms, Lloyd-A and Lloyd-B, to optimize the quantizer. The proposed
+algorithms iterate between two steps: (1) The reproduction points are optimized through gradient descent while the
+partitioning is fixed; (ii) The partitioning is optimized while the reproduction points are fixed.  In Lloyd-A, all UAVs
+(or reproduction points) share the common flight height while Lloyd-B allows UAVs to flight on different heights.
 
-In what follows, we provide the simulation results over the two-dimension target region $\Omega=[0,10]\times[0,10]$ with uniform and non-uniform density functions.
-The non-uniform density function is a Gaussian mixture of the form $\sum_{k=1}^{3}\frac{A_k}{\sqrt{2\pi}\sigma^2_k}\exp{\left(-\frac{\|\ome-c_k\|^2}{2\sigma_k}\right)}$, where the weights, $A_k$, are $0.5$, $0.25$, $0.25$, the mean, $c_k$, are $(3,3)$, $(6,7)$, $(7.5,2.5)$, the standard deviations, $\signa_k$, are  $1.5$, $1$, and $2$.
+In what follows, we provide the simulation results over the two-dimension target region $\Omega=[0,10]\times[0,10]$ with
+uniform and non-uniform density functions.  The non-uniform density function is a Gaussian mixture of the form
+$\sum_{k=1}^{3}\frac{A_k}{\sqrt{2\pi}\sigma^2_k}\exp{\left(-\frac{\|\ome-c_k\|^2}{2\sigma_k}\right)}$, where the
+weights, $A_k$, are $0.5$, $0.25$, $0.25$, the mean, $c_k$, are $(3,3)$, $(6,7)$, $(7.5,2.5)$, the standard deviations,
+$\sigma_k$, are  $1.5$, $1$, and $2$.
 
 
 \begin{figure}[!htb]
@@ -1300,19 +1329,29 @@ The non-uniform density function is a Gaussian mixture of the form $\sum_{k=1}^{
 \subfloat[]{\includegraphics[width=2.9in]{DistortionComparsionNonUniform.eps}
 \label{nonuniformDistortion}}
 \captionsetup{justification=justified}
-\caption{\small{The performance comparison of Lloyd-A, Lloyd-B and Random Deployment (RD). (a) Uniform density. (b) Non-uniform density.}}
+\caption{\small{The performance comparison of Lloyd-A, Lloyd-B and Random Deployment (RD). 
+(a) Uniform density. (b) Non-uniform density.}}
 \label{Distortion}
 \end{figure}
 
-To evaluate the performance of the proposed algorithms, we compare them with the average distortion of 100 random deployments (RD).
-Figs. \ref{uniformDistortion} and \ref{nonuniformDistortion}, show that the proposed algorithms outperform the random deployment on both uniform and non-uniform distributed target region.
-From \ref{uniformDistortion}, one can also find that the distortion achieved by Lloyd-A and Loyd-B are very close, indicating that the common height property in one-dimension region might be extended to two-dimension region when the density function is uniform. 
-However, one can find an nonnegligible gap between Lloyd-A and Lloyd-B from Fig. \ref{nonuniformDistortion} where the density function is non-uniform. For instance, given 16 UAVs and pass loss exponent $\alpha=6$, Lloyd-A's distortion is 40.17 while Lloyd-B obtains a smaller one, 28.25, by placing UAVs on different heights.
+To evaluate the performance of the proposed algorithms, we compare them with the average distortion of 100 random
+deployments (RD).  Figs. \ref{uniformDistortion} and \ref{nonuniformDistortion}, show that the proposed algorithms
+outperform the random deployment on both uniform and non-uniform distributed target region.  From
+\ref{uniformDistortion}, one can also find that the distortion achieved by Lloyd-A and Loyd-B are very close, indicating
+that the common height property in one-dimension region might be extended to two-dimension region when the density
+function is uniform.  However, one can find an nonnegligible gap between Lloyd-A and Lloyd-B from Fig.
+\ref{nonuniformDistortion} where the density function is non-uniform. For instance, given 16 UAVs and pass loss exponent
+$\alpha=6$, Lloyd-A's distortion is 40.17 while Lloyd-B obtains a smaller one, 28.25, by placing UAVs on different
+heights.
 
 \section{Conclusion}
-A parameter weighted quantizer and its applications are studied in this paper. Instead of using the traditional mean distance square as the distortion, we define a more complicated distortion function to model UAVs's energy consumption. We derived the unique optimal quantizer - a uniform scalar quantizer with an optimal common weight - for uniform source distributions in one-dimension space.
-In addition, two Lloyd-like algorithms are designed to minimize the distortion in two-dimension space.
-The numerical simulations illustrate that the common weight property extends to two-dimension space when the density function is uniform.
+%
+A parameter weighted quantizer and its applications are studied in this paper. Instead of using the traditional mean
+distance square as the distortion, we define a more complicated distortion function to model UAVs's energy consumption.
+We derived the unique optimal quantizer - a uniform scalar quantizer with an optimal common weight - for uniform source
+distributions in one-dimension space.  In addition, two Lloyd-like algorithms are designed to minimize the distortion in
+two-dimension space.  The numerical simulations illustrate that the common weight property extends to two-dimension
+space when the density function is uniform.
 
 \if0 % to much. Only put in here simulations, no analytic example.
 In what follows, we provide an example to compare the best deployment with common flight height and an alternative
