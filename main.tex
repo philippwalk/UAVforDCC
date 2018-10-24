@@ -317,7 +317,7 @@ distributed by $\df$ in $\Omega$ is given by the \emph{average distortion} of th
 %
 where we assume that each GT at $\vome$ will chose the UAV which requires the lowest transmit power and defines therefore the corresponding quantization cells $\Vor(\vQ)=\{\Vor_n(\vQ)\}$.
 Here  we assume a \emph{continuous distribution} of GTs, given by $\df:\Ome\to[0,1]$ with $\int_{\Omega}\df(\vome)d\vome=1$, as
-used in \cite{GJ,Erdem1,ML,MLCS}.  We also assume that the
+used in \cite{Erdem16,GJ,GJcom18,GJ18,Erdem1,ML,MLCS}.  We also assume that the
 communication between all users and UAVs is orthogonal, i.e., separated in frequency or time (slotted protocols). An
 \emph{optimal static deployment} is then the minimization of the \emph{average power (distortion)} $\AvDis$ over all UAVs ground positions and heights
 %g
@@ -336,7 +336,7 @@ height, due to the directional antenna effect.
 To find local extrema of \eqref{eq:optPbar} analytically, we will need that the single-objective function $\AvDis$ is
 continuously differentiable at any point in $\Qset^N=\Omega^N\times \R_+^N$, i.e., the gradient exists and is a
 continuous function, as was shown for piecewise continuous non-decreasing distortion functions in the Euclidean metric
-over $\Ome^N$ \cite[Thm.2.2]{CMB05} and \cite{GJ16a}. We could extend this result in \cite{WJ18} to continuous
+over $\Ome^N$ \cite[Thm.2.2]{CMB05} and \cite{GJ}. We could extend this result in \cite{WJ18} to continuous
 \disfunction s on $\Ome\times\Qset$ for arbitrary $d-$dimensional parameter sets $\Qset\subset \R^d$, which are
 multivariate polynomials of finite degree if restricted to $\Omega$.  Then the necessary condition for a local extrema
 is the vanishing of the gradient at a critical point\footnote{Note, if $\nabla \Pbar$ is not continuous in $\Qset^N$
@@ -530,7 +530,7 @@ If the second UAV reaches an altitude of $h_2\geq 2.3$ its Voroni cell $\Vor_{2}
 %
 To find the global optimal deployment for $N$ static UAVs we have to minimize the average distortion (power consumption)
 in \eqref{eq:Pbar}  for all GTs in $\Ome$ over its locational-parameter set $\Qset^N$, i.e., we have to solve the following
-non-convex \emph{$N-$facility locational-parameter optimization problem} \cite{WJ18} 
+non-convex \emph{$N-$facility locational-parameter optimization problem} \cite{GJ, GJcom18, GJ18,WJ18} 
 %
 \begin{align}
   \min_{\vQ\in\Qset^N} \AvDis(\vQ)= \min_{\vP\in\Omega^N,\bH\in \R_+^N} \sum_{n=1}^{N} \int_{\Vor_n(\vP,\bH)}
@@ -1257,7 +1257,7 @@ $d_n=x^*_n-x^*_{n-1}=A/N$ and
 \def\svgwidth{1.1\textwidth} \scriptsize{
   \input{galphaDalpha_bound.pdf_tex}}
   \vspace{-3.2ex}
-  \caption{Optimal height (solid) with bound (dashed) and average distortion (dotted) for $N=2,A=1$ and uniform GT density.}
+  \caption{{\small Optimal height (solid) with bound (dashed) and average distortion (dotted) for $N=2,A=1$ and uniform GT density.}}
   \label{fig:goptdopt}
 \end{minipage}
 \hfill
@@ -1266,8 +1266,8 @@ $d_n=x^*_n-x^*_{n-1}=A/N$ and
 \hspace{-2ex} 
     \def\svgwidth{1.1\textwidth} \scriptsize{
       \input{OptUAVonedimensional.pdf_tex}}
-      \caption{Optimal UAV deployment in one dimension for $A=1,\alp=1$ and $N=2,4$ over a uniform GT density
-      by \eqref{eq:optimaldeploy}.}
+      \caption{{\small Optimal UAV deployment in one dimension for $A=1,\alp=1$ and $N=2,4$ over a uniform GT density
+      by \eqref{eq:optimaldeploy}.}}
       \label{fig:uavonedim}
     \end{minipage}
 \end{figure}
@@ -1282,12 +1282,37 @@ deployment or trajectory.  However, in this section, we show via an example that
 necessary condition for the optimal deployment over the space including but not limited to the non-uniform distributed
 one-dimensional ground.
 
+\section{Numerical Algorithms and Simulation Results}
+In this section, we introduce two Lloyd-like algorithms, Lloyd-A and Lloyd-B, to optimize the quantizer. The proposed algorithms iterate between two steps: (1) The reproduction points are optimized through gradient descent while the partitioning is fixed; (ii) The partitioning is optimized while the reproduction points are fixed.
+In Lloyd-A, all UAVs (or reproduction points) share the common flight height while Lloyd-B allows UAVs to flight on different heights.
+
+In what follows, we provide the simulation results over the two-dimension target region $\Omega=[0,10]\times[0,10]$ with uniform and non-uniform density functions.
+The non-uniform density function is a Gaussian mixture of the form $\sum_{k=1}^{3}\frac{A_k}{\sqrt{2\pi}\sigma^2_k}\exp{\left(-\frac{\|\ome-c_k\|^2}{2\sigma_k}\right)}$, where the weights, $A_k$, are $0.5$, $0.25$, $0.25$, the mean, $c_k$, are $(3,3)$, $(6,7)$, $(7.5,2.5)$, the standard deviations, $\signa_k$, are  $1.5$, $1$, and $2$.
 
 
+\begin{figure}[!htb]
+\setlength\abovecaptionskip{0pt}
+\setlength\belowcaptionskip{0pt}
+\centering
+\subfloat[]{\includegraphics[width=2.9in]{DistortionComparsionUniform.eps}
+\label{uniformDistortion}}
+\hfil
+\subfloat[]{\includegraphics[width=2.9in]{DistortionComparsionNonUniform.eps}
+\label{nonuniformDistortion}}
+\captionsetup{justification=justified}
+\caption{\small{The performance comparison of Lloyd-A, Lloyd-B and Random Deployment (RD). (a) Uniform density. (b) Non-uniform density.}}
+\label{Distortion}
+\end{figure}
 
+To evaluate the performance of the proposed algorithms, we compare them with the average distortion of 100 random deployments (RD).
+Figs. \ref{uniformDistortion} and \ref{nonuniformDistortion}, show that the proposed algorithms outperform the random deployment on both uniform and non-uniform distributed target region.
+From \ref{uniformDistortion}, one can also find that the distortion achieved by Lloyd-A and Loyd-B are very close, indicating that the common height property in one-dimension region might be extended to two-dimension region when the density function is uniform. 
+However, one can find an nonnegligible gap between Lloyd-A and Lloyd-B from Fig. \ref{nonuniformDistortion} where the density function is non-uniform. For instance, given 16 UAVs and pass loss exponent $\alpha=6$, Lloyd-A's distortion is 40.17 while Lloyd-B obtains a smaller one, 28.25, by placing UAVs on different heights.
 
 \section{Conclusion}
-
+A parameter weighted quantizer and its applications are studied in this paper. Instead of using the traditional mean distance square as the distortion, we define a more complicated distortion function to model UAVs's energy consumption. We derived the unique optimal quantizer - a uniform scalar quantizer with an optimal common weight - for uniform source distributions in one-dimension space.
+In addition, two Lloyd-like algorithms are designed to minimize the distortion in two-dimension space.
+The numerical simulations illustrate that the common weight property extends to two-dimension space when the density function is uniform.
 
 \if0 % to much. Only put in here simulations, no analytic example.
 In what follows, we provide an example to compare the best deployment with common flight height and an alternative
