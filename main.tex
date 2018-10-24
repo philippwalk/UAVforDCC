@@ -143,6 +143,7 @@
 \newcommand{\junend}{\color{black}}
 %\renewcommand{\thepage}{\arabic{page}}
 
+\newtheorem{corollary}{Corollary}
 %\pagestyle{plain}
 %\pagenumbering{arabic}
 \begin{document}
@@ -151,35 +152,30 @@
 \title{On the Minimal Average Distortion of Parameter Optimized Quantizers}
 
 
-\newtheorem{corollary}{Corollary}
 
-%\begin{center}
 \author{Jun~Guo, Philipp~Walk, and Hamid~Jafarkhani\\
   {\small\hspace{-0.5cm}\begin{minipage}{\textwidth}
 \begin{tabular}{c}
-University of California Irvine, Department of Electrical Engineering and Compute Science\\
+ %, Department of Electrical Engineering and Compute Science\\
 Center for Pervasive Communications and Computing, Electrical Engineering Hall  \\
-Irvine, CA 92697-2625, USA \\
+University of California, Irvine, CA 92697-2625 \\
 {\it\{guoj4,pwalk,hamidj\}@uci.edu}
 \end{tabular}
 \end{minipage}}
 }
-%\end{center}
 
 \maketitle
 \begin{abstract}
   In many quantization problems, the distortion function is given by a convex $\ell_p-$norm to measure the distance of a
-  given source sample to any given reproduction point of the quantizer. We will in this work regard distortion functions
-  which are weighted for each reproduction point resulting in a heterogeneous quantization problem with
-  non-convex quantization sets, as used in deployment problems of sensor networks. Whereas, in such problems, the
-  average distortion is minimized for given weights, we will optimize here the quantization problem over all positive 
-  weights.
-  For a uniform source distribution in one-dimension we derived the unique minimizer, given as the uniform scalar
-  quantizer with an optimal common weight. By numerical simulations this result extends to two-dimensions where
-  asymptotically the optimal quantizer is the hexagonal lattice with common weights. As an application we will
-  demonstrate the optimal deployment of unmanned aerial vehicles (UAV) to provide a wireless communication to ground users
-  under minimal communication power cost. Here, the optimal positive weights refer to the optimal flight heights of the
-  UAVs.
+  source sample to any given reproduction point of the quantizer. We will in this work regard distortion functions,
+  which are weighted by parameters for each reproduction point resulting in a heterogeneous quantization problem, as
+  used for example in deployment problems of sensor networks. Whereas, in such problems, the average distortion is
+  minimized for given weights, we will optimize here the quantization problem over all weights.  For a uniform
+  source distribution in one-dimension we derived the unique minimizer, given as the uniform scalar quantizer with an
+  optimal common weight. By numerical simulations, we demonstrate that this result extends to two-dimensions where
+  asymptotically the parameter  optimized quantizer is the hexagonal lattice with common weights. As an application we will determine
+  the optimal deployment of unmanned aerial vehicles (UAV) to provide a wireless communication to ground users under
+  a minimal communication power cost. Here, the optimal weights refer to the optimal flight heights of the UAVs.
 \end{abstract}
 %
 \section{Introduction}
