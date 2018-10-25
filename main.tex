@@ -88,10 +88,14 @@
 %
 \newif\ifproof\prooffalse % no proofs
 
-\newcommand{\vhP}{\ensuremath{\hat{\vP}}}   % global optimal ground positions
+\renewcommand{\vq}{\mathbf p}
+\renewcommand{\vp}{\mathbf q}
+\renewcommand{\vQ}{\mathbf P}
+\renewcommand{\vP}{\mathbf Q}
+\newcommand{\vhP}{\ensuremath{\hat{\vQ}}}   % global optimal ground positions
 \newcommand{\Ball}{\ensuremath{B}}          % Euclidean ball
 \newcommand{\df}{\ensuremath{\lam}}         % density function
-\newcommand{\gP}{\ensuremath{\vP}}          % ground position vector
+\newcommand{\gP}{\ensuremath{\vQ}}          % ground position vector
 \newcommand{\gp}{\ensuremath{\vp}}          % ground position
 \newcommand{\fH}{\ensuremath{\vh}}          % flight height vector
 \newcommand{\fh}{\ensuremath{h}}          % flight height
@@ -183,16 +187,16 @@ University of California, Irvine, CA 92697-2625 \\
 
 %
 For a given convex target region $\Omega\in\R^d$ in $d=1,2$ dimensions and a given continuous source sample distribution
-$\lam:\Ome\to [0,1]$ a quantizer is given by $N$ reproduction points $\vP=(\vp_1,\dots,\vp_N)\subset \Ome$ associated
+$\lam:\Ome\to [0,1]$ a quantizer is given by $N$ reproduction or quantization points $\vP=(\vp_1,\dots,\vp_N)\subset \Ome$ associated
 with $N$ quantization regions $\Rset=\{\Rset_1,\dots,\Rset_N\}$, defining a partition of the target region $\Ome$. Here
 $N\in\N$ is a positive integer and we refer in the limit $N\to\infty$ to the high-resolution quantizer.  To measure the
-distortion of the given quantizer usually the Euclidean distance between the source samples and reproduction points is
-used as the distortion function. We will in this work study  quantizers with parameter depending distortion functions
-which minimize the average distortion over a target area at a given source sample distribution, as investigated for
+distortion of a given quantizer usually the Euclidean distance between the source samples and reproduction points is
+defines the distortion function. We will in this work study  quantizers with parameter depending distortion functions
+which minimize the average distortion over a target area for a given source sample distribution, as investigated for
 example in \cite{KJ16b,KJ17}.
 %
 As opposed to a fixed parameter selection \cite{KSS18}, we will assign to each reproduction point $\vp_n$ an independent
-adjustable weight parameter $h_n>0$. For a fixed power parameter $\gam\geq1$, the distortion function is then given by
+adjustable weight parameter $h_n>0$. For a fixed exponent $\gam\geq1$, the distortion function is then given by
 the $\gam-$power of the  multiplicative weighted Euclidean square-distance with $h_n^{-1/\gam}$ and additively weighted
 with $h_n^{2-1/\gam}$. To minimize the average distortion, the optimal quantization regions are known to be generalized
 Voronoi (Möbius) regions, which can be non-convex and disconnected \cite{BWY07}. In many applications, as in sensor or
