@@ -165,7 +165,7 @@ Center for Pervasive Communications and Computing, Electrical Engineering Hall  
 University of California, Irvine, CA 92697-2625 \\
 {\it\{guoj4,pwalk,hamidj\}@uci.edu}
 \end{tabular}
-\end{minipage}}
+\end{minipage}\vspace{0.2cm}}
 }
 
 \maketitle
@@ -186,27 +186,29 @@ University of California, Irvine, CA 92697-2625 \\
 \section{Introduction}
 
 %
-For a given convex target region $\Omega\in\R^d$ in $d=1,2$ dimensions and a given continuous source sample distribution
-$\lam:\Ome\to [0,1]$ a quantizer is given by $N$ reproduction or quantization points $\vP=(\vp_1,\dots,\vp_N)\subset \Ome$ associated
-with $N$ quantization regions $\Rset=\{\Rset_1,\dots,\Rset_N\}$, defining a partition of the target region $\Ome$. Here
-$N\in\N$ is a positive integer and we refer in the limit $N\to\infty$ to the high-resolution quantizer.  To measure the
-distortion of a given quantizer usually the Euclidean distance between the source samples and reproduction points is
-defines the distortion function. We will in this work study  quantizers with parameter depending distortion functions
-which minimize the average distortion over a target area for a given source sample distribution, as investigated for
-example in \cite{Erdem16,KJ17}.
+For a given convex target region $\Omega\in\R^d$ in $d=1,2$ dimensions a quantizer is given by $N$ reproduction or
+quantization points $\vP=(\vp_1,\dots,\vp_N)\subset \Ome$ associated with $N$ quantization regions
+$\Rset=\{\Rset_1,\dots,\Rset_N\}$, defining a partition of the target region $\Ome$.
 %
-As opposed to a fixed parameter selection \cite{KSS18}, we will assign to each reproduction point $\vp_n$ an independent
-adjustable weight parameter $h_n>0$. For a fixed exponent $\gam\geq1$, the distortion function is then given by
-the $\gam-$power of the  multiplicative weighted Euclidean square-distance with $h_n^{-1/\gam}$ and additively weighted
-with $h_n^{2-1/\gam}$. To minimize the average distortion, the optimal quantization regions are known to be generalized
-Voronoi (Möbius) regions, which can be non-convex and disconnected \cite{BWY07}. In many applications, as in sensor or
-vehicle deployments, the optimal weights and parameters are usually unknown and one wishes to optimize the deployment
-over all admissible parameter selections.
-
+%Here $N\in\N$ is a positive integer and we refer in the limit $N\to\infty$ to the high-resolution quantizer.  
+%
+To measure the distortion of a given quantizer, the Euclidean distance between the source samples and reproduction
+points is commonly used as the distortion function. We will in this work study  quantizers with parameter depending
+distortion functions which minimize the average distortion over a target area for a given continuous source sample
+distribution $\lam:\Ome\to [0,1]$, as investigated for example in \cite{Erdem16,KJ17}.
+%
+Contrary to a fixed parameter selection \cite{KSS18}, we will assign to each reproduction point $\vp_n$ an independent
+adjustable parameter $h_n>0$, which weights the distortion function of the $n$th quantizer point to the source samples.
+For a fixed exponent $\gam\geq1$, the distortion function is then given by the $\gam-$power of the  multiplicative
+weighted Euclidean square-distance with $h_n^{-1/\gam}$ and additively weighted with $h_n^{2-1/\gam}$. To minimize the
+average distortion, the optimal quantization regions are known to be generalized Voronoi (Möbius) regions, which can be
+non-convex and disconnected \cite{BWY07}. In many applications, as in sensor or vehicle deployments, the optimal weights
+and parameters are usually unknown and one wishes to optimize the deployment over all admissible parameter selections.
+%
 We will in this work characterize the parameter optimized quantizer  over one-dimensional convex target
 regions. As a motivation we will demonstrate such a parameter driven quantizer for an unmanned aerial vehicle (UAV) deployment
-to provide energy efficiently the communication to ground terminals in a given target region. 
-Here the parameter weight is given by the flight heights of the UAVs.  
+to provide energy efficiently a communication to ground terminals in a given target region. 
+Here the parameter weight refers to  the UAVs flight heights.  
 
 \philippstart \paragraph{Notation} We denote the first
 $N$ positive integers by $[N]=\{1,2,\dots,N\}$. We will denote row vectors by bold letters and
@@ -1368,7 +1370,7 @@ function is uniform.  However, one can find an nonnegligible gap between Lloyd-A
 $\alpha=6$, Lloyd-A's distortion is 40.17 while Lloyd-B obtains a smaller one, 28.25, by placing UAVs on different
 heights.
 
-\begin{figure}[!htb]
+\begin{figure}[t]
 \centering
 \subfloat[]{\includegraphics[width=2.9in]{HR32.eps}
 \label{uniformDistortion_regions}}
@@ -1379,7 +1381,7 @@ heights.
 \caption{\small{The UAV projections on the ground with generalized Voronoi Diagrams. 
 (a) 32 UAVs. (b) 100 UAVs.}}
 \label{Distortion_region}
-\vspace{-2ex}
+\vspace{-4ex}
 \end{figure}
 
 \section{Conclusion}
