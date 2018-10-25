@@ -95,7 +95,7 @@
 \newcommand{\vhP}{\ensuremath{\hat{\vQ}}}   % global optimal ground positions
 \newcommand{\Ball}{\ensuremath{B}}          % Euclidean ball
 \newcommand{\df}{\ensuremath{\lam}}         % density function
-\newcommand{\gP}{\ensuremath{\vQ}}          % ground position vector
+\newcommand{\gP}{\ensuremath{\vP}}          % ground position vector
 \newcommand{\gp}{\ensuremath{\vp}}          % ground position
 \newcommand{\fH}{\ensuremath{\vh}}          % flight height vector
 \newcommand{\fh}{\ensuremath{h}}          % flight height
@@ -118,12 +118,12 @@
 
 \newcommand{\Hset}{\ensuremath{\mathcal H}}
 \newcommand{\Rset}{\ensuremath{\mathcal R}}
-\renewcommand{\Pset}{\ensuremath{\mathcal P}}
+\renewcommand{\Pset}{\ensuremath{\mathcal Q}}
 \renewcommand{\Sset}{\ensuremath{\mathcal S}}
 \newcommand{\Fset}{\ensuremath{\mathcal F}}
 \newcommand{\Fsetle}{\ensuremath{F^-}}
-\newcommand{\Qset}{\ensuremath{\mathcal Q}}
-\newcommand{\tQset}{\ensuremath{\tilde{\mathcal Q}}}
+\newcommand{\Qset}{\ensuremath{\mathcal P}}
+\newcommand{\tQset}{\ensuremath{\tilde{\mathcal P}}}
 
 \renewcommand{\bibfont}{\footnotesize}
 \addbibresource{jabref_philipp_utf2.bib} % Meine bibliography
@@ -193,7 +193,7 @@ $N\in\N$ is a positive integer and we refer in the limit $N\to\infty$ to the hig
 distortion of a given quantizer usually the Euclidean distance between the source samples and reproduction points is
 defines the distortion function. We will in this work study  quantizers with parameter depending distortion functions
 which minimize the average distortion over a target area for a given source sample distribution, as investigated for
-example in \cite{KJ16b,KJ17}.
+example in \cite{Erdem16,KJ17}.
 %
 As opposed to a fixed parameter selection \cite{KSS18}, we will assign to each reproduction point $\vp_n$ an independent
 adjustable weight parameter $h_n>0$. For a fixed exponent $\gam\geq1$, the distortion function is then given by
@@ -212,9 +212,8 @@ Here the parameter weight is given by the flight heights of the UAVs.
 $N$ positive integers by $[N]=\{1,2,\dots,N\}$. We will denote row vectors by bold letters and
 matrices by bold capital letters. We denote by $(\cdot)^T$ the transpose of a vector or matrix.
 For convenience, let $\Ball\left(\vc,r\right)=\set{\vome}{\|\vome-\vc\|^2\le r}$ be the open ball in $\R^d$ centered at
-$\vc\in\R^d$ with radius $r\geq 0$. Note that $\Ball\left(\vc,0\right)$ is an empty set. We denote by $\partial \Vor$ the
-boundary of the set $\Vor\subset\R^d$ and by $\Vor^c$ its complement. In particular, $\partial \Ball(\vc,r)$ is the sphere
-with center at $\vc$ and radius $r$. We will denote the positive numbers by $\R_+:=\set{a\in\R}{a>0}$.
+$\vc\in\R^d$ with radius $r\geq 0$. Note that $\Ball\left(\vc,0\right)$ is an empty set. We denote by $\Vor^c$ the
+the complement of the set $\Vor\subset\R^d$. We will denote the positive numbers by $\R_+:=\set{a\in\R}{a>0}$.
 Moreover, for two points $\va,\vb\in\R^d$, we denote the generated half space between them, which contains $\va\in\R^d$
 by $HS(\va, \vb)$.  \philippend
 
@@ -235,14 +234,14 @@ ground cells correspond to hexagonal sets in the high-resolution limit (no bound
 \philippend
 \fi
 
-To motivate the concept of parameter optimized quantizers we will investigate the deployment of $N$ UAVs located at
+To motivate the concept of parameter optimized quantizers we will investigate the deployment of $N$ UAVs positioned at
 $\vQ=(\vq_1^T,\dots,\vq_N^T)\in\R^{d+1\times N}$ to provide a wireless communication link to ground terminals in a given
-target region  $\Ome\subset\R^d$. Here, the $n$th UAVs location $\vq_n=(\vp_n,h_n)$ is given by its ground position
+target region  $\Ome\subset\R^d$. Here, the $n$th UAVs position $\vq_n=(\vp_n,h_n)$ is given by its ground position
 $\vp_n=(x_n,y_n)\in\Ome$, representing the reproduction point, and its flight height $h_n$, representing the additional
 parameter of the quantizer.  The optimal UAV deployment (quantizer) is then defined by the minimal average communication
 power (distortion) to serve ground terminals distributed by $\lam$ in $\Ome$ with a minimal given data rate $R_b$. Hereby, each
 ground terminal will select the UAV which requires the smallest communication power, resulting in  so called
-generalized Voronoi (quantization) regions of $\Ome$, see for example \cite{Erdem}.
+generalized Voronoi (quantization) regions of $\Ome$, see for example \cite{KSS18}.
 
 In the recent decade, UAVs with directional
 antennas have been widely studied in the literature \cite{BJL,MSF,HA,KMR,HSYR,MWMM}, to increase the efficiency of wireless
@@ -253,7 +252,7 @@ $\theta_n\in[0,\frac{\pi}{2}]$ from the $n$th UAV at $\vq_n$ to a GT at $\vome$,
 %Here, the elevation angle is defined as the ratio between the
 %ground distance $\overline{\vome \vp_n}$ and flight height $h_n$, 
 see \figref{fig:uavdirected}.
-
+%
 %
 %We consider a network of continuous distributed GTs at zero elevation in the target region
 %$\Omega\subset\mathbb{R}^2$ and $N$ low-altitude UAVs in the sky.  Let $\vP=(\vp_1^T,\dots,\vp_N^T)$ be the UAV (ground)
@@ -264,9 +263,9 @@ see \figref{fig:uavdirected}.
 %By fixing a minimal data-rate $R_b$, the optimal deployment of the UAVs is given by the minimization of the average
 %communication power for a given GT density in the target area Hereby, each GT is assigned
 %to the UAV which requires the smallest communication power.  The target area is therefore partitioned into ground cells.
-
+%
 To capture the power falloff versus the line-of-sight distance $d$
-along with the random attenuation about the path loss from shadowing, we adopt the propagation model \cite[(2.51)]{AG}
+along with the random attenuation about the path loss from shadowing, we adopt the propagation model \cite[(2.51)]{Gol05}
 as:
 %
 \begin{equation}
@@ -430,7 +429,7 @@ parameters $h_n\in\R_+$  associate to the generating (ground) points $p_n$, whic
 diagrams}, introduced in \cite{BWY07}. 
 %
 \begin{lemma}\label{lem:moebiusdia}
-  Let $\gP=(\gp^T_1,\gp^T_2,\dots, \gp^T_N)\subset \Omega^N\subset (\R^d)^N$ for $d\in\{1,2\}$ be the ground positions
+  Let $\vP=(\gp^T_1,\gp^T_2,\dots, \gp^T_N)\subset \Omega^N\subset (\R^d)^N$ for $d\in\{1,2\}$ be the ground positions
   and $\fH=(\fh_1,\dots,\fh_N)\in\R_+^N$  the associated flight heights  of the $N$ UAVs. Then the total average
   transmit power to serve any ground terminal in $\Ome$ distributed by $\df$ for $\bet=1$ and path-loss exponent
   $\alp\geq1$ is given by 
@@ -1372,14 +1371,15 @@ heights.
 \begin{figure}[!htb]
 \centering
 \subfloat[]{\includegraphics[width=2.9in]{HR32.eps}
-\label{uniformDistortion}}
+\label{uniformDistortion_regions}}
 \hfil
 \subfloat[]{\includegraphics[width=2.9in]{HR100.eps}
-\label{nonuniformDistortion}}
+\label{nonuniformDistortion_regions}}
 \captionsetup{justification=justified}
 \caption{\small{The UAV projections on the ground with generalized Voronoi Diagrams. 
 (a) 32 UAVs. (b) 100 UAVs.}}
-\label{Distortion}
+\label{Distortion_region}
+\vspace{-2ex}
 \end{figure}
 
 \section{Conclusion}
