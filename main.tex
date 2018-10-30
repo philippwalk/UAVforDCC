@@ -1369,7 +1369,8 @@ function is uniform.  However, one can find an nonnegligible gap between Lloyd-A
 \ref{nonuniformDistortion} where the density function is non-uniform. For instance, given 16 UAVs and pass loss exponent
 $\alpha=6$, Lloyd-A's distortion is 40.17 while Lloyd-B obtains a smaller one, 28.25, by placing UAVs on different
 heights.
-
+Figs. \ref{uniformDistortion_regions} and \ref{nonuniformDistortion_regions} illustrate the UAV ground projections and their partitions on a uniform distributed region. As the number of UAVs increases, the UAV partitions approximate to be hexagons which implies the common height property (Theorem \ref{thm:commonheight}) might be extended to uniform-distributed two-dimensions. 
+However, our simulations in \cite{GWJ18a} show that the common height is no longer a necessary condition for the optimal quantizer when data distribution is non-uniform.
 \begin{figure}[t]
 \centering
 \subfloat[]{\includegraphics[width=2.9in]{HR32.eps}
@@ -1378,7 +1379,7 @@ heights.
 \subfloat[]{\includegraphics[width=2.9in]{HR100.eps}
 \label{nonuniformDistortion_regions}}
 \captionsetup{justification=justified}
-\caption{\small{The UAV projections on the ground with generalized Voronoi Diagrams. 
+\caption{\small{The UAV projections on the ground with generalized Voronoi Diagrams where $\alpha=2$. 
 (a) 32 UAVs. (b) 100 UAVs.}}
 \label{Distortion_region}
 \vspace{-4ex}
