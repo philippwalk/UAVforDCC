@@ -159,13 +159,15 @@
 \pagenumbering{arabic}
 \fi
 
-% squeezing for formulas to save some space
  
 \begin{document}
 %
+% squeezing for formulas to save some space
+\ifarxiv
+\else
 \renewcommand{\baselinestretch}{.95}
 \setlength{\belowcaptionskip}{-2ex}
-
+\fi
 % paper title
 \title{On the Minimal Average Distortion of Parameter Optimized Quantizers}
 
@@ -1110,8 +1112,8 @@ $\alpha=6$, Lloyd-A's distortion is 40.17 while Lloyd-B obtains a smaller one, 2
 heights.  Figs. \ref{uniformDistortion_regions} and \ref{nonuniformDistortion_regions} illustrate the UAV ground
 projections and their partitions on a uniform distributed region. As the number of UAVs increases, the UAV partitions
 approximate to be hexagons which implies the common height property (Theorem \ref{thm:commonheight}) might be extended
-to uniform-distributed two-dimensions.  However, our simulations in \cite{GWJ18b} show that the common height is no
-longer a necessary condition for the optimal quantizer when data distribution is non-uniform.
+to uniform distributed two-dimension.  However, our simulations in \cite{GWJ18b} show that the common height is no
+longer a necessary condition for the optimal quantizer when distribution is non-uniform.
 %
 \begin{figure}[t]
 \centering
