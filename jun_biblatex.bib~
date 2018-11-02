@@ -269,7 +269,7 @@
   author     = {Guo, Jun and Jafarkhani, Hamid and Koyuncu, Erdem},
   title      = {A Source Coding Perspective on Node
 Deployment in Two-Tier Networks},
-  journal   = {{IEEE} Transactions on Communications},
+  journal   = {{IEEE} Trans. Commun.},
   year      = {2018},
   volume    = {66},
   number    = {7},
