@@ -733,7 +733,8 @@ If $d=1$ the ground users will be located on a line and we have $\vp_n=x_n\in\R$
 distribution on $\Omega$, i.e.  $\df(\ome)=1/\mu(\Omega)$ where $\mu$ is the Lebesgue measure and
 $0<A=\mu(\Omega)<\infty$. 
 %
-\if0 % not needed anymore Let us first recall the scalar quantizer.
+\if0 % not needed anymore
+Let us first recall the scalar quantizer.
 %
 \begin{lemma}[Uniform Scalar Quantization]\label{lem:UniformScalarQuantizer}
   Let $N$ be a positive integer and $A>0$. Then the optimal $N-$point quantizer in $[0,A]$ with respect to the

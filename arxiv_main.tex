@@ -24,7 +24,6 @@
 \newcommand{\bR}{\mathbf{R}}
 \newcommand{\bV}{\mathbf{V}}
 \newcommand{\bU}{\mathbf{U}}
-\newcommand{\Ind}{\mathcal{I}}
 \newcommand{\interior}[1]{%
   {\kern0pt#1}^{\mathrm{o}}%
 }
@@ -57,9 +56,6 @@
 
 \usepackage{amsmath}
 \input{Header/Header_Philipp.tex}
-
-\newif\ifarxiv\arxivfalse
-%\arxivtrue% uncomment for arxiv version 
 
 \usepackage[style=ieee,    
             firstinits=true, % vornamen = erste buchstabe
@@ -154,18 +150,10 @@
 %\renewcommand{\thepage}{\arabic{page}}
 
 \newtheorem{corollary}{Corollary}
-\ifarxiv
-\pagestyle{plain}
-\pagenumbering{arabic}
-\fi
-
-% squeezing for formulas to save some space
- 
+%\pagestyle{plain}
+%\pagenumbering{arabic}
 \begin{document}
 %
-\renewcommand{\baselinestretch}{.95}
-\setlength{\belowcaptionskip}{-2ex}
-
 % paper title
 \title{On the Minimal Average Distortion of Parameter Optimized Quantizers}
 
@@ -186,17 +174,18 @@ University of California, Irvine, CA 92697-2625 \\
 \begin{abstract}
   In many quantization problems, the distortion function is given by the Euclidean norm to measure the distance of a
   source sample to any given reproduction point of the quantizer. We will in this work regard distortion functions,
-  which are additively and multiplicatively weighted for each reproduction point resulting in a heterogeneous
-  quantization problem, as used for example in deployment problems of sensor networks. Whereas, in such problems, the
-  average distortion is minimized for given weights (parameters), we will optimize the quantization problem over all
-  weights, i.e., we tune or control the distortion functions in our favour. 
-  %
-  For a uniform source distribution in one-dimension we derived the unique minimizer, given as the uniform scalar
-  quantizer with an optimal common weight. By numerical simulations, we demonstrate that this result extends to
-  two-dimensions where asymptotically the parameter optimized quantizer is the hexagonal lattice with common weights. As
-  an application we will determine the optimal deployment of unmanned aerial vehicles (UAV) to provide a wireless
-  communication to ground terminals under a minimal communication power cost. Here, the optimal weights refer to the
-  optimal flight heights of the UAVs.
+  which are additively and multiplicatively weighted for each reproduction point resulting in a heterogeneous quantization problem, as
+  used for example in deployment problems of sensor networks. Whereas, in such problems, the average distortion is
+  minimized for given weights (parameters), we will optimize the quantization problem over all weights, i.e., we tune
+  or control the distortion functions in our favour. 
+  %This controlling of the distortion, seems to be not considered in quantization theory controlling
+  For a uniform source
+  distribution in one-dimension we derived the unique minimizer, given as the uniform scalar quantizer with an optimal
+  common weight. By numerical simulations, we demonstrate that this result extends to two-dimensions where
+  asymptotically the parameter optimized quantizer is the hexagonal lattice with common weights. As an application we
+  will determine the optimal deployment of unmanned aerial vehicles (UAV) to provide a wireless communication to ground
+  terminals under a minimal communication power cost. Here, the optimal weights refer to the optimal flight heights of the
+  UAVs.
 \end{abstract}
 %
 \section{Introduction}
@@ -215,36 +204,28 @@ distribution $\lam:\Ome\to [0,1]$, as investigated for example in \cite{Erdem16,
 %
 Contrary to a fixed parameter selection \cite{Erdem16}, we will assign to each quantization point $\vp_n$ variable
 parameters to control the distortion function of the $n$th quantization point.
-Such a controllable distortion function widens the scope of quantization theory and allows to apply quantization
-techniques to many parameter dependent network and locational problems.
 %
 %For a fixed exponent $\gam\geq1$, the distortion function is then given by the $\gam-$power of the  multiplicative
 %weighted Euclidean square-distance with $h_n^{-1/\gam}$ and additively weighted with $h_n^{2-1/\gam}$.
 %
-In this work, we will consider for the distortion function of $\vp_n$ the Euclidean square-distance, which is multiplicative weighted
+We will consider for the distortion function of $\vp_n$ the Euclidean square-distance, which is multiplicative weighted
 by some $a_n>0$ and additively weighted by some $b_n>0$. Furthermore, we exponentially weight all distortion functions by
 some fixed exponent $\gam\geq 1$. To minimize the average distortion, the optimal quantization regions are known to be
 generalized Voronoi (Möbius) regions, which can be non-convex and disconnected sets \cite{BWY07}.
 %
 In many applications, as in sensor or vehicle deployments, the optimal weights and parameters are usually unknown, but
 adjustable, and one wishes therefore to optimize the deployment over all admissible parameter values, see for example 
- \cite{KKSS18}.
+ \cite{KKSS18} for one single parameter.
 %
 We will in this work characterize such \emph{parameter optimized quantizers}  over one-dimensional convex target
 regions, i.e., over closed intervals. As a motivation we will demonstrate such a parameter driven quantizer for an
 unmanned aerial vehicle (UAV) deployment to provide energy efficiently a communication to ground terminals in a given
-target region.  Here the parameters refer to the UAVs flight heights.  
-\ifarxiv
-\else
-Due to page limitations, all proofs are presented in \cite{GWJ18b}.
-\fi
+target region.  Here the parameter weight refer to the UAVs flight heights.  
 
 \philippstart \paragraph{Notation}  By $[N]=\{1,2,\dots,N\}$ we denote the first $N$ positive integers.  We will write
 row vectors by bold letters and matrices by bold capital letters.  For convenience, let
 $\Ball\left(\vc,r\right)=\set{\vome}{\|\vome-\vc\|^2\le r}$ be the open ball in $\R^d$ centered at $\vc\in\R^d$ with
-radius $r\geq 0$.
-%Note that $\Ball\left(\vc,0\right)$ is an empty set.
-We denote by $\Vor^c$ the complement of the set
+radius $r\geq 0$. Note that $\Ball\left(\vc,0\right)$ is an empty set. We denote by $\Vor^c$ the complement of the set
 $\Vor\subset\R^d$. The positive numbers are denoted by $\R_+:=\set{a\in\R}{a>0}$.  Moreover, for two points
 $\va,\vb\in\R^d$, we denote the generated half space between them, which contains $\va\in\R^d$ as $\HS(\va, \vb)$.
 \philippend
@@ -275,10 +256,8 @@ power (distortion) to serve ground terminals distributed by $\lam$ in $\Ome$ wit
 ground terminal will select the UAV which requires the smallest communication power, resulting in  so called
 generalized Voronoi (quantization) regions of $\Ome$,  as used in
 \cite{Erdem16,GJ,GJcom18,GJ18,Erdem1,ML,MLCS,KKSS18}.  
-\ifarxiv
 We also assume that the communication between all users and UAVs is
 orthogonal, i.e., separated in frequency or time (slotted protocols).
-\fi
 
 In the recent decade, UAVs with directional antennas have been widely studied in the literature
 \cite{BJL,MSF,HA,KMR,HSYR,MWMM}, to increase the efficiency of wireless links. However, in
@@ -311,8 +290,8 @@ from shadowing, we adopt the propagation model \cite[(2.51)]{Gol05} as:
 where $K$ is a unitless constant depending on the antenna characteristics, $d_0$ is a reference distance, $\alpha\geq 1$
 is the terrestrial path loss exponent, and $\psi_{dB}$ is a Gaussian random variable following
 $\mathcal{N}\left(0,\sigma^2_{\psi_{dB}}\right)$. This air-to-ground or terrestrial path loss model is widely used for
-UAV basestation path-loss models \cite{MSBD16a}. Practical values are between $2$ and $6$ and depend on the Euclidean
-distance $d$ of GT $\vome$ and UAV $\vp_n$
+UAV basestation path-loss models \cite{MSBD16a}. Practical values are between $2$ and $6$ and depends on the Euclidean
+distance $d$, given between a ground user $\vome$ and UAV $\vq_n=(\vp_n,h_n)$ as
 %
 \begin{align}
  d_n(\vome)= d(\vq_n,(\vome,0))=\sqrt{\|\vp_n-\vome\|^2+h_n^2}=\sqrt{(x_n-x)^2+(y_n-y)^2+h_n^2}\label{eq:eucd}
@@ -326,11 +305,11 @@ $P_{RX}=P_{TX}G_{TX}G_{RX}PL=P_{TX}G_{TX}G_{RX}Kd^{\alpha}_0 d_n^{-\alpha}(\vome
 %
 where $G_{TX}$ and $G_{RX}$ are the antenna gains of the transmitter and the receiver, respectively. Here, we assume
 perfect omnidirectional transmitter (GT) antennas with an isotropic gain and directional receiver (UAV) antennas.  The
-angle dependent antenna gains are %then given by 
+angle dependent antenna gains are then given by 
 %
 \begin{equation}
 \GGT >0\quad,\quad
-  \GUAV = \cos\left(\theta_n\right)=h_n/d_n(\vome),
+  \GUAV = \cos\left(\theta_n\right)=h_n/d_n(\vome).
 \label{eq:Gdirected}
 \end{equation}
 %
@@ -352,32 +331,32 @@ Accordingly, the received power can be rewritten as
   P_{RX}=P_{TX}h_n \GGT K d^{\alpha}_0 d_n^{-\alpha-1}(\vome)10^{-\frac{\psi_{dB}}{10}}.
 \end{equation}
 %
-To achieve the reliable communication between GT and UAV with bit-rate at least $\Rb$, we get for a
+To achieve the reliable communication between GT and UAV with capacity (bit-rate) at least $\Rb$, we get for a
 channel bandwidth $B$  and noise power density $N_0$ by the Shannon capacity 
 $B\log_2\left(1+\frac{P_{RX}}{BN_0}\right)\ge\Rb$
-The minimum transmission power to UAV $\vq_n$ is then given by
-$P_{TX,n}=\big(2^{\frac{\Rb}{B}}-1\big)B N_0d(\vq_n,(\vome,0))^{\alpha+1}10^{\frac{\psi_{dB}}{10}} (h_n \GGT
+The minimum transmission power is then given by
+$P_{TX}=\big(2^{\frac{\Rb}{B}}-1\big)B N_0d(\vq_n,(\vome,0))^{\alpha+1}10^{\frac{\psi_{dB}}{10}} \cdot  (h_n \GGT
 Kd^{\alpha}_0)^{-1}$.
 %
 %We will also assigned a variable SNR $s_n=S_n /N_0$ to the $n$th UAV as an additional free parameter. This defines a
 %heterogeneous UAV network if $s_n\not=s_m$ for any $n\not=m$.  Note, that we could assume different noise powers at the
 %receiver or different transmit powers associated to the $n$th UAV cell. 
 %
-The expectation  % the minimum transmitter power of the $n$th UAV to the GT is then 
+The expectation of the minimum transmitter power of the $n$th UAV to the GT is then 
 %
 \begin{align}
  \Dis(\vome,\vq_n):= \Expect{P_{TX,n}}& =
   \frac{(2^{\frac{\Rb}{B}}-1)N_0 }{ h_n \GGT Kd^{\alpha}_0}
-  \frac{d_n^{\alpha+1}(\vome)}{\sqrt{2\pi}\sigma_{\psi_{dB}}} \int_{\R}
+   \frac{d_n^{\alpha+1}(\vome)}{\sqrt{2\pi}\sigma_{\psi_{dB}}} \int_{-\infty}^{+\infty}
      \exp\left(-\frac{\psi^2_{dB}}{2\sigma^2_{\psi_{dB}}}+ \ln(10) \frac{\psi_{dB}}{10}\right)d\psi_{dB}\notag\\
   %&=\frac{(2^{\frac{\Rb}{B}}-1)   N_0 \exp\big(-\frac{\sigma^2_{\psi_{dB}}(\ln{10})^2}{200}\big)d(\vq_n,(\vome,0))^{\alpha+1}}
   %{h_n \GGT Kd^{\alpha}_0 } \notag\\
      &=\bet \cdot
-     d_n^{2\gam}(\vome) h_n^{-1}=\bet\cdot (h_n^{-1/\gam}\Norm{\vp_n-\ome}_2^2+h_n^{2-1/\gam})^\gam
+     \frac{d_n^{2\gam}(\vome)}{h_n}=\bet\cdot (h_n^{-1/\gam}\Norm{\vp_n-\ome}_2^2+h_n^{2-1/\gam})^\gam
    \label{eq:Eptx}
 \end{align}
 %
-defines then the $n$th \emph{parameter distortion function} $D(\cdot,\vq_n)$  with the independent and fixed parameters
+and defines the $n$th \emph{parameter distortion function} $D(\cdot,\vq_n)$  with the independent and fixed parameters
 %
 \begin{align}
   \bet=(2^{\frac{\Rb}{B}}-1)B N_0 \exp\big(-\frac{\sig_{\psi_{dB}}^2 (\ln 10)^2}{200}\big)(\GGT K)^{-1}
@@ -385,14 +364,13 @@ defines then the $n$th \emph{parameter distortion function} $D(\cdot,\vq_n)$  wi
   \gam=\frac{\alp+1}{2}.
 \end{align}
 %
-For simplicity, we will set from here on $\bet=1$, since it will not affect the quantizer. 
 
 
 \section{Parameter Optimized Quantizers under Minimal Average Distortion}
 
 The communication power cost \eqref{eq:Eptx} defines therefore with $a_n=h_n^{-1/\gam}$ and $b_n=h_n^{2-1/\gam}$ for
 fixed $\gam\geq 1$ a parameter dependent distortion function for $\vp_n$. For a given source sample (GT)
-density $\df$ in $\Omega$, the minimal average distortion for given \emph{parameter and quantization points}
+distribution $\df$ in $\Omega$, the minimal average distortion for  given \emph{parameter and quantization points}
 $\vQ=(\vP,\vh)$ over all quantization sets $\Rset$ is called the \emph{average distortion} of $\vQ$
 %
 \begin{equation}
@@ -410,9 +388,8 @@ therefore a minimizer of the \emph{average distortion} $\AvDis$ over all paramet
   \min_{\vP\in\Omega^N, \bH\in\R_+^{N}} \AvDis(\vP,\bH)=\min_{\vQ\in\Qset^N} \AvDis(\vQ)\label{eq:optPbar},
 \end{align}
 %
-which defines an \emph{$N-$facility locational-parameter optimization problem} \cite{GJ, GJcom18, GJ18}. By the
-definition of the Voronoi regions \eqref{eq:Pbar} this is equivalent to the minimal average distortion over all
-$N-$level parameter quantizers $(\vQ,\Rset)$, i.e., 
+which defines an \emph{$N-$facility locational-parameter optimization problem}. By the definition of the Voronoi regions
+\eqref{eq:Pbar} this is equivalent to the minimal average distortion over all parameter quantizers $(\vQ,\Rset)$, i.e., 
 %
 \begin{align}
  \AvDis(\vQ^*)= \min_{\vQ\in\Qset^N} \min_{\Rset\in\Ome^N} \AvDis(\vQ,\Rset) = \min_{\vQ\in\Qset^N}
@@ -477,17 +454,20 @@ introduced very recently in \cite{BWY07}.
 \begin{lemma}\label{lem:moebiusdia}
   Let $\vP=\{\gp_1,\gp_2,\dots, \gp_N\}\subset \Omega^N\subset (\R^d)^N$ for $d\in\{1,2\}$ be the quantization points 
   and $\fH=(\fh_1,\dots,\fh_N)\in\R_+^N$  the associated parameters. Then the average distortion of $(\vP,\vh)$ 
-  over all samples in $\Ome$ distributed by $\df$ for  some exponent $\gam\geq1$ 
+  over all samples in $\Ome$ distributed by $\df$ for  some exponent
+  $\alp\geq1$ 
   %
   \begin{align}
     \AvDis\left(\vP,\fH\right) 
-    = \sum_{n=1}^{N} \int_{\Vor_n} \! \frac{ (\Norm{\gp_n- \vome}^2 +h_n^2)^{\gam}}{h_n} \df(\vome)d\vome
+    = \sum_{n=1}^{N} \int_{\Vor_n} \! \frac{ (\Norm{\gp_n- \vome}^2 +h_n^2)^{\frac{1+\alp}{2}}}{h_n} \df(\vome)d\vome
        \label{eq:minimizationmoebius}
   \end{align}
   %
-  has generalized Voronoi regions $\Vor_n= \Vor_{n}(\gP,\fH)= \bigcap_{m\not=n} \Vor_{nm}$, 
-  where the dominance regions of quantization point $n$ over $m$ are given by
+  has generalized Voronoi regions, given by 
+  %
   \begin{align}
+    \Vor_n= \Vor_{n}(\gP,\fH)= \bigcap_{m\not=n} \Vor_{nm}
+  \intertext{where the dominance regions of point $n$ over $m$ are given by}
     \Vor_{nm}=\Omega\cap\begin{cases}
          HS(\gp_n,\gp_m)&, h_m=h_n \\
          B(\vc_{nm},r_{nm}) &, h_n<h_m\\
@@ -498,42 +478,37 @@ introduced very recently in \cite{BWY07}.
   with center and radii
   %
   \begin{align}
-    \vc_{nm}\!=\!\frac{\gp_n - h_{nm}\gp_m}{1-h_{nm}}
+    \vc_{nm}=\frac{\gp_n - h_{nm}\gp_m}{1-h_{nm}}
     \quad\text{and}\quad 
-    r_{nm}\!=\!\left(\frac{h_{nm}}{\left(1-h_{nm}\right)^2}\Norm{\gp_n-\gp_m}^2  + h_n^2 \frac{h_{nm}^{1-2\gam}
-  -1}{1-h_{nm}}\right)^{\frac{1}{2}}.
-  \label{eq:rnmcnm}
+    r_{nm}=\left(\frac{h_{nm}}{\left(1-h_{nm}\right)^2}\Norm{\gp_n-\gp_m}^2  + h_n^2 \frac{h_{nm}^{-\alp}
+  -1}{1-h_{nm}}\right)^{1/2}\label{eq:rnmcnm}
   \end{align}
   %
-  Here, we introduced the parameter ratio of the $n$th and $m$th quantization point as
+  Here, we introduced the parameter interaction between quantization point $n$ and $m$ as
   %
   \begin{align}
-    h_{nm}= \left(h_m/h_n\right)^{\gam}.
+    h_{nm}= \left(h_n/h_m\right)^{\frac{2}{1+\alp}}.
   \end{align}
   %
 \end{lemma}
-\ifarxiv
 \begin{remark}
   It is also possible that two quantization points are equal, but have different parameters. If the parameter
-  ratio is very small or very large, one quantization point can become redundant, i.e., if its optimal quantization set is empty.
-  In fact, if we optimize over all quantizer points, such a case will be excluded, which we will show for one-dimension
-  in \lemref{lemma:allActive}.
+  interaction is to small, one quantization point can become redundant, i.e., if its optimal quantization set is empty.
  % have the same ground position, i.e., $\gp_n=\gp_m$, then both of them are active, if the relative height
  % difference is not to large. In all other cases, each UAV will be active, as long as it is not to high or to low. 
 \end{remark}
-\fi
 %
-\ifarxiv
+\ifproof
 \begin{proof}
-  The minimization \eqref{eq:Pbar} of the distortion functions over $\Omega$ defines an assignment rule for a
-  generalized Voronoi diagram $\Vor(\gP,\bH)=\{\Vor_1,\Vor_2,\dots,\Vor_N\}$ where 
+  The minimization of the performance functions over $\Omega$ defines an assignment rule for a generalized Voronoi diagram
+  $\Vor(\gP,\bH)=\{\Vor_1,\Vor_2,\dots,\Vor_N\}$ where 
   %
   \begin{align}
     \Vor_{n} =\Vor_n(\gP,\bH):=
       &\set{\vome\in\Ome}{ a_n\Norm{\vp_n-\vome}^2 +b_n \leq  a_m\Norm{\vp_m-\vome}^2 +b_m, m\not=n}
   \end{align}
   %
-  is the $n$th generalized Voronoi region, see for example \cite[Cha.3]{OBSC00}. Here we denoted the weights by the positive numbers
+  is the $n$th Voronoi region. Here we denoted the weights by the positive numbers
   %
   \begin{align}
     a_n = h_n^{-\frac{1}{\gam}}, \quad b_n=h_n^{2-\frac{1}{\gam}}
@@ -567,7 +542,7 @@ introduced very recently in \cite{BWY07}.
     \vc_{nm}=\frac{a_n\vp_n- a_m\vp_m}{a_n-a_m}=a_n \frac{\vp_n-h_{nm} \vp_m}{a_n -a_m}=\frac{\vp_n -h_{nm}\vp_m}{1-h_{nm}} 
   \end{align}
   %
-  where we introduced the \emph{parameter ratio} of the $n$th and $m$th quantization point as
+  where we introduced the \emph{relative flight height} between the $n$th and $m$th UAV
   %
   \begin{align}
     h_{nm}:= a_m/a_n=\left(h_n/h_m\right)^{\frac{2}{1+\alp}}>0.
@@ -589,7 +564,7 @@ introduced very recently in \cite{BWY07}.
     r_{nm}^2 
             &= a_na_m\frac{\Norm{\vp_n-\vp_m}^2}{(a_n-a_m)^2} + \frac{b_m-b_n}{a_n-a_m}=
             \frac{a_n}{a_m}\frac{\Norm{\vp_n-\vp_m}^2}{(1-\frac{a_n}{a_m})^2} +
-            \frac{b_m-b_n}{a_n-a_m}\label{eq:radiusnm}.
+            \frac{b_m-b_n}{a_n-a_m}\label{eq:radiusnm}
   \end{align}
   %
   The second summand can be written as
@@ -623,9 +598,9 @@ become ``inactive``.
 
 \subsection{Local optimality conditions}
 %
-To find the optimal $N-$level parameter quantizer \eqref{eq:optPbar}, we have to minimize the average distortion
-\eqref{eq:Pbar} over all possible parameter quantization points in $\Qset^N$, i.e., we have to solve a non-convex
-\emph{$N-$facility locational-parameter optimization problem},
+To find the optimal $N-$level parameter quantizer, we have to minimize the average distortion in \eqref{eq:Pbar} over all
+possible parameter quantization points in $\Qset^N$, i.e., we have to solve the following non-convex \emph{$N-$facility
+locational-parameter optimization problem} \cite{GJ, GJcom18, GJ18} 
 %
 \begin{align}
   \min_{\vQ\in\Qset^N} \AvDis(\vQ)= \min_{\vP\in\Omega^N,\bH\in \R_+^N} \sum_{n=1}^{N} \int_{\Vor_n(\vP,\bH)}
@@ -634,16 +609,18 @@ To find the optimal $N-$level parameter quantizer \eqref{eq:optPbar}, we have to
 %
 where $\Vor_n(\vP,\vh)$ are the Möbius regions given in \eqref{eq:moebius} for each fixed $\vQ$.
 %
-A point $\vQ^*=(\vP^*,\vh^*)$ with Möbius regions $\Vor^*=\Vor(\vP^*,\vh^*)=\{\Vor_1^*,\dots,\Vor^*_N\}$ is a critical
-point of \eqref{eq:phoptlocal} if all partial derivatives of $\AvDis$ are vanishing, i.e., if for each $n\in[N]$ it holds
-%
-\begin{align}
-  0&= \int_{\Vor^*_n} (\vp^*_{n}-\vome) (\Norm{\vp^*_n-\vome}^2 +h_n^{*2})^{\gam-1} \df(\vome)d
-  \vome\label{eq:pnopt}\\
-  0&= \int_{\Vor^*_n} (\Norm{\vp^*_n-\vome}^2 +h_n^{*2})^{\gam-1}\cdot (\Norm{\vp_n^*-\vome}^2 - (2\gam-1)
-  h_n^{*2} ) \df(\vome)d\vome
+%\begin{prop}\label{prop:necessarycond}
+A point $\vQ^*=(\vP^*,\vh^*)$ with Möbius regions 
+  $\Vor^*=\Vor(\vP^*,\vh^*)=(\Vor_1^*,\dots,\Vor^*_N)$ is a critical point of
+  \eqref{eq:phoptlocal} if  and only if for each $n\in[N]$ it holds
+  %
+  \begin{align}
+    0&= \int_{\Vor^*_n} (\vp^*_{n}-\vome) (\Norm{\vp^*_n-\vome}^2 +h_n^{*2})^{\frac{\alp-1}{2}} \df(\vome)d
+    \vome\label{eq:pnopt}\\
+    0&= \int_{\Vor^*_n} (\Norm{\vp^*_n-\vome}^2 +h_n^{*2})^{\frac{\alp-1}{2}}\cdot (\Norm{\vp_n^*-\vome}^2 - \alp
+    h_n^{*2} ) \df(\vome)d\vome
   \label{eq:criticalpoint}
-\end{align}
+  \end{align}
 %
 \ifproof
 \begin{proof}
@@ -685,17 +662,10 @@ Hence, $\vQ^*=(\vP^*,\vh^*)$ is a critical point if and only if all partial deri
 \end{proof}
 %
 \fi
-For $N=1$ the integral regions will not depend on $\vQ$ or $\vh$ and since the integral kernel is continuous differentiable, the
-partial derivatives will only apply to the integral kernel. For $N>1$ the conversation law of mass, can be used to show
-that the derivatives of the integral domains will cancel each other out, see also \cite{WJ18}, \cite{CMB05}. 
-%
-\ifarxiv
 \begin{remark}
-  The shape of the regions depend on the parameters, which if different for each quantization point (heterogeneous),
-  generate spherical and not polyhedral regions. We will show later, that homogeneous parameter selection with polyhedral
-  regions will be the optimal regions for $d=1$. 
+  For $\alp=1$, the optimal ground user tessellation of the UAVs is by \eqref{eq:pnopt} centroidal. However, the shape of
+  the user cells depend on the heights, which if different, generate spherical and not polyhedral cells. 
 \end{remark}
-\fi
 
 \if0% old algorithm approch of jun
 When UAV vertical deployment $\bH$ and cell partition are fixed, the distortion is a convex function.  Similarly, when
@@ -798,14 +768,15 @@ Hence we have shown
 
 \subsection{The optimal $N-$level parameter quantizer in one-dimension}
 
-In this section, we discuss the parameter optimized quantizer for a one-dimensional convex source $\Ome\subset\R$, i.e.,
-for an interval $\Omega = [s,t]$.  Under such circumstances, the quantization points are degenerated to scalars, i.e.,
-$\vp_n=x_n\in[s, t], \forall n\in[N]$.  \philippstart If we shift the interval $\Ome$ by an arbitrary number
-$a\in\R$, then the average distortion, i.e., the objective function, will not change if we shift all quantization points
-by the same number $a$. Hence, if we set $a=-s$ we can shift any quantizer for $[s,t]$ to $[0,A]$ where $A=t-s$ without
-changing the average distortion.   \philippend
-%
-Let us assume a uniform distribution on $\Omega$, i.e.  $\df(\ome)=1/A$. 
+In this section, we discuss the parameter optimized quantizer for a one-dimensional source $\Ome\subset\R$, i.e., $d=1$,
+and restrict them to a convex target area, i.e., to an interval $\Omega = [s,t]$.  Under such circumstances, the
+quantization points are degenerated to scalars, i.e., $\vp_n=x_n\in[s, t], \forall n\in[N]$.  \philippstart If we shift the
+target area $\Ome$ by an arbitrary number $a\in\R$, then the average distortion, i.e., the objective function, will not
+change if we shift all quantization points by the same number $a$. Hence, if we set $a=-s$ we can shift any quantizer
+for $[s,t]$ to $[0,A]$ where $A=t-s$ without changing the average distortion.   \philippend
+
+Let us assume a uniform distribution on $\Omega$, i.e.  $\df(\ome)=1/\mu(\Omega)$ where $\mu$ is the Lebesgue measure
+and $0<A=\mu(\Omega)<\infty$. 
 %
 \if0 % not needed anymore Let us first recall the scalar quantizer.
 %
@@ -836,45 +807,184 @@ To derive the unique $N-$level parameter optimized quantizer we need first to de
 quantizer.
 %
 \begin{lemma}\label{lem:ggam}
-  Let $A>0$ and $\gam\geq 1$. The unique $1-$level parameter optimized quantizer $(x^*,h^*)$ with distortion
-  function \eqref{eq:Eptx}, is given  for a uniform source
-  density in $[0,A]$ by
+  The function 
   %
   \begin{align}
-    x^*=\frac{A}{2},\quad   h^*=\frac{A}{2} g(\gam) \quad\text{and minimal average distortion} \quad
-    \AvDis(x^*,h^*)=\left(\frac{A}{2}\right)^{\!2\gam-1}\!\!g(\gam)\notag
+    F(h,\gam)=\int_0^1  f(h,\ome,\gam) d\ome \quad\text{with}\quad f(h,\ome,\gam)=\frac{(\ome^2+h^2)^{\gam}}{h} 
   \end{align}
   %
-  where  $g(\gam)=\arg\min_{u>0} F(u,\gam)<1/\sqrt{2\gam-1}$ is the unique minimizer of 
+  is for any fixed $\gam\geq 1$ continuous and convex over $\R_+$ and obtains for 
   %
   \begin{align}
-    F(u,\gam)=\int_0^1  f(\ome,u,\gam) d\ome \quad\text{with}\quad f(\ome,u,\gam)=\frac{(\ome^2+u^2)^{\gam}}{u} 
+    g(\gam)=\arg\min_{h>0} F(h,\gam)<1/\sqrt{2\gam-1},
   \end{align}
   %
-  which is for fixed $\gam$ a continuous and convex function over $\R_+$. The global minimum can be derived in closed form for integer valued $\gam$ as 
+  the global minimum, which can be derived in closed form for integer valued $\gam$ as 
   %
   \begin{align}
     g(1) = \sqrt{1/3},\ \  g(2) = \sqrt{ (\sqrt{32/5}-1)/9}, 
     \ \  g(3) = \sqrt{\Big((32/7)^{1/3}-1\Big)/5}.\label{eq:ggam}
-  \end{align}
+ \end{align}
 \end{lemma}
 %
-\ifarxiv 
+\ifproof
 \begin{proof}
-See \appref{app:proof_lemma_ggam}.
-\end{proof}
-\fi
-
-
+  Surprisingly, it can be shown that for each $\gam\geq 1$ the integral kernel $f$ is a convex function in
+  $\vx=(h,\ome)$ over $\R_+^2$. Let us rewrite $f$ as
+  %
+  \begin{align}
+    f(h,\ome,\gam)= \frac{\Norm{(\ome,h)}_2^{2\gam}}{h}.
+  \end{align}
+  %
+  Clearly, $\Norm{\vx}_2$ is a convex and continuous function in $\vx$ over $\R^2$ and since $(\cdot)^{2\gam}$ with
+  $2\gam\geq2$ is a strictly increasing continuous function the concatenation $f(\vx,\gam)$ is a strict convex and
+  continuous function over $\R_+^2$. Hence, for any $\vx_1,\vx_2\in\R^2$ we have
+  %
+  \begin{align}
+    \Norm{\lam\vx_1+(1-\lam)\vx_2}_2^{2\gam}<\lam \Norm{\vx_1}_2^{2\gam} + (1-\lam)\Norm{\vx_2}_2^{2\gam}
+  \end{align}
+  %
+  for all $\lam\in(0,1)$. But then we have also for any $h_1,h_2\in\R^2_+$ and $\ome\geq 0$ 
+  %
+  \begin{align}
+    f(\lam h_1 +(1-\lam)h_2,\ome,\gam) < 
+    \frac{\lam\Norm{(\ome,h_1)}_2^{2\gam} + (1-\lam)\Norm{(\ome,h_2)}_2^{2\gam}}{\lam h_1+(1-\lam)h_2}
+    \label{eq:fnormgam}.
+  \end{align}
+  %
+  Since it holds 
+  %
+  \begin{align}
+    \frac{1}{h_1}\! +\!\frac{1}{h_2} &=
+       \left(\frac{1}{h_1}\! + \!\frac{1}{h_2}\right)\frac{\lam h_1 \!+\!(1\!-\!\lam)h_2}{\lam h_1 \!+\! (1\!-\!\lam)h_2}
+       =\frac{ \left(\lam\! +\!\frac{(1\!-\!\lam)h_2}{h_1}\! +\! (1\!-\!\lam) \!+\! \frac{\lam h_1}{h_2}\right)}{\lam
+       h_1 \!+\! (1\!-\!\lam)h_2} 
+       > \frac{1}{\lam h_1\! +\! (1\!-\!\lam)h_2}\notag
+  \end{align}
+  %
+  we get with \eqref{eq:fnormgam}
+  %
+  \begin{align}
+    f(\lam h_1 +(1-\lam)h_2,\ome,\gam) < \lam f(h_1,\ome,\gam) + (1-\lam)f(h_2,\ome,\gam) 
+  \end{align}
+  %
+  for each $\lam\in(0,1)$. Hence the integral kernel is strict convex for every $\ome\geq0,\gam\geq 1$, and since the
+  infinite sum (integral) of convex functions is again a convex function for $h>0$, we have shown convexity of $F(h,\gam)$. 
+  Note, $f(h,\ome,\gam)$ is continuous in $\R_+^2$ since it is a product of the continuous functions
+  $\Norm{(h,\ome)}_2^{2\gam}$ and $1/(h+0\cdot\ome)$, and so is $F(h,\gam)$. 
+  %
+  Therefore, the only critical point of $F(\cdot,\gam)$ will be the unique global minimizer, which is defined by the
+  vanishing of the first derivative:
+  %
+  \begin{align}
+    F'(h)  &= \int_0^{1} (\ome^2+h^2)^{\gam-1}( (2\gam\!-\!1)-h^{-2}\ome^2)d\ome
+            =\frac{1}{h^{\gam}}\int_{0}^{\frac{1}{h}} (\ome^2+1)^{\gam-1}(2\gam-1-\ome^2)\notag.
+  \end{align}
+  %
+  Hence, $F'(h)$ can only vanish if $h<1/\sqrt{2\gam-1}$, which is an upper bound on $g(\gam)$.
+ %
+\if0 % old approach for convexity
+%
+\begin{align}
+f''(h) &=\int_0^1 4h\gam(\gam-1)(\ome^2+h^2)^{\gam-2} + 2^{-1}h^{-3}(\ome^2+h^2)^\gam - 2h^{-1}\gam(\ome^2+h^2)^{\gam-1}\\
+&= \int (\ome^2+h^2)^{\gam-2}\left[ 4h\gam(\gam-1)+h^{-3}\ome^4 + 2\ome^2 h^{-1} +h -2\gam h^{-1}\ome^2-2\gam h\right]d
+\ome\notag\\
+\gam=1+\eps\ra &= \int (\ome^2+h^2)^{\eps-1}\left[h^{-2} \ome^4 -2\ome^2 h^{-1}\eps+h(-1-2\eps+4(1+\eps)\eps)\right] \\
+\intertext{substitute again $\ome$ by $\ome/h$ gets}
+&=h^{2\eps-6}\int_0^{1/h}(\ome^2+1)^{\eps-1}[h^4\ome^4-2\ome^2\eps h^{4} +h^{4}(4\eps^2+2\eps-1)]d\ome\\
+&=h^{2\eps-2}\int_0^{1/h}(\ome^2+1)^{\eps-1}[ (\ome^2-2\eps)^2 +2\ome^2\eps +2\eps-1]d\ome
+%  \RA \quad &0=\int_0^{1} (\ome^2+h^{*2})^{\gam-1}(\ome^2-\alp h^{*2})d\ome
+\end{align}
+%
+which shows strict positivity for each $h>0$ if $\eps>1/3$. Since we know that there are only critical points in
+$(0,1/\sqrt{1+2\eps})$ we need to check positivity for $\eps\in[0,1/3]$ only in this range. 
+%
+\fi % old approach end
+%
+\if0 % no space in DCC
+Let us set $0<x=h^2$ in \eqref{eq:fprime}, then we get for $\gam\in\N$ a polynomial in $\ome$ of degree $2\gam$ and in
+$x$ of degree $\gam$.
+%
+%Furthermore, resolving for $x$ only allows positive real roots, which might not always exist.
+%
+The integral does not have a closed form for arbitrary $\gam$. However, we can calculate by hand the integral if
+$\alp=2\gam-1$ is integer valued, since the kernel becomes a polynomial. For $\gam\in\{1,2,3\}$ we get 
+%
+\begin{align}
+  (\ome^2-1x)(\ome^2+x)^0 &=\ome^2-x\\
+  (\ome^2-3x)(\ome^2+x)^1 &=\ome^4 -2\ome^2x -3x^2 \\
+  (\ome^2-5x)(\ome^2+x)^2 &=\ome^6 -3\ome^4x -9\ome^2x^2-5x^3
+%  (x^2-7c)(x^2+c)^3 &=x^8 -4x^6c -18x^4c^2-20x^2c^3-7c^4
+\end{align}
+%
+which yield with the definite integrals to
+%
+\begin{align}
+  0 &= \ome(\frac{\ome^2}{3}-x)\Big|_{\ome=1}\\
+  0 &= \ome(\frac{\ome^4}{5} -\frac{2\ome^2x}{3} - 3x^2)\Big|_{\ome=1}\\ 
+  0 &= \ome(\frac{\ome^6}{7} -\frac{3\ome^4x}{5} - 3\ome^2x^2 -5x^3)\Big|_{\ome=1}\label{eq:ccubic} 
+%  0 &= x(\frac{x^8}{9} -\frac{4x^6c}{7} - \frac{18x^4c^2}{5} -\frac{20x^2c^3}{3} - 7c^4)\Big|_{x=b}
+\end{align}
+%
+Solving the first for $x$  yields to the only feasible solution
+%
+\begin{align}
+  x=\frac{1}{3} \quad\RA\quad g(1)=\frac{1}{\sqrt{3}}\approx 0.577.
+\end{align}
+%
+The second yields for $x$ to 
+%
+\begin{align}
+  x_{1,2}= -\frac{1}{9} \pm \sqrt{\frac{1}{81}+\frac{1}{15}} = \frac{\pm \sqrt{32/5} -1}{9}
+\end{align}
+%
+Since only positive roots are allowed we get as only feasible solution
+%
+\begin{align}
+  g(3)=\frac{\sqrt{\sqrt{32/5}-1}}{3}\approx 0.412.
+\end{align}
+%
+Finally, for  $\alp=5$ we get the cubic equation \eqref{eq:ccubic}
+%
+\begin{align}
+  5x^3 + 3 x^2 + \frac{3}{5} x - \frac{1}{7}=0
+\end{align}
+%
+Then the discriminant is given by, see for example \cite[2.3.2]{Zwi03},
+%
+\begin{align}
+  \Del=q^2+4p^3 \quad\text{with}\quad q=\frac{2b^3-9abc+27a^2d}{27a^3},p=\frac{3ac-b^2}{9a^2}
+\end{align}
+%
+Let us identify $a=5,b=3,c=3/5$ and $d=-1/7$, then we get
+%
+\begin{align}
+  q&=\frac{6\cdot 9-9\cdot 9 - 27\cdot 5^2\cdot1/7}{27\cdot 5^3}
+  =-\frac{3}{3\cdot 5\cdot 25} -\frac{1}{5\cdot 7}=-\frac{32}{25\cdot35}\\
+  \Del&=q^2 + 4 \left(\frac{3\cdot 3 -9}{9\cdot 5^2}\right)^3=q^2>0
+\end{align}
+%
+which indicates only one real-valued root, given by
+%
+\begin{align}
+  x=\alp_+^{1/3}+\alp_-^{1/3}-\frac{b}{3a} 
+  \quad\text{with}\quad  \alp_{\pm}=\frac{-q\pm\sqrt{\Del}}{2} = \{0, \frac{32}{25\cdot 35} \}
+\end{align}
+%
+which computes to
+%
+\begin{align}
+  x=\left( \frac{32}{5^3\cdot 7}\right)^{1/3}- \frac{1}{5}
+  =\frac{(\frac{32}{7})^{1/3}-1}{5} \RA g(5)=\sqrt{\frac{(\frac{32}{7})^{1/3}-1}{5}} \approx 0.363.
+\end{align}
+\fi % no space in DCC
+\end{proof}    
+%
+\fi % ifproof end
 \begin{remark}
-  The convexity of $F(\cdot,\gam)$ can be also shown by using extensions of the Hermite-Hadamard inequality, as for example in
-  \cite{ZC10}, which allows to show convexity over any interval. This suggest, that as long as the generalized Voronoi
-  regions remain
-  convex, the objective function might be still convex.\\  
-  % 
-  Let us note here, that for any fixed parameter $h_n>0$, the average distortion $\AvDis(x_n^*\pm \eps,h_n)$ is strictly
-  monotone increasing in $\eps>0$. Hence, $x_n^*$ is the unique minimizer for any $h_n>0$. We will use this decoupling
-  property repeatedly in the proofs. 
+  The convexity of $F$ can be also shown by using extensions of the Hermite-Hadamard inequality, as for example in
+  \cite{ZC10}, which allows to show convexity over any interval. This suggest, that as long as the generalized Voronoi cells remain
+  convex, the objective function might be still convex.  
 \end{remark}
 
 
@@ -890,63 +1000,237 @@ See \appref{app:proof_lemma_ggam}.
 %
 %
 \color{black}
-To derive the parameter optimized quantizer, we need some general properties of the optimal regions. 
+
+For a common height assumption the distortion function is convex and the corresponding Voronoi regions are polyhedron,
+i.e., for $d=1$ intervals, which gives as the optimal deployoment the uniform scalar quantizer. To ensure that different
+heights will not obtain smaller distortions, we proved in \cite{GWJ18a} the following result. 
 %
 \philippstart
 %
 \begin{lemma}\label{lemma:allActive}
-  Let $\Ome=[0,A]$ for some $A>0$. The $N-$level parameter optimized quantizer $\vQ^*\in(\Ome\times\R_+)^N$ for a
-  uniform source density in $\Ome$ has optimal quantization regions $\Vor_n(\vQ^*)=[b^*_{n-1},b^*_n]$ with $0\leq
-  b^*_{n-1}<b^*_n\leq A$ and optimal quantization points $x_n^*=(b_n^*+b_{n-1})/2$ for $n\in[N]$, i.e., each region
-  is a closed interval with positive measure and centroidal quantization points.
+  Let $\Ome=[0,A]$ for some $A>0$. The optimal deployment $\vQ^*\in(\Ome\times\R_+)^N$ of $N$ UAVs for a uniform ground
+  user density in $\Ome$ has optimal ground cells $\Vor_n(\vQ^*)=[b_{n-1},b_n]$ with $0\leq b_{n-1}<b_n\leq A$ for
+  $n\in[N]$, i.e., each optimal ground cell has positive measure and is served by exactly one UAV. 
 \end{lemma}
 %
-\ifarxiv
-\begin{proof}
-  See \appref{app:proof_lemma_active}.
-\end{proof}
-\fi
 \begin{remark}
-  Hence, for an $N-$level parameter optimized quantizer, all quantization points are used, which is intuitively, since
-  each quantization point should reduce the distortion of the quantizer by partitioning the source in non-zero regions. 
+  For any optimal deployment all UAVs are active, which is intuitively, since each UAV
+  antenna should reduces the power if it covers a non-zero user area.
 \end{remark}
 %
-With these Lemmas, we can derive our main result.
+This allows to derive our main result for the parameter optimized quantizer.
 %
 \begin{theorem*}\label{thm:commonheight}
-  Let $N\in\N$,  $\Ome=[0,A]$ for some $A>0$, and $\gam\geq 1$. The \emph{unique $N-$level parameter optimized quantizer} 
-  $(\vQ^*,\Rset^*)$ is the  uniform scalar quantizer with identical parameter values, given for $n\in[N]$  by   
-  %
-  \begin{align}
-    \pGlob_n= \frac{A}{2N} (2n-1),\quad   h^*=h_n^*= \frac{A}{2N} g(\gam),\quad \Rset_n^*=
-    \left[\frac{A}{N}(n-1),\frac{A}{N}n\right]
-    \label{eq:optimaldeploy} 
+  Let $N\in\N$ and $\Ome=[0,A]$ for some $A> 0$. The \emph{unique global optimal deployment} for $N$ UAVs located  at
+  $\qLoc_n=(x_n^{*},h_n^{*})\in \Ome\times \R_+$ with path loss $\alp\geq 1$ and a uniform ground user density is given
+  by   
+   %
+   \begin{align}
+     h^*= \frac{A}{2N} g((1+\alp)/2)\quad,\quad\forall n \colon \pGlob_n= \frac{A}{2N} (2n-1)\label{eq:optimaldeploy} 
   \end{align}
   %
   with minimal average distortion
   %
   \begin{align}
-   \AvDis(\vQ^*)= \AvDis(\vx^*,h^*)=\left(\frac{A}{2N}\right)^{2\gam-1}  \int_0^1 \frac{\big(\ome^2+g^2(\gam)\big)^{\gam}}{g(\gam)}
+    \AvDis(\vx^*,h^*)=\left(\frac{A}{2N}\right)^{\alp}  \int_0^1
+    \frac{(\ome^2+g^2( (1+\alp)/2))^{\frac{1+\alp}{2}}}{g( (1+\alp)/2)}
     d\ome\label{eq:optimumavpow}.
   \end{align}
   %
-  For $\gam\in\{1,2,3\}$ we can derive $g(\gam)$ in closed form  \eqref{eq:ggam}.
+  For $\alp\in\{1,3,5\}$ we can derive $g((1+\alp)/2)$ in closed form  \eqref{eq:ggam}.
 \end{theorem*}
+We plotted in \figref{fig:goptdopt} the optimal heights and optimal average distortion for a uniform GT density in
+$[0,1]$ over various $\alp$ and $N=2$. Note, that the factor $a=A/2N=1/4$ will play a crucial role for the height and
+distortion scaling. Moreover, the distortion decreases exponentially in $\alpha$ if $a<1$.
 %
-
-\ifarxiv
+\ifproof
 \begin{proof}
-  We know by \lemref{lemma:allActive} that the optimal quantization regions are closed non-vanishing
-  intervals $\Vor_n^*=[b_{n-1}^*,b_n^*]$ for some $b^*_{n-1}<b_n^*$ with quantization points
+  Although, this statement seems to be trivial, it is not straight forward to show, since the power function $P$ in
+  \eqref{eq:Eptx} is not strictly monotone increasing in $\vq_n=(p_n,h_n)$ for any user $\ome \in\Ome$ and UAV
+  $n\in[N]$. To bypass this non-monotonicity property of $P(\vQ,\ome)$ we will use the quantization relaxation for the
+  average power consumption $\Pbar$ in \eqref{eq:Pbar} to  solve the optimal deployment problem \eqref{eq:optPbar}. We
+  define, as in quantization theory, see for example \cite{GN98}, an \emph{$N-$point quantizer} for $\Ome$, by a
+  (disjoint) partition $\Rset=\{\Rset_n\}_{n=1}^N\subset \Ome$ of $\Ome$ and assign to each partition cell $\Rset_n$ a
+  reproduction point $\vq_n\in\Qset=\Ome\times\R_+$. The assignment rule or \emph{quantization rule} can be anything and
+  does not have to depend on the performance function $P$ or whatsoever.  Minimizing over all quantizer, that is, over
+  all partitions and possible reproduction points will yield to the optimal quantizer, which is by definition the
+  optimal deployment (reproduction points) which generate the generalized Voronoi diagram as the optimal partition
+  (tesselation\footnote{Since we take here the continuous case, the integral will not distinguish between open or closed
+  sets.}). This holds for any density function $\lam(\ome)$ and target area $\Ome$.  To see this\footnote{We use the
+    same argumentation as in the prove of \cite[Prop.1]{Erdem}.} let us start with any quantizer $(\vQ,\Rset)$ for $\Ome$
+    yielding to the average power 
   %
   \begin{align}
-    x_n^*=\frac{b_n+b_{n-1}}{2}\label{eq:xnoptimal}
+    \Pbar(\vQ,\Rset) &=\sum_{n=1}^N \int_{\Rset_n} P(\vq_n,\ome)\lam(\ome) d\ome \geq \sum_{n=1}^N \int_{\Rset_n} 
+    \left(\min_{m\in[N]} P(\vq_m,\ome) \right) \lam(\ome)d\ome\\
+    &=\int_{\Ome} \min_{m\in[N]} P(\vq_m,\ome) \lam(\ome)d\ome
+    =\sum_n \int_{\Vor_n(\vQ)} P(\vq_n,\ome) \lam(\ome)d\ome\notag
+  \end{align} 
+  %
+  where the first inequality is only achieved if for any $\ome\in \Rset_n$ we have chosen $\vq_n$ to be the optimal
+  quantization point with respect to $P$, or vice versa, if every $\vq_n$ is optimal for every $\ome\in \Rset_n$, which is the
+  definition of the generalized Voronoi cell $\Vor(\vQ)$. Therefore, minimizing over all partitions gives equality, i.e.
+  %
+  \begin{align}
+    \min_{\Rset} \Pbar(\vQ,\Rset)=\Pbar(\vQ,\Vor(\vQ))
   \end{align}
   %
-  for $n\in[N]$.
-  %we get for the necessary optimality condition
-  \if0 % dont need this approach, ommit the conversation law of mass result (not yet 100% proofed)
-  \eqref{eq:pnopt} %.  Hence, for the optimal ground positions $x_n^*$ at the optimal height $h_n^*$ it must hold 
+  for any reproduction points $\vQ\in\Qset^N$.
+  Hence, we have shown that the optimal quantizer problem is equivalent to the optimal deployment problem
+  %
+  \begin{align}
+    \min_{\vQ\in\Qset^N} \min_{\Rset\in\Ome^N} \Pbar(\vQ,\Rset) = \min_{\vQ\in\Qset^N}
+    \Pbar(\vQ,\Vor(\vQ))=\Pbar(\vQ^*,\Vor(\vQ^*)).\label{eq:optquanteqoptdeploy}
+  \end{align}
+  %
+  We need to show, that for the optimal $N-$UAV deployment $\vQ^*$ we have $\mu(\Vor_n(\vQ^*))>0$ for all $n\in[N]$.
+  Let us first show that each cell is indeed a closed interval, i.e., $\Vor_n(\vQ^*)=[b_{n-1},b_n]$ with $0\leq b_{n-1}\leq
+  b_n\leq A$. 
+  
+  By the definition of the
+  Moebius diagrams in \lemref{lem:moebiusdia}, each dominance region is either one interval (if it is a ball not contained
+  in the target region or a halfspace) or two intervals (if its a ball contained in the target region), we can not have
+  more than $K_n\leq 2N-2$ disjoint closed intervals for each Moebius (Voronoi) region.  Therefore, the $n$th optimal
+  Voronoi regions is given as $\Vor^*_n=\Vor_n(p^*, h^*)=\bigcup_{k=1}^{K_n}v_{n,k}$, where $v_{n,k}=[a_{n,k-1},a_{n,k}]$
+  is a continuous interval and $2N-2\geq K_n\geq 1$.
+
+  Let us assume at least one UAV has a disconnected region, i.e. $K_n>1$ for some $n\in[N]$. Then we will re-arrange the
+  partition $\Vor(\vp^*,\vh^*)$ by concatenating the $K_n$ intervals $v_{n,k}$ to $\Rset_n=[b_{n-1},b_{n}]$ such that for
+  all $n\in[N]$ it holds $\mu(\Rset_n)=\mu(\Vor^*_n)=b_n-b_{n-1}$ where we ordered them such that $b_{n-1}\leq b_{n}$ for all $n\in[N]$
+  and set $b_0=0$ and $b_N=A$. Then we move each $p_n^*$ to the center of the new arranged cells, i.e.,
+  $\tp_n=\frac{b_n+b_{n-1}}{2}$ without changing the associated heights. This defines a new partition
+  $\Rset=\{\Rset_n(\tvp,\vh^*)\}$ for the ground positions $\tvp=(\tp_1,\dots,\tp_N)$. The average power consumption is then
+  %
+  \begin{align}
+    \Pbar(\tvp^*,\vh^*,\Rset)=\sum_{n=1}^N \int_{b_{n-1}}^{b_n} \frac{ ((\tp_n-\ome)^2+h_n^{*2})^{\gam}}{h_n^{*}} d\ome
+= 2\sum_{n=1}^N \int_{0}^{\frac{b_n-b_{n-1}}{2}} \frac{ (\ome^2+h_n^{*2})^{\gam}}{h_n^{*}} d\ome
+  \end{align}
+  %
+  where we substituted $\ome$ by $\tp_n-\ome$. Since the height is not changing and the function
+  $(\ome^2+h_n^{*2})^{\gam}$ is strictly monotone increasing in $\ome$ for each $\gam>0$, it holds for the average power
+  of the $n$th cell 
+  %
+  \begin{align}
+    2\int_{0}^{\frac{b_n-b_{n-1}}{2}} \frac{ (\ome^2+h_n^{*2})^{\gam}}{h_n^{*}} d\ome 
+    < \sum_{k=1}^{K_n}\int_{a_{n,k}-p_n^*}^{a_{n,k-1}-p_n^*} \frac{ (\ome^2+h_n^{*2})^{\gam}}{h_n^{*}} d\ome
+  \end{align}
+  %
+  since the non-zero gaps in $\Vor_n^*-p_n^*$ will lead to larger $\ome$ and therefore to a strictly larger average
+  power consumption, whereas the other cells with $K_n=1$ will not change the average power.  Therefore the deployment
+  $(\tvp,\vh^*)$ with convex partition sets  $\Rset(\tvp,\vh^*)$ has a smaller power consumption which contradicts 
+  the assumption that $(\vp^*,\vh^*)$ is the optimal deployment \eqref{eq:optquanteqoptdeploy}. Hence $K_n=1$ for each
+  $n\in[N]$ and every $\gam\geq 1$.
+
+
+    
+
+
+
+
+
+
+ 
+  Now, we have the optimal deployment $\vQ^*$ with $\Vor_n^*=\{[b_{n-1},b_n]\}_{n=1}^n$. Let us show that for each
+  $n\in[N]$ it also holds $b_{n-1}<b_n$. By \eqref{eq:optquanteqoptdeploy} we get 
+  %
+  \begin{align}
+    \min_{\Rset} \Pbar(\vQ^*,\Rset)= \min_{\Rset}\sum_n \int_{\Rset_n} P(\vq^*_n,\vome)d\vome=\Pbar(\vQ^*,\Vor(\vQ^*)).
+  \end{align}
+  %
+  If $N=1$ there is nothing to optimize and we have $\Rset=\Rset_1=\Ome=[a,b]$. Furthermore, we know  by
+  \thmref{thm:commonheight}, that the optimal $\vq^{(1)*}=(p_1^{(1)*},h_1^{(1)*})$ for $N=1$ is the uniform quantizer
+  given by $p^{(1)*}_1=a+A/2$ with $A=b-a$ and $h^*=h_1^{(1)*}=\argmin_{h>0} \int_0^{A/2}
+  \frac{(\ome^2+h^2)^{\gam}}{h}d\ome$. Let us note, that the average power $\Pbar(p_1^{(1)*},\cdot)$ is convex
+  (second-derivative is always positive) in $h$ and hence there is only one critical point $h^*$ in $\R_+$, which is the
+  global minimum. Now assume, we add one more quantizer $\vq_2^{(2)}=(p_2^{(2)},h^*)$ with same height and partitioning
+  $\Ome$ by $\Rset_{\eps}$ given by $R_1=[a,a+\eps]$ and $R_2=[a+\eps,b]$  for some $\eps\in(0,A)$.  If we minimize only
+  over the ground positions, we get 
+  %
+  \begin{align}
+    \Pbar(\vp^{(2)*},h^*,\Rset_{\eps}):=\min_{p_1} \int_{a}^{a+\eps} P(p_1,h^*,\ome)d\ome + \min_{p_2} 
+    \int_{a+\eps}^b P(p_2,h^*,\ome)d\ome
+  \end{align}
+  %
+  By \thmref{thm:commonheight} we get for the optimal uniform ground positions for each {\bfseries independent} integral
+  %
+  \begin{align}
+    p_1^{(2)*}=\frac{2a+\eps}{2} \quad\text{and}\quad p_2^{(2)*}= \frac{a+b+\eps}{2} 
+  \end{align}
+  %
+  inserting and substituting with $\tome=\ome-p_i^{(2)*}$ we get with $h^*=\sqrt{c}$ 
+  %
+  \begin{align}
+    \Pbar(\vp^{(2)*},h^*,\Rset_{\eps})
+   % &=\frac{1}{\sqrt{c}}\left(\int_{-\frac{\eps}{2}}^{\frac{\eps}{2}} (\tome^2+c)^{\gam}d\tome +
+   % \int_{-\frac{b-(a+\eps)}{2}}^{\frac{b-(a+\eps)}{2}} (\tome^2+c)^{\gam} d\ome \right)\\
+    &=
+    \frac{2}{\sqrt{c}} \left( \int_0^{\eps/2} (\ome^2+c)^{\gam}d\ome
+    +\int_{0}^{\frac{b-a}{2}-\frac{\eps}{2}} (\ome^2+c)^{\gam}d\ome\right).
+  \intertext{Since $(\ome^2+c)^{\gam}<( (\ome+\eps)^2+c)^{\gam}$ for each $\eps>0$ and $\gam>0$ we have }
+    &< \frac{2}{\sqrt{c}}\left( \int_{\frac{b-a}{2} -\frac{\eps}{2}}^{\frac{b-a}{2}} (\ome^2+c)^{\gam}d\ome
+    +\int_{0}^{\frac{b-a}{2}-\frac{\eps}{2}} (\ome^2+c)^{\gam} d\ome\right)=\Pbar(\vq^{(1)*},[a,b])\notag
+  \end{align}
+  %
+  for any $b-a>\eps>0$. By minimizing over the heights, we only obtain smaller values
+  %
+  \begin{align}
+    \min_{ \vp\in\Ome^2, \vh\in\R_+^2} \min_{\Rset_{\eps}=\{\Rset_{\eps,n}\}_{n=1}^2}
+    \sum_{n=1}^2 \int_{R_n} P(p_n,h_n,\ome)d\ome \leq
+    \Pbar(\vp^{(2)*},h^*,\Rset_{\eps}) < \min_{p\in\Ome,h\in\R+} \Pbar(p,h,\ome)d\ome\notag
+  \end{align}
+  %
+  Hence, if we add a UAV, we can split an arbitrary ground cell $[a,b]$ with $b>a$ in two cells with positive measure
+  and obtain a strictly smaller power consumption. Therefore, the global minimum can only be attained if all UAVs are
+  active, i.e., all optimal ground cells have positive measure $\mu(\Rset^*_n)>0$. Since the optimal partition is by
+  \eqref{eq:optquanteqoptdeploy} a Möbius diagram, each optimal ground cell is given as
+  $\Rset^*_n=\Vor_n(\vq^*)=[b_{n-1},b_n]$ with $0 \leq b_{n-1}<b_n\leq A$. 
+\end{proof}
+\fi % end ifproof
+%
+\if0
+\junstart
+%
+Let $\Ome=[s,t]$ be a one-dimensional ground with density function $\df(\ome)=1/\mu(\Omega)$ where $\mu$ is the Lebesgue
+measure and $0<t-s=\mu(\Omega)<\infty$.
+%
+\begin{corollary}
+%
+Let $\Vor_n(p^*, h^*)$ be $n$th Voronoi region that is generated from the optimal deployment $(p^*, h^*)$ over the
+uniform distributed one-dimensional ground region $\Omega$. Then, the optimal regions are continuous, i.e., $\Vor_n(p^*,
+h^*)=[b_{n-1}, b_n]$, where $b_0\le b_1 \le \dots\le b_N$ are Voronoi boundaries. In particular, $b_0 = s$ and $b_N = t$
+are the boundaries of the ground.
+\label{corollary:continuity}
+\end{corollary}
+The proof of the Corollary is provided in Appendix \ref{proof:continuity}.
+
+%\if0% also redundant by \thmref{thm:commonheight}
+\begin{corollary}
+Given one UAV over a continuous one-dimensional region $\Omega=[s,t]$ with the uniform density function
+$\lambda(\ome)=\frac{1}{\mu\left(\Omega\right)}=\frac{1}{t-s}$, the optimal deployment is $q^*_1=\left(p^*_1,
+h^*_1\right)$, where $p^*_1=\frac{s+t}{2}$ is the optimal projection on the ground and
+$h^*_1=g(\gamma)\mu\left(\Omega\right)$ is the optimal flight height, and
+$g(\gamma)\triangleq\arg\min\limits_{h}\int_{-1/2}^{1/2} \frac{\left(\ome^2 + h^2\right)^{\gam}}{h} d\ome$ is a function
+of $\gamma$.
+\label{corollary:linearity}
+\end{corollary}
+%
+The proof of the Corollary is provided in Appendix \ref{proof:linearity}.
+%
+\begin{remark}
+  Corollary \ref{corollary:linearity} indicates that the UAV's optimal flight height is proportional to the Lebesgue
+  measure of its partition.
+\end{remark}
+\fi
+%
+\junend
+%
+
+\ifproof
+\begin{proof}
+  We can generalize the prove of \thmref{thm:commonheight} to optimal UAV ground positions at different heights by only
+  using the all active property of the optimal UAV deployment from  \lemref{lemma:allActive}. We also know, that the
+  optimal ground cells are closed non-vanishing intervals, given by $\Vor_n(\vq^*)=[b_{n-1}^*,b_n^*]$ with
+  $b^*_{n-1}<b_n^*$.  Hence, for the optimal ground positions $x_n^*$ at the optimal height $h_n^*$ it must hold 
   %
   \begin{align}
     0 = \int^{b^*_n}_{b_{n-1}^*} (x_n^*-\ome) ((x_n^*-\ome)^2+{\hGlob_n}^2)^{\gam-1}d\ome \quad,\quad 1\leq n\leq
@@ -977,54 +1261,50 @@ With these Lemmas, we can derive our main result.
   \end{align}
   %
   where for $n=1$ and $n=N$ we get $b_0=0$ and $b_N=A$, since $\{[b^*_{n-1},b_n^*]\}$ is a partition of $[0,A]$. Hence
-  the optimal ground positions are the centroids of the cells. 
-  % already shown in lemma 3 
-  \fi
-  % 
-  Let us set $\mu_n=b_n^*-b_{n-1}^*$ for $n\in[N]$, then we get by substituting $\frac{2(x_n^*-\ome)}{\mu_n}=\tome$ and
-  $\hGlob_n=\tilde{h}_n\mu_n/2$  in the minimal average distortion 
+  the optimal ground positions are the centroids of the cells.  Let us set $\mu_n=b_n^*-b_{n-1}^*$ for $n\in[N]$, then
+  we get by substituting $\frac{2(x_n^*-\ome)}{\mu_n}=\tome$ and $\hGlob_n=\tilde{h}_n\mu_n/2$  in the optimal average power
+  consumption
   %
   \begin{align}
-    \AvDis(\vQ^*)&=\sum_{n=1}^N \int_{b_{n-1}^*}^{b_n^*} 
-       \frac{ ((\pGlob_n-\ome)^2+{\hGlob_n}^2)^{\gam}}{\hGlob_n}\frac{d\ome}{A} 
-       = \sum_n \int_{1}^{-1} -\frac{  (\mu_n^2 \tome^2/4 + \tilde{h}_n^2\mu_n^2/4)^{\gam}}{\tilde{h}_n\mu_n/2}
-    \frac{\mu_n}{2A}d\tome\notag\\
-    &= \frac{1}{ 2^{2\gam-1}A}\sum_n \mu_n^{2\gam}\cdot\int_0^1 \frac{(\ome^2+\tilde{h}^2_n)^{\gam}}{\tilde{h}_n}d \ome 
+    \Pbar(\vp^*,\vh^*)&=\sum_{n=1}^N \int_{b_{n-1}^*}^{b_n^*} \frac{ ((\pGlob_n-\ome)^2+{\hGlob_n}^2)^{\gam}}{\hGlob_n}\frac{d\ome}{A} 
+    = \sum_n \int_{1}^{-1} -\frac{  (\mu_n^2 \tome^2/4 + \tilde{h}_n^2\mu_n^2/4)^{\gam}}{g(\alp)\mu_n/2}
+    \frac{\mu_n}{2A}\notag\\
+    &=\frac{2}{A}\sum_n \int_0^1 \frac{(\ome^2+\tilde{h}^2_n)^{\gam}}{\tilde{h}}d \ome \cdot \mu_n^{1+\alp} 2^{-1-\alp}
   \end{align}
   %
-  where we used \eqref{eq:xnoptimal} to get for the integral boundaries $2(\pGlob_n-b_{n-1}^*)/\mu_n=1=-2(\pGlob_n-b_{n}^*)/\mu_n$.
-  We do not know the value of $\tilde{h}_n$ but we know it is the optimal parameter to achieve the minimal average
-  distortion for $x_n^*$ and $\Vor_n^*$. Hence, by minimizing $\AvDis(\vq^*,\tilde{\vh},\Vor^*)$ over
-  $\tilde{\vh}$, i.e., minimizing over each $\tilde{h}_n$ gives by \lemref{lem:ggam} 
+  where we inserted \eqref{eq:bnoptimal} to get $2(\pGlob_n-b_{n-1}^*)/\mu_n=1=-2(\pGlob_n-b_{n}^*)/\mu_n$.
+  Since we do not know what $\tilde{h}_n$ is, we will lower bound over all possible optimal $\tilde{h}_n$, which is
+  certainly the case if we minimize each $n$th integral over $\tilde{h}_n$
   %
   \begin{align}
-    \frac{1}{2^{2\gam-1}A}
-    \sum_n \mu_n^{2\gam}\cdot\left(\min_{\tilde{h}_n>0}\int_0^1 \frac{(\ome^2+\tilde{h}^2_n)^{\gam}}{\tilde{h}_n}d \ome\right)
-    =\frac{1}{2^{2\gam-1}A}\int_0^1 \frac{(\ome^2+g^2(\alp))^{\gam}}{g(\alp)}d\ome \cdot  \sum_n\mu_n^{2\gam}\notag.
-  \end{align}
-  %
-  Since $\mu_n$ also depends on $\tilde{h}_n$ we minimize over all $\{\mu_n\}$ under the constraint $\sum_n\mu_n=A$,
-  which will define a valid parameter-quantizer and must therefore be the optimal parameter-quantizer
-  \eqref{eq:optquanteqoptdeploy}. By the Hölder inequality we get for $p=2\gam, q=2\gam/(2\gam-1)$ 
-  %
-  \begin{align}
-    \sum_n \mu_n^{2\gam}=\sum_n \mu_n^p  = \sum_n \mu_n^p \cdot\Big(\sum_n (1/N)^q \Big)^{p/q} \cdot N
-    \geq\Big( \sum_n \frac{\mu_n }{N}\Big)^p \cdot N =
-    \left(\frac{A}{N}\right)^{2\gam}N\notag
-  \end{align}
-  %
-  which is achieved if and only if $\mu_n=A/N$. Hence, the optimal parameter-quantizer is the 
-  uniform scalar quantizer $x_n^*=(2n-1)A/2N$ with identical parameters $h^*=(A/2N)g(\gam)$ resulting in the
-  minimal average distortion \eqref{eq:optimumavpow}.
-
+    &\geq\frac{1}{2^{\alp}A}\sum_n \left(\min_{\tilde{h}_n>0}\int_0^1 \frac{(\ome^2+\tilde{h}^2_n)^{\gam}}{\tilde{h}_n}d \ome\right)
+    \mu_n^{1+\alp}.
+\end{align}
+%
+By \thmref{thm:commonheight} we know that the minimum of the user integrals is  achieved for $\tilde{h}_n=g(\alp)$, which leaves
+only an uncertainty for $\mu_n$. Hence we get
+%
+\begin{align}
+  &=\frac{1}{2^{\alp}A} \int_0^1 \frac{(\ome^2+g^2(\alp))^{\gam}}{g(\alp)}d\ome\cdot \sum_n \mu_n^{1+\alp}\cdot \left(\frac{\sum_n
+  1^q}{N}\right)^{p/q}
+\end{align}
+%
+which can be lower bounded by Hölder inequality with $p=1+\alp, q=(1+\alp)/\alp$ to
+%
+\begin{align}
+  &\geq\frac{1}{2^{\alp}A} 
+  \int_0^1 \frac{(\ome^2+g^2(\alp))^{\gam}}{g(\alp)}d\ome\cdot\underbrace{ (\sum_n
+    \mu_n)^{1+\alp}}_{=A^{1+\alp}} N^{-\alp}
+    =  \left(\frac{A}{2N}\right)^{\alp}  \int_0^1 \frac{(\ome^2+g^2(\alp))^{\gam}}{g(\alp)}d\ome\notag
+\end{align}
+%
+which can be achieved if and only if $\mu_n=A/N$. But this is the average power for the common height case
+\eqref{eq:optimumavpow}, and hence, the only (global) optimal deployment is  the common height deployment with uniform
+ground positions given in \thmref{thm:commonheight}. 
+%
 \end{proof}
 \fi % end ifproof
 \color{black}
-
-\begin{example}
-We plotted in \figref{fig:goptdopt} the optimal heights and optimal average distortion for a uniform GT density in
-$[0,1]$ over various $\alp$ and $N=2$. Note, that the factor $a=A/2N=1/4$ will play a crucial role for the height and
-distortion scaling. Moreover, the distortion decreases exponentially in $\alpha$ if $a<1$.
 
 Let us set $\bet=1=A$. Then the optimal UAV deployment is pictured in \figref{fig:uavonedim} for $N=2$ and $N=4$. The
 maximal evaluation angle $\tht_{\text{max}}$ is hereby constant for each UAV and does not change if the number of UAVs
@@ -1035,7 +1315,7 @@ $d_n=x^*_n-x^*_{n-1}=A/N$ and
 \begin{align}
   \cos(\tht_{\text{max}})=\cos(\tht_n)= \frac{h^*}{d^*_n/2}= \frac{2N}{A}\frac{A}{2N}   g(1)= \frac{1}{\sqrt{3}}.
 \end{align}
-\end{example}
+
 % 
 \begin{figure}
 \begin{minipage}[b]{0.4\textwidth}
@@ -1107,25 +1387,21 @@ that the common height property in one-dimension region might be extended to two
 function is uniform.  However, one can find an nonnegligible gap between Lloyd-A and Lloyd-B from Fig.
 \ref{nonuniformDistortion} where the density function is non-uniform. For instance, given 16 UAVs and pass loss exponent
 $\alpha=6$, Lloyd-A's distortion is 40.17 while Lloyd-B obtains a smaller one, 28.25, by placing UAVs on different
-heights.  Figs. \ref{uniformDistortion_regions} and \ref{nonuniformDistortion_regions} illustrate the UAV ground
-projections and their partitions on a uniform distributed region. As the number of UAVs increases, the UAV partitions
-approximate to be hexagons which implies the common height property (Theorem \ref{thm:commonheight}) might be extended
-to uniform-distributed two-dimensions.  However, our simulations in \cite{GWJ18b} show that the common height is no
-longer a necessary condition for the optimal quantizer when data distribution is non-uniform.
-%
+heights.
+Figs. \ref{uniformDistortion_regions} and \ref{nonuniformDistortion_regions} illustrate the UAV ground projections and their partitions on a uniform distributed region. As the number of UAVs increases, the UAV partitions approximate to be hexagons which implies the common height property (Theorem \ref{thm:commonheight}) might be extended to uniform-distributed two-dimensions. 
+However, our simulations in \cite{GWJ18a} show that the common height is no longer a necessary condition for the optimal quantizer when data distribution is non-uniform.
 \begin{figure}[t]
 \centering
-\subfloat[]{\includegraphics[width=2.8in]{HR32.eps}
+\subfloat[]{\includegraphics[width=2.9in]{HR32.eps}
 \label{uniformDistortion_regions}}
 \hfil
-\subfloat[]{\includegraphics[width=2.8in]{HR100.eps}
+\subfloat[]{\includegraphics[width=2.9in]{HR100.eps}
 \label{nonuniformDistortion_regions}}
 \captionsetup{justification=justified}
-\vspace{-2ex}
 \caption{\small{The UAV projections on the ground with generalized Voronoi Diagrams where $\alpha=2$. 
 (a) 32 UAVs. (b) 100 UAVs.}}
 \label{Distortion_region}
-%\vspace{-4ex}
+\vspace{-4ex}
 \end{figure}
 
 \section{Conclusion}
@@ -1459,371 +1735,6 @@ Indeed, the optimum is attained for the blue plot with $h=h_1=0.144$ at $\eps=0$
 %\appendices
 \appendix
 
-
-
-\ifarxiv
-\section{Proof of \lemref{lem:ggam}}\label{app:proof_lemma_ggam}
-  To find the optimal $1-$level parameter quantizer $(x^*,h^*)$ for a uniform density $\lam(\ome)=1/A$, we need to
-  satisfy \eqref{eq:criticalpoint},i.e., for\footnote{Note, there is no optimizing over the regions, since there is only
-  one.} $\Ome=\Vor_1=\Vor_1^*=[0,A]$
-  %
-  \begin{align}
-    0&=\int_0^A (x^*-\ome)\big( (x^*-\ome)^2+h^{*2}\big)^{\gam-1}  d\ome.
-  \end{align}
-  %
-  Substituting $x^*-\ome$ by $\ome$ we get 
-  %
-  \begin{align}
-    0&=\int_{x^*-A}^{x^*} \ome \big( \ome^2+h^{*2}\big)^{\gam-1}  d\ome
-  \end{align}
-  %
-  Since the integral kernel is an odd function in $\ome$ and $x^*\in[0,A]$ it must hold
-  %
-  \begin{align}
-    0=-\int_0^{x^*-A} \ome(\ome^2+h^{*2})^{\gam-1}d\ome + \int_0^{x^*}\ome(\ome^2+h^{*2})^{\gam-1}d\ome
-    \intertext{by substituting $\ome$ by $-\ome$ we get}
-    \int_{0}^{A-x^*} \ome(\ome^2+h^{*2})^{\gam-1}d\ome = \int_0^{x^*} \ome(\ome^2+h^{*2})^{\gam-1}d\ome.
-  \end{align}  
-  %
-  Hence for any choice of $h^*$ it must hold $x^*=A-x^*$, which is equivalent to $x^*=A/2$.
-%  We also note at this point, that for setting $x^*=A/2\pm \eps$ for any $\eps>0$, will obtain   
-  To find the optimal parameter, we can just insert $x^*$ into the average distortion
-  %
-  \begin{align}
-    \AvDis(x^*,h) &= \frac{1}{A}\int_0^A \frac{(x^*-\ome)^2+h^2)^{\gam} }{h}d\ome
-    = \frac{1}{A} \int_0^{A/2} \frac{(\ome^2+h^2)^{\gam}}{h}d\ome\label{eq:AvDisxstar}
-  \intertext{where we substituted again and inserted $x^*=A/2$. By substituting $\ome$ with $2\ome/A$ 
-    and $h$ with $u=2h/A$  we get}
-    &= \int_0^1  \frac{2}{A}\frac{((A\ome/2)^2 +   (Au/2)^2)^{\gam}}{u}d\ome
-      =\left(\frac{A}{2}\right)^{2\gam-1} \int_0^1 f(\ome,u,\gam)d\ome
-  \end{align}
-  %
-  where for each $\gam\geq 1$ the integral kernel $f$ is a convex function in
-  $\vx=(\ome,u)$ over $\R_+^2$. Let us rewrite $f$ as
-  %
-  \begin{align}
-    f(\ome,u,\gam)= \frac{(\ome^2+u^2)^{\gam}}{u}= \frac{\Norm{(\ome,u)}_2^{2\gam}}{u}.
-  \end{align}
-  %
-  Clearly, $\Norm{\vx}_2$ is a convex and continuous function in $\vx$ over $\R^2$ and since $(\cdot)^{2\gam}$ with
-  $2\gam\geq2$ is a strictly increasing continuous function the concatenation $f(\vx,\gam)$ is a strict convex and
-  continuous function over $\R_+^2$. Hence, for any $\vx_1,\vx_2\in\R^2$ we have
-  %
-  \begin{align}
-    \Norm{\lam\vx_1+(1-\lam)\vx_2}_2^{2\gam}<\lam \Norm{\vx_1}_2^{2\gam} + (1-\lam)\Norm{\vx_2}_2^{2\gam}
-  \end{align}
-  %
-  for all $\lam\in(0,1)$. But then we have also for any $u_1,u_2\in\R^2_+$ and $\ome\geq 0$ 
-  %
-  \begin{align}
-    f(\lam u_1 +(1-\lam)u_2,\ome,\gam) < 
-    \frac{\lam\Norm{(\ome,u_1)}_2^{2\gam} + (1-\lam)\Norm{(\ome,u_2)}_2^{2\gam}}{\lam u_1+(1-\lam)u_2}
-    \label{eq:fnormgam}.
-  \end{align}
-  %
-  Since it holds 
-  %
-  \begin{align}
-    \frac{1}{u_1}\! +\!\frac{1}{u_2} &=
-       \left(\frac{1}{u_1}\! + \!\frac{1}{u_2}\right)\frac{\lam u_1 \!+\!(1\!-\!\lam)u_2}{\lam u_1 \!+\! (1\!-\!\lam)u_2}
-       =\frac{ \left(\lam\! +\!\frac{(1\!-\!\lam)u_2}{u_1}\! +\! (1\!-\!\lam) \!+\! \frac{\lam u_1}{u_2}\right)}{\lam
-       u_1 \!+\! (1\!-\!\lam)u_2} 
-       > \frac{1}{\lam u_1\! +\! (1\!-\!\lam)u_2}\notag
-  \end{align}
-  %
-  we get with \eqref{eq:fnormgam}
-  %
-  \begin{align}
-    f(\lam u_1 +(1-\lam)u_2,\ome,\gam) < \lam f(u_1,\ome,\gam) + (1-\lam)f(u_2,\ome,\gam) 
-  \end{align}
-  %
-  for each $\lam\in(0,1)$. Hence the integral kernel is strict convex for every $\ome\geq0,\gam\geq 1$, and since the
-  infinite sum (integral) of convex functions is again a convex function for $u>0$, we have shown convexity of $F(u,\gam)$. 
-  Note, $f(u,\ome,\gam)$ is continuous in $\R_+^2$ since it is a product of the continuous functions
-  $\Norm{(u,\ome)}_2^{2\gam}$ and $1/(u+0\cdot\ome)$, and so is $F(u,\gam)$. 
-  %
-  Therefore, the only critical point of $F(\cdot,\gam)$ will be the unique global minimizer
-  \begin{align}
-    g(\gam)=\arg\min_{u>0} F(u,\gam),
-  \end{align}
-  %
-  which is defined by the  vanishing of the first derivative:
-  %
-  \begin{align}
-    F'(u)  &\!= \!\int_0^{1}\! (\ome^2\!+\!u^2)^{\gam-1}( (2\gam\!-\!1)-\frac{\ome^2}{u^2})d\ome
-    \!=\!\frac{1}{u^{2}}\!\int_{0}^{1} (\ome^2\!+\!u^2)^{\gam-1}((2\gam\!-\!1)u^2-\ome^2)\label{eq:Fderivative}.
-  \end{align}
-  %
-  Hence, $F'(u)$ can only vanish if $u<1/\sqrt{2\gam-1}$, which is an upper bound on $g(\gam)$.
-  The optimal parameter for minimizing the average distortion  \eqref{eq:AvDisxstar} is then 
-  %
-  \begin{align}
-    h^*= \frac{A}{2} g(\gam) \quad\text{with}\quad \AvDis(x^*,h^*)= \left(\frac{A}{2}\right)^{2\gam-1} g(\gam).
-  \end{align}
-  %
-  Analytical solutions for $F'(u)=0$ are possible for integer valued $\gam$. 
-  Let us set $0<x=u^2$ in \eqref{eq:Fderivative}, then we get for $\gam\in\N$ a polynomial in $\ome$ of degree $2\gam$ and in
-  $x$ of degree $\gam$. For $\gam\in\{1,2,3\}$ we get 
-%
-\begin{align}
-  (\ome^2-1x)(\ome^2+x)^0 &=\ome^2-x\\
-  (\ome^2-3x)(\ome^2+x)^1 &=\ome^4 -2\ome^2x -3x^2 \\
-  (\ome^2-5x)(\ome^2+x)^2 &=\ome^6 -3\ome^4x -9\ome^2x^2-5x^3
-%  (x^2-7c)(x^2+c)^3 &=x^8 -4x^6c -18x^4c^2-20x^2c^3-7c^4
-\end{align}
-%
-which yield with the definite integrals to
-%
-\begin{align}
-  0 &= \ome(\frac{\ome^2}{3}-x)\Big|_{\ome=1}\\
-  0 &= \ome(\frac{\ome^4}{5} -\frac{2\ome^2x}{3} - 3x^2)\Big|_{\ome=1}\\ 
-  0 &= \ome(\frac{\ome^6}{7} -\frac{3\ome^4x}{5} - 3\ome^2x^2 -5x^3)\Big|_{\ome=1}\label{eq:ccubic} 
-%  0 &= x(\frac{x^8}{9} -\frac{4x^6c}{7} - \frac{18x^4c^2}{5} -\frac{20x^2c^3}{3} - 7c^4)\Big|_{x=b}
-\end{align}
-%
-Solving the first for $x$  yields to the only feasible solution
-%
-\begin{align}
-  x=\frac{1}{3} \quad\RA\quad g(1)=\frac{1}{\sqrt{3}}\approx 0.577.
-\end{align}
-%
-The second yields for $x$ to 
-%
-\begin{align}
-  x_{1,2}= -\frac{1}{9} \pm \sqrt{\frac{1}{81}+\frac{1}{15}} = \frac{\pm \sqrt{32/5} -1}{9}
-\end{align}
-%
-Since only positive roots are allowed we get as only feasible solution
-%
-\begin{align}
-  g(3)=\frac{\sqrt{\sqrt{32/5}-1}}{3}\approx 0.412.
-\end{align}
-%
-Finally, for  $\alp=5$ we get the cubic equation \eqref{eq:ccubic}
-%
-\begin{align}
-  5x^3 + 3 x^2 + \frac{3}{5} x - \frac{1}{7}=0
-\end{align}
-%
-Then the discriminant is given by, see for example \cite[2.3.2]{Zwi03},
-%
-\begin{align}
-  \Del=q^2+4p^3 \quad\text{with}\quad q=\frac{2b^3-9abc+27a^2d}{27a^3},p=\frac{3ac-b^2}{9a^2}
-\end{align}
-%
-Let us identify $a=5,b=3,c=3/5$ and $d=-1/7$, then we get
-%
-\begin{align}
-  q&=\frac{6\cdot 9-9\cdot 9 - 27\cdot 5^2\cdot1/7}{27\cdot 5^3}
-  =-\frac{3}{3\cdot 5\cdot 25} -\frac{1}{5\cdot 7}=-\frac{32}{25\cdot35}\\
-  \Del&=q^2 + 4 \left(\frac{3\cdot 3 -9}{9\cdot 5^2}\right)^3=q^2>0
-\end{align}
-%
-which indicates only one real-valued root, given by
-%
-\begin{align}
-  x=\alp_+^{1/3}+\alp_-^{1/3}-\frac{b}{3a} 
-  \quad\text{with}\quad  \alp_{\pm}=\frac{-q\pm\sqrt{\Del}}{2} = \{0, \frac{32}{25\cdot 35} \}
-\end{align}
-%
-which computes to
-%
-\begin{align}
-  x=\left( \frac{32}{5^3\cdot 7}\right)^{1/3}- \frac{1}{5}
-  =\frac{(\frac{32}{7})^{1/3}-1}{5} \RA g(5)=\sqrt{\frac{(\frac{32}{7})^{1/3}-1}{5}} \approx 0.363.
-\end{align}
-%
-\fi % ifarxiv end
-
-
-\ifarxiv%
-%
-\section{Proof of \lemref{lemma:allActive}}\label{app:proof_lemma_active}
-  %
-  Although, this statement seems to be trivial, it is not straight forward to show.
-%  , since the distortion function
-%  $\AvDis$ in \eqref{eq:Eptx} is not strictly monotone increasing in $p_n$ or $h_n$ for a given sample $\ome \in\Ome$.
-%  To bypass this non-monotonicity property  
-  We will use the quantization relaxation for the average distortion $\AvDis$
-  in \eqref{eq:Pbar} to  show that the $N-$level parameter optimized quantizer has strictly smaller distortion than the
-  $(N-1)-$level optimized quantizer \eqref{eq:optPbar}. We define, as in
-  quantization theory, see for example \cite{GN98}, an \emph{$N-$level quantizer} for $\Ome$, by a (disjoint) partition
-  $\Rset=\{\Rset_n\}_{n=1}^N\subset \Ome$ of $\Ome$ and assign to each partition region $\Rset_n$ a
-  parameter-quantization point
-  $\vq_n\in\Qset=\Ome\times\R_+$. The assignment rule or \emph{quantization rule} can be anything such that the regions
-  are independent of the value of the parameter and quantization points.  Minimizing over all quantizer, that is, over
-  all partitions and possible parameter-quantization points will yield to the parameter optimized quantizer, which is by definition the
-  optimal deployment (reproduction points) which generate the generalized Voronoi regions as the optimal partition
-  (tessellation\footnote{Since we take here the continuous case, the integral will not distinguish between open or closed
-  sets.}). This holds for any density function $\lam(\ome)$ and target area $\Ome$.  To see this\footnote{We use the
-    same argumentation as in the prove of \cite[Prop.1]{Erdem}.} let us start with any quantizer $(\vQ,\Rset)$ for
-    $\Ome$ yielding to the average distortion 
-  %
-  \begin{align}
-    \AvDis(\vQ,\Rset) &=\sum_{n=1}^N \int_{\Rset_n} \Dis(\vq_n,\ome)\lam(\ome) d\ome \geq \sum_{n=1}^N \int_{\Rset_n} 
-    \left(\min_{m\in[N]} \Dis(\vq_m,\ome) \right) \lam(\ome)d\ome\\
-    &=\int_{\Ome} \min_{m\in[N]} \Dis(\vq_m,\ome) \lam(\ome)d\ome
-    =\sum_n \int_{\Vor_n(\vQ)} \Dis(\vq_n,\ome) \lam(\ome)d\ome\notag
-  \end{align} 
-  %
-  where the first inequality is only achieved if for any $\ome\in \Rset_n$ we have chosen $\vq_n$ to be the optimal
-  quantization point with respect to $\Dis$, or vice versa, if every $\vq_n$ is optimal for every $\ome\in \Rset_n$, which is the
-  definition of the generalized Voronoi region $\Vor(\vQ)$. Therefore, minimizing over all partitions gives equality, i.e.
-  %
-  \begin{align}
-    \min_{\Rset} \AvDis(\vQ,\Rset)=\AvDis(\vQ,\Vor(\vQ))
-  \end{align}
-  %
-  for any $\vQ\in\Qset^N$.
-  Hence, we have shown that the parameter-quantizer optimization problem is equivalent to the locational-parameter
-  optimization problem
-  %
-  \begin{align}
-    \min_{\vQ\in\Qset^N} \min_{\Rset\in\Ome^N} \AvDis(\vQ,\Rset) = \min_{\vQ\in\Qset^N}
-    \AvDis(\vQ,\Vor(\vQ))=\AvDis(\vQ^*,\Vor(\vQ^*)).\label{eq:optquanteqoptdeploy2}
-  \end{align}
-  %
-  We need to show, that for the optimal $N-$parameter-quantizer $(\vQ^*,\Vor(\vQ^*))$ we have $\mu(\Vor_n(\vQ^*))>0$ for
-  all $n\in[N]$.  Let us first show that each region is indeed a closed interval, i.e.,
-  $\Vor_n(\vQ^*)=[b^*_{n-1},b^*_n]$ with $0\leq b^*_{n-1}\leq b^*_n\leq A$. 
-  
-  By the definition of the Möbius regions in \lemref{lem:moebiusdia}, each dominance region is either a single interval (if
-  it is a ball not contained in the target region or a halfspace) or two disjoint intervals (if its a ball contained in
-  the target region), we can not have more than $K_n\leq 2N-2$ disjoint closed intervals for each Möbius (generalized
-  Voronoi) region.  Therefore, the $n$th optimal Möbius region is given as $\Vor^*_n=\Vor_n(\vp^*,
-  \vh^*)=\bigcup_{k=1}^{K_n}v_{n,k}$, where $v_{n,k}=[a_{n,k-1},a_{n,k}]$ are intervals for some $0\leq a_{n,k-1}\leq
-  a_{n,k}\leq A$.
-
-  Let us assume there are quantization points with disconnected regions, i.e. $K_n>1$ for $n\in\Ind_d$ and some
-  $\Ind_d\subset[N]$. Then we will re-arrange the partition $\Vor^*$ by concatenating the $K_n$ disconnected
-  intervals $v_{n,k}$ to $\Rset_n=[b_{n-1},b_{n}]$ for $n\in\Ind_d$ and move the connected regions appropriate such that
-  for all $n\in[N]$ it holds $\mu(\Rset_n)=\mu(\Vor^*_n)=b_n-b_{n-1}$ and $b_{n-1}\leq b_{n}$, where we set $b_0=0$ and
-  $b_N=A$. For the new concatenated regions, we move each $q_n^*$ to the center of the new arranged regions, i.e.,
-  $\tq_n=\frac{b_n+b_{n-1}}{2}$ for $n\in\Ind_d$. If for the connected regions $n\in[N]\setminus\Ind_d$  the
-  quantization points $q^*_n$ are not centroidal, than by placing them in the center of the closed interval,
-  will by \lemref{lem:ggam} obtain a strictly smaller distortion. Hence, for the optimal quantizer, the quantization
-  points must be centroidal and we can assume $\tq_n=(b_n+b_{n-1})/2$ for all $n\in[N]$. 
-  %
-  In this rearrangement we did not changed the parameters $h_n^*$ at all.  The so rearranged partition
-  $\Rset=\{\Rset_n\}$ and replaced quantization points $\tvp=(\tq_1,\dots,\tq_N)$ has the average distortion 
-  %
-  \begin{align}
-    \AvDis(\tvp^*,\vh^*,\Rset)=\sum_{n=1}^N \int_{b_{n-1}}^{b_n} \frac{ ((\tq_n\!-\!\ome)^2+h_n^{*2})^{\gam}}{h_n^{*}} d\ome
-      = 2\sum_{n=1}^N \int_{0}^{\frac{b_n-b_{n-1}}{2}} \frac{ (\ome^2+h_n^{*2})^{\gam}}{h_n^{*}} d\ome
-  \end{align}
-  %
-  where we substituted $\ome$ by $\tq_n\!-\!\ome$. Since the parameters did not changed and the function
-  $(\ome^2+h_n^{*2})^{\gam}$ is strictly monotone increasing in $\ome$ for each $\gam>0$, it holds for the average
-  distortion of regions $n\in\Ind_d$
-  %
-  \begin{align}
-   \AvDis_n(\tq_n^*,h_n^*,\Rset_n)=    2\int_{0}^{\frac{b_n-b_{n-1}}{2}} \frac{ (\ome^2+h_n^{*2})^{\gam}}{h_n^{*}} d\ome 
-    < \sum_{k=1}^{K_n}\int_{a_{n,k}-q_n^*}^{a_{n,k-1}-q_n^*} \frac{ (\ome^2+h_n^{*2})^{\gam}}{h_n^{*}}
-    d\ome\label{eq:Avdisn}
-  \end{align}
-  %
-  since the non-zero gaps in $\bigcup_k [a_{n,k}-q_n^*,a_{n,k-1}-q_n^*]$ will lead to larger $\ome$ in the RHS integral
-  and therefore to a strictly larger average distortion.  Therefore the points $(\tvp,\vh^*)$ with closed interval
-  $\Rset=\{\Rset_n\}$ have a strictly smaller average distortion, which contradicts the assumption that $(\vp^*,\vh^*)$ is the
-  parameter optimized quantizer \eqref{eq:optquanteqoptdeploy}. Hence $K_n=1$ for each $n\in[N]$ and every $\gam\geq 1$.
-  Moreover, the optimal quantization points must be centroids of the intervals, i.e. $x_n^*=(b_n^*+b_{n-1})/2$.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-  Now, we have to show that the optimal quantization regions $\Vor_n^*=\{[b^*_{n-1},b^*_n]\}_{n=1}^n$ are not points, i.e.,
-  it should hold $b^*_n>b^*_{n-1}$ for each $n\in[N]$. If $b^*_n=b^*_{n-1}$ for some $n$, then the $n$th average distortion $\AvDis_n$
-  would be zero for this quantization point, since the integral is vanishing. But then we only optimize over $N-1$
-  quantization points. So we only need to show, that an additional quantization point strictly decreases the minimal
-  average distortion.  Hence, take any non-zero optimal quantization region $\Vor_n^*=[b^*_{n-1},b^*_n]$. We know by
-  \lemref{lem:ggam} that the optimal quantizer $q_n^*$ for some closed interval $\Vor_n^*$  must be its centroidal for
-  any parameter $h_n$.  Hence, if we split  $\Vor_n^*$ with  $A_n=b^*_n-b^*_{n-1}$ by a half and put two quantizers
-  $q_{n_1}$ and $q_{n_2}$ with same parameter $h_n^*$ in the center we will get with \eqref{eq:Avdisn}
-  %
-  \begin{align}
-   % D_n(q_n^*,h_n^*,\Vor_n^*)=\frac{2}{h_n}\int_{0}^{A_n/2} (\ome^2+h_n^{*2})^{\gam} d\ome
-      \AvDis_{n_1}\!+\!\AvDis_{n_2}&=\frac{1}{h_n^*} 
-     \left( \int_{b_{n-1}}^{b_{n-1}+\frac{A_n}{2}} ( (q_{n_1}-\ome)^2 + h_n^{*2})^{\gam}d\ome
-     +\int_{b_{n-1}+\frac{A_n}{2}}^{b_n}((q_{n_2}-\ome)^2+h_n^{*2})^{\gam}d\ome\right)\notag\\
-   \intertext{substituting $q_{n_i}-\ome$ by $\ome$ we get} 
-     & =  \int_{-\frac{A_n}{4}}^{\frac{A_n}{4}} \frac{(\ome^2+h_n^{*2})^{\gam}}{h_n^*}d\ome
-     + \int_{-\frac{A_n}{4}}^{\frac{A_n}{4}} \frac{(\ome^2+h_n^{*2})^{\gam}}{h_n^*}d\ome\\
-     & =  2\int_{0}^{\frac{A_n}{4}} \frac{(\ome^2+h_n^{*2})^{\gam}}{h_n^*}d\ome 
-     + w\int_{0}^{\frac{A_n}{4}}    \frac{ (\ome^2+h_n^{*2})^{\gam}}{h_n^*}d\ome\\
-     & <  2\!\int_{0}^{\frac{A_n}{4}} \frac{(\ome^2\!+\!h_n^{*2})^{\gam}}{h_n^*}d\ome
-     + 2\!\int_{\frac{A_n}{4}}^{\frac{A_n}{2}} \frac{(\ome^2\!+\!h_n^{*2})^{\gam}}{h_n^*}d\ome
-     = 2\!\int_0^{\frac{A_n}{2}} \frac{(\ome^2\!+\!h_n^{*2})^\gam}{h_n^*} d\ome=\AvDis_n\notag
-  \end{align}
-  Hence, the average distortion will strictly decrease if $A_n>0$. Therefore, the $N-$level parameter optimized
-  quantizer will have
-  quantization boundaries $b_n\!>\!b_{n\!-\!1}$ for $n\in[N]$.
-  % old version, too complicated
-  \if0
-  By \eqref{eq:optquanteqoptdeploy} we get 
-  %
-  \begin{align}
-    \min_{\Rset} \Pbar(\vQ^*,\Rset)= \min_{\Rset}\sum_n \int_{\Rset_n} P(\vq^*_n,\vome)d\vome=\Pbar(\vQ^*,\Vor(\vQ^*)).
-  \end{align}
-  %
-  If $N=1$ there is nothing to optimize and we have $\Rset=\Rset_1=\Ome=[a,b]$. Furthermore, we know  by
-  \lemref{lem:ggam}, that the optimal $\vq^{(1)*}=(p_1^{(1)*},h_1^{(1)*})$ for $N=1$ is the uniform quantizer given by
-  $p^{(1)*}_1=a+A/2$ with $A=b-a$ and $h^*=h_1^{(1)*}=\argmin_{h>0} \int_0^{A/2} \frac{(\ome^2+h^2)^{\gam}}{h}d\ome$.
-  Let us note, that the average power $\Pbar(p_1^{(1)*},\cdot)$ is convex (second-derivative is always positive) in $h$
-  and hence there is only one critical point $h^*$ in $\R_+$, which is the global minimum. Now assume, we add one more
-  quantizer $\vq_2^{(2)}=(p_2^{(2)},h^*)$ with same height and partitioning $\Ome$ by $\Rset_{\eps}$ given by
-  $R_1=[a,a+\eps]$ and $R_2=[a+\eps,b]$  for some $\eps\in(0,A)$.  If we minimize only over the ground positions, we get 
-  %
-  \begin{align}
-    \Pbar(\vp^{(2)*},h^*,\Rset_{\eps}):=\min_{p_1} \int_{a}^{a+\eps} P(p_1,h^*,\ome)d\ome + \min_{p_2} 
-    \int_{a+\eps}^b P(p_2,h^*,\ome)d\ome
-  \end{align}
-  %
-  By the \lemref{lem:ggam} we get for the optimal uniform ground positions for each {\bfseries independent} integral
-  %
-  \begin{align}
-    p_1^{(2)*}=\frac{2a+\eps}{2} \quad\text{and}\quad p_2^{(2)*}= \frac{a+b+\eps}{2} 
-  \end{align}
-  %
-  inserting and substituting with $\tome=\ome-p_i^{(2)*}$ we get with $h^*=\sqrt{c}$ 
-  %
-  \begin{align}
-    \Pbar(\vp^{(2)*},h^*,\Rset_{\eps})
-   % &=\frac{1}{\sqrt{c}}\left(\int_{-\frac{\eps}{2}}^{\frac{\eps}{2}} (\tome^2+c)^{\gam}d\tome +
-   % \int_{-\frac{b-(a+\eps)}{2}}^{\frac{b-(a+\eps)}{2}} (\tome^2+c)^{\gam} d\ome \right)\\
-    &=
-    \frac{2}{\sqrt{c}} \left( \int_0^{\eps/2} (\ome^2+c)^{\gam}d\ome
-    +\int_{0}^{\frac{b-a}{2}-\frac{\eps}{2}} (\ome^2+c)^{\gam}d\ome\right).
-  \intertext{Since $(\ome^2+c)^{\gam}<( (\ome+\eps)^2+c)^{\gam}$ for each $\eps>0$ and $\gam>0$ we have }
-    &< \frac{2}{\sqrt{c}}\left( \int_{\frac{b-a}{2} -\frac{\eps}{2}}^{\frac{b-a}{2}} (\ome^2+c)^{\gam}d\ome
-    +\int_{0}^{\frac{b-a}{2}-\frac{\eps}{2}} (\ome^2+c)^{\gam} d\ome\right)=\Pbar(\vq^{(1)*},[a,b])\notag
-  \end{align}
-  %
-  for any $b-a>\eps>0$. By minimizing over the heights, we only obtain smaller values
-  %
-  \begin{align}
-    \min_{ \vp\in\Ome^2, \vh\in\R_+^2} \min_{\Rset_{\eps}=\{\Rset_{\eps,n}\}_{n=1}^2}
-    \sum_{n=1}^2 \int_{R_n} P(p_n,h_n,\ome)d\ome \leq
-    \Pbar(\vp^{(2)*},h^*,\Rset_{\eps}) < \min_{p\in\Ome,h\in\R+} \Pbar(p,h,\ome)d\ome\notag
-  \end{align}
-  %
-  Hence, if we add a UAV, we can split an arbitrary ground cell $[a,b]$ with $b>a$ in two cells with positive measure
-  and obtain a strictly smaller power consumption. Therefore, the global minimum can only be attained if all UAVs are
-  active, i.e., all optimal ground cells have positive measure $\mu(\Rset^*_n)>0$. Since the optimal partition is by
-  \eqref{eq:optquanteqoptdeploy} a Möbius diagram, each optimal ground cell is given as
-  $\Rset^*_n=\Vor_n(\vq^*)=[b_{n-1},b_n]$ with $0 \leq b_{n-1}<b_n\leq A$. 
-  \fi
-\fi % end ifproof
-%
-
-
-
-
-
-
-
-
-
-
-
 \if0 % not relevant anymore, old Jun stuff
 \junstart \section{Proof of Corollary \ref{corollary:continuity}}\label{proof:continuity} 
 
@@ -1951,12 +1862,14 @@ Without loss of generality, we assume that the Voronoi regions are assigned in a
 \Vor(p^*, h^*)=[b^*_{n-1}, b^*_n], \forall n\in\{1,\dots,N\},
 \label{eq:1DoptV}
 \end{align}
+%
 where $b^*_0\le b^*_1\le\dots\le b^*_N$ are the optimal Voronoi region boundaries. In particular, we have $b^*_0=s$ and $b^*_N=t$.
 By Lemma \ref{lemma:allActive}, all UAVs has positive volume indicating $b_n > b_{n-1}, \forall n\in\{0,1,\dots,N\}$.
 In other words, the boundaries are strictly increasing, i.e., $b^*_0< b^*_1<\dots< b^*_N$.
 Let $\mu_n=b^*_n-b^*_{n-1}, \forall n\in\{1,\dots,N\}$ be the volume of partition $\Vor_n(p^*, h^*)$, where $\sum_{n=1}^{N}\mu_n=\mu(\Omega)$.
 By Corollary \ref{corollary:linearity}, UAV $n$'s optimal deployment is $p^*_n=\frac{b^*_{n-1}+b^*_{n}}{2}$ and $h^*_n=g(\gamma)\mu_n$.
 Accordingly, the minimum distortion can be rewritten as
+%
 \begin{align}
     &\abPo(\bP^*,\bH^*)=\sum_{n=1}^{N}\int_{b^*_{n-1}}^{b^*_{n}}\frac{\left(\|p_n-\ome\|^2+h^*_n\right)^{\gamma}}{h^*_n}\df(\ome) d\ome\\
     \overset{(a)}{=}&\sum_{n=1}^{N}\int_{-1/2}^{1/2} \frac{\left(\mu^2_n\ome^2_n+(h^*_n)^2\right)^{\gamma}}{h^*_n} \frac{\mu_n}{\mu(\Omega)}d\ome_n\\
@@ -1975,7 +1888,6 @@ Therefore, the optimal flight heights are $h^*_n=g(\gamma)\mu_n=\frac{g(\gamma)\
 \philippend
 %\input{derivativeminmum}
 %\input{generalizedVoronoi}
-\vspace{-4ex}
 \printbibliography
 \end{document}
 
