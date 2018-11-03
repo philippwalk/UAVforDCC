@@ -204,7 +204,7 @@ University of California, Irvine, CA 92697-2625 \\
 \section{Introduction}
 
 %
-For a convex set $\Omega\in\R^d$ in $d=1,2$ dimensions a quantizer is given by $N$ reproduction or
+For a  set $\Omega\in\R^d$ in $d=1,2$ dimensions a quantizer is given by $N$ reproduction or
 quantization points $\vP=\{\vp_1,\dots,\vp_N\}\subset \Ome$ associated with $N$ quantization regions
 $\Rset=\{\Rset_1,\dots,\Rset_N\}\subset\Ome$, defining a partition of $\Ome$.
 %
@@ -486,7 +486,7 @@ introduced very recently in \cite{BWY07}.
   over all samples in $\Ome$ distributed by $\df$ for  some exponent $\gam\geq1$ 
   %
   \begin{align}
-    \AvDis\left(\vP,\fH\right) 
+    \AvDis\left(\vP,\fH, \Vor\right) 
     = \sum_{n=1}^{N} \int_{\Vor_n} \! \frac{ (\Norm{\gp_n- \vome}^2 +h_n^2)^{\gam}}{h_n} \df(\vome)d\vome
        \label{eq:minimizationmoebius}
   \end{align}
