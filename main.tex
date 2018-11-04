@@ -1,4 +1,5 @@
-\documentclass[smallabstract,smallcaptions]{dccpaper}
+%\documentclass[smallabstract,smallcaptions]{dccpaper}
+\documentclass[12pt,onecolumn,final,letterpaper]{IEEEtran}
 %
 \usepackage{amssymb,amsthm}
 \usepackage{thmtools}
@@ -44,10 +45,6 @@
   \addtolength\belowdisplayskip{#1}}
 {\egroup\ignorespacesafterend}
 
-\graphicspath{{../jpg/}{../pdf/}{../jpeg/}{../eps/}}
-\DeclareGraphicsExtensions{.jpg,.pdf,.jpeg,.png,.eps}
-\newenvironment{proofnoqed}{\par\vspace{1.5ex}\noindent{\em Proof\/}.}{\par\vspace{1.5ex}}
-%\usepackage[shortlabels]{enumitem}
 
 % *** SUBFIGURE PACKAGES ***
 \usepackage[caption=false,font=footnotesize]{subfig}
@@ -61,11 +58,22 @@
 \newif\ifarxiv\arxivfalse
 \arxivtrue% uncomment for arxiv version 
 
+\ifarxiv
+%\usepackage{appendix}
+%\renewcommand{\appendixname}{Appendix}
+\usepackage{graphicx}
+\fi
+
+%\graphicspath{{../jpg/}{../pdf/}{../jpeg/}{../eps/}}
+\DeclareGraphicsExtensions{.jpg,.pdf,.jpeg,.png,.eps}
+\newenvironment{proofnoqed}{\par\vspace{1.5ex}\noindent{\em Proof\/}.}{\par\vspace{1.5ex}}
+%\usepackage[shortlabels]{enumitem}
+
 \usepackage[style=ieee,    
             firstinits=true, % vornamen = erste buchstabe
             url=false,
             backend=bibtex,
-dateabbrev=true,
+            dateabbrev=true,
             doi=false,
             maxbibnames=99,
             isbn=false,
@@ -79,6 +87,8 @@ dateabbrev=true,
 \DefineBibliographyStrings{english}{%
   references = {},% replace "references" with "bibliography"  for `book`/`report`
 }
+%\newcommand{\appendixname}{Appendix}
+
 
 \usepackage{svg}
 \usepackage{import}
@@ -92,7 +102,9 @@ dateabbrev=true,
 \fi
 %
 \newif\ifproof\prooffalse % no proofs
-\newtheorem*{theorem*}{Theorem}
+
+
+
 
 \renewcommand{\vq}{\mathbf p}
 \renewcommand{\vp}{\mathbf q}
@@ -133,8 +145,8 @@ dateabbrev=true,
 \newcommand{\tQset}{\ensuremath{\tilde{\mathcal P}}}
 
 \renewcommand{\bibfont}{\footnotesize}
-\addbibresource{jabref_philipp_utf2.bib} % Meine bibliography
-\addbibresource{jun_biblatex.bib} % Meine bibliography
+\addbibresource{jabref_philipp_utf2.bib} % Philipps bibliography
+\addbibresource{jun_biblatex.bib}        % Juns bibliography
 \def \qed {\hfill \vrule height6pt width 6pt depth 0pt}
 \usepackage{caption}
 
@@ -156,8 +168,8 @@ dateabbrev=true,
 
 \newtheorem{corollary}{Corollary}
 \ifarxiv
-\pagestyle{plain}
-\pagenumbering{arabic}
+%\pagestyle{plain}
+%\pagenumbering{arabic}
 \fi
 
 \makeatletter
@@ -168,7 +180,7 @@ dateabbrev=true,
 % squeezing for formulas to save some space
 \ifarxiv
 \else
-\renewcommand{\baselinestretch}{.93}
+\renewcommand{\baselinestretch}{.90}
 \setlength{\belowcaptionskip}{-2ex}
 \fi
 % paper title
@@ -419,7 +431,7 @@ quantizers%
 \begin{align}
   \AvDis(\vP^*,\vh^*,\Vor^*)
   = \min_{(\vP,\vh)\in\Ome^N\times\R_+^N} \AvDis(\vP,\vh,\Vor)
-  = \min_{(\vP,\vh)\in\Ome^N\times\R_+^N} \min_{\Rset=\{\Rset_n\}\subset\Ome^N} \AvDis(\vP,\vh,\Rset), 
+  = \min_{(\vP,\vh)\in\Ome^N\times\R_+^N} \min_{\Rset=\{\Rset_n\}\subset\Ome} \AvDis(\vP,\vh,\Rset), 
 \label{eq:optquanteqoptdeploy}
 \end{align}
 %
@@ -505,7 +517,7 @@ introduced very recently in \cite{BWY07}.
   Here, we introduced the parameter ratio of the $n$th and $m$th quantization point as
   %
   \begin{align}
-    h_{nm}= \left(h_m/h_n\right)^{\gam}.
+    h_{nm}= \left(h_n/h_m\right)^{\frac{1}{\gam}}.
   \end{align}
   %
 \end{lemma}
@@ -522,7 +534,7 @@ introduced very recently in \cite{BWY07}.
 %
 \ifarxiv
 \begin{proof}
-  The minimization \eqref{eq:Pbar} of the distortion functions over $\Omega$ defines an assignment rule for a
+  The minimization of the distortion functions over $\Omega$ defines an assignment rule for a
   generalized Voronoi diagram $\Vor(\gP,\bH)=\{\Vor_1,\Vor_2,\dots,\Vor_N\}$ where 
   %
   \begin{align}
@@ -567,7 +579,7 @@ introduced very recently in \cite{BWY07}.
   where we introduced the \emph{parameter ratio} of the $n$th and $m$th quantization point as
   %
   \begin{align}
-    h_{nm}:= a_m/a_n=\left(h_n/h_m\right)^{\frac{2}{1+\alp}}>0.
+    h_{nm}:= a_m/a_n=\left(h_n /h_m\right)^{\frac{1}{\gam}}>0.
   \end{align}
   %
   If $0<a_n-a_m$, which is equivalent to $h_n<h_m$, then this defines a ball (disc) and for $h_n>h_m$ its complement. Hence we get
@@ -575,7 +587,7 @@ introduced very recently in \cite{BWY07}.
   \begin{align}
     \Vor_{nm}=\begin{cases}
       B(\vc_{nm},r_{nm})=\set{\vome\in\Omega}{\Norm{\vome-\vc_{nm}}    <  r_{nm}},&  h_n<h_m\\
-      HS(\vp_n,\vp_m) = \set{\vome\in\Omega}{ \Norm{\vome- \vp_n}\leq \Norm{\vome- \vp_m}}, &h_n=h_m\\
+      \HS(\vp_n,\vp_m) = \set{\vome\in\Omega}{ \Norm{\vome- \vp_n}\leq \Norm{\vome- \vp_m}}, &h_n=h_m\\
       B^c(\vc_{nm},r_{nm})=\set{\vome\in\Omega}{\Norm{\vome-\vc_{nm}}    >  r_{nm}},&  h_n >h_m
     \end{cases}
   \end{align}
@@ -593,14 +605,14 @@ introduced very recently in \cite{BWY07}.
   %
   \begin{align}
     \frac{b_m -b_n}{a_n -a_m} &
-    = \frac{h_m^{2-\frac{2}{1+\alp}} - h_n^{2-\frac{2}{1+\alp}}}{h_n^{-\frac{2}{1+\alp}}-h_m^{-\frac{2}{1+\alp}}}
-    = \frac{h_n^{2} \left(\left(h_n/h_m\right)^{\frac{2}{1+\alp}-2} -1\right)}{1-\left(h_n/h_m\right)^{\frac{2}{1+\alp}}} 
+    = \frac{h_m^{2-\frac{1}{\gam}} - h_n^{2-\frac{1}{\gam}}}{h_n^{-\frac{1}{\gam}}-h_m^{-\frac{1}{\gam}}}
+    = \frac{h_n^{2} \left(\left(h_n/h_m\right)^{\frac{1}{\gam}-2} -1\right)}{1-\left(h_n/h_m\right)^{\frac{1}{\gam}}} 
   = h_n^2 \frac{h_{nm}^{-\alp} -1}{1-h_{nm}}
   \label{eq:bmnanm}.
   \end{align}
   %
   %
-  For any $\alp\geq 1$, we have $h_{nm}=(h_n/h_m)^{2/(1+\alp)}< 1$ if $h_n<h_m$ and $h_{nm}>1$ if $h_m>h_n$.  In
+  For any $\gam\geq 1$, we have $h_{nm}=(h_n/h_m)^{1/\gam}< 1$ if $h_n<h_m$ and $h_{nm}>1$ if $h_m>h_n$.  In
   both cases \eqref{eq:bmnanm} is positive, which implies a radius
   $r_{nm}>0$ whenever $\vp_n\not=\vp_m$. Inserting \eqref{eq:bmnanm} in \eqref{eq:radiusnm} yields the result. 
 \end{proof}
@@ -684,7 +696,7 @@ Hence, $\vQ^*=(\vP^*,\vh^*)$ is a critical point if and only if all partial deri
 %
 \fi
 For $N=1$ the integral regions will not depend on $\vP$ or $\vh$ and since the integral kernel is continuous differentiable, the
-partial derivatives will only apply to the integral kernel. For $N>1$ the conservation-of-mass law, can be used to show
+partial derivatives will only apply to the integral kernel. For $N>1$, the conservation-of-mass law, can be used to show
 that the derivatives of the integral domains will cancel each other out, see also \cite{CMB05}. 
 %
 \ifarxiv
@@ -838,8 +850,8 @@ To derive the unique $N-$level parameter optimized quantizer for any $N$ we will
   density in $[0,A]$ by
   %
   \begin{align}
-    x^*=\frac{A}{2},\quad   h^*=\frac{A}{2} g(\gam) \quad\text{and minimum average distortion} \quad
-    \AvDis(x^*,h^*)=\left(\frac{A}{2}\right)^{\!2\gam-1}\!\!g(\gam)\notag
+    x^*\!=\!\frac{A}{2},   h^*\!=\!\frac{A}{2} g(\gam) \quad\text{and the minimum average distortion} \quad
+    \AvDis(x^*,h^*)\!=\!\left(\frac{A}{2}\right)^{\!2\gam-1}\!\!\!\!g(\gam)\notag
   \end{align}
   %
   where  $g(\gam)=\arg\min_{u>0} F(u,\gam)<1/\sqrt{2\gam-1}$ is the unique minimizer of 
@@ -1047,7 +1059,7 @@ when the source distribution is non-uniform.
 \vspace{-2ex}
 \caption{\small{The UAV projections on the ground with generalized Voronoi Diagrams where $\alpha=2$ and the source distribution is uniform. 
 (a) 32 UAVs. (b) 100 UAVs.}}
-\label{uniformDistortionPartition}
+\label{uniformDistortionPartition2}
 %\vspace{-4ex}
 \end{figure}
 \ifarxiv
@@ -1062,7 +1074,7 @@ when the source distribution is non-uniform.
 \vspace{-2ex}
 \caption{\small{The UAV projections on the ground with generalized Voronoi Diagrams where $\alpha=2$ and the source distribution is non-uniform. 
 (a) 32 UAVs. (b) 100 UAVs.}}
-\label{uniformDistortionPartition}
+\label{uniformDistortionPartition3}
 %\vspace{-4ex}
 \end{figure}
 \else   \fi
@@ -1392,18 +1404,14 @@ Indeed, the optimum is attained for the blue plot with $h=h_1=0.144$ at $\eps=0$
 
 \color{black}
 
-%\input{MoebiusAlgorithms}
-%\input{UAVbaseStations}
-
-%\appendices
-\appendix
 
 
 
 \ifarxiv
+\appendices
 \section{Proof of \lemref{lem:ggam}}\label{app:proof_lemma_ggam}
   To find the optimal $1-$level parameter quantizer $(x^*,h^*)$ for a uniform density $\lam(\ome)=1/A$, we need to
-  satisfy \eqref{eq:criticalpoint},i.e., for\footnote{Note, there is no optimizing over the regions, since there is only
+  satisfy \eqref{eq:criticalpoint}, i.e., for\footnote{Note, there is no optimizing over the regions, since there is only
   one.} $\Ome=\Vor_1=\Vor_1^*=[0,A]$
   %
   \begin{align}
@@ -1416,7 +1424,7 @@ Indeed, the optimum is attained for the blue plot with $h=h_1=0.144$ at $\eps=0$
     0&=\int_{x^*-A}^{x^*} \ome \big( \ome^2+h^{*2}\big)^{\gam-1}  d\ome
   \end{align}
   %
-  Since the integral kernel is an odd function in $\ome$ and $x^*\in[0,A]$ it must hold
+  Since the integral kernel is an odd function in $\ome$ and $x^*\in[0,A]$, it must hold
   %
   \begin{align}
     0=-\int_0^{x^*-A} \ome(\ome^2+h^{*2})^{\gam-1}d\ome + \int_0^{x^*}\ome(\ome^2+h^{*2})^{\gam-1}d\ome
@@ -1445,7 +1453,7 @@ Indeed, the optimum is attained for the blue plot with $h=h_1=0.144$ at $\eps=0$
   \end{align}
   %
   Clearly, $\Norm{\vx}_2$ is a convex and continuous function in $\vx$ over $\R^2$ and since $(\cdot)^{2\gam}$ with
-  $2\gam\geq2$ is a strictly increasing continuous function the concatenation $f(\vx,\gam)$ is a strict convex and
+  $2\gam\geq2$ is a strictly increasing continuous function, the concatenation $f(\vx,\gam)$ is a strict convex and
   continuous function over $\R_+^2$. Hence, for any $\vx_1,\vx_2\in\R^2$ we have
   %
   \begin{align}
@@ -1460,7 +1468,7 @@ Indeed, the optimum is attained for the blue plot with $h=h_1=0.144$ at $\eps=0$
     \label{eq:fnormgam}.
   \end{align}
   %
-  Since it holds 
+  Considering the following inequality 
   %
   \begin{align}
     \frac{1}{u_1}\! +\!\frac{1}{u_2} &=
@@ -1470,14 +1478,14 @@ Indeed, the optimum is attained for the blue plot with $h=h_1=0.144$ at $\eps=0$
        > \frac{1}{\lam u_1\! +\! (1\!-\!\lam)u_2}\notag
   \end{align}
   %
-  we get with \eqref{eq:fnormgam}
+  and \eqref{eq:fnormgam}, we will have
   %
   \begin{align}
     f(\lam u_1 +(1-\lam)u_2,\ome,\gam) < \lam f(u_1,\ome,\gam) + (1-\lam)f(u_2,\ome,\gam) 
   \end{align}
   %
-  for each $\lam\in(0,1)$. Hence the integral kernel is strict convex for every $\ome\geq0,\gam\geq 1$, and since the
-  infinite sum (integral) of convex functions is again a convex function for $u>0$, we have shown convexity of $F(u,\gam)$. 
+  for every $\lam\in(0,1)$. Hence, the integral kernel is strictly convex for every $\ome\geq0,\gam\geq 1$, and since the
+  infinite sum (integral) of convex functions is again a convex function, for $u>0$, we have shown convexity of $F(u,\gam)$. 
   Note, $f(u,\ome,\gam)$ is continuous in $\R_+^2$ since it is a product of the continuous functions
   $\Norm{(u,\ome)}_2^{2\gam}$ and $1/(u+0\cdot\ome)$, and so is $F(u,\gam)$. 
   %
@@ -1489,8 +1497,8 @@ Indeed, the optimum is attained for the blue plot with $h=h_1=0.144$ at $\eps=0$
   which is defined by the  vanishing of the first derivative:
   %
   \begin{align}
-    F'(u)  &\!= \!\int_0^{1}\! (\ome^2\!+\!u^2)^{\gam-1}( (2\gam\!-\!1)-\frac{\ome^2}{u^2})d\ome
-    \!=\!\frac{1}{u^{2}}\!\int_{0}^{1} (\ome^2\!+\!u^2)^{\gam-1}((2\gam\!-\!1)u^2-\ome^2)\label{eq:Fderivative}.
+    F'(u)  &\!= \!\int_0^{1}\! (\ome^2\!+\!u^2)^{\gam-1} \left( (2\gam\!-\!1)-\frac{\ome^2}{u^2}\right)d\ome
+    \!=\!\frac{1}{u^{2}}\!\int_{0}^{1} (\ome^2\!+\!u^2)^{\gam-1}\left((2\gam\!-\!1)u^2-\ome^2\right)d\ome\label{eq:Fderivative}.
   \end{align}
   %
   Hence, $F'(u)$ can only vanish if $u<1/\sqrt{2\gam-1}$, which is an upper bound on $g(\gam)$.
@@ -1500,51 +1508,51 @@ Indeed, the optimum is attained for the blue plot with $h=h_1=0.144$ at $\eps=0$
     h^*= \frac{A}{2} g(\gam) \quad\text{with}\quad \AvDis(x^*,h^*)= \left(\frac{A}{2}\right)^{2\gam-1} g(\gam).
   \end{align}
   %
-  Analytical solutions for $F'(u)=0$ are possible for integer valued $\gam$. 
-  Let us set $0<x=u^2$ in \eqref{eq:Fderivative}, then we get for $\gam\in\N$ a polynomial in $\ome$ of degree $2\gam$ and in
-  $x$ of degree $\gam$. For $\gam\in\{1,2,3\}$ we get 
+  Analytical solutions for $F'(u)=0$ are possible for integer valued $\gam$.  Let us set $0<x=u^2$ in
+  \eqref{eq:Fderivative}, then for $\gam\in\N$, the integrand in \eqref{eq:Fderivative} will be a polynomial in $\ome$
+  of degree $2\gam$ and in $x$ of degree $\gam$. For $\gam\in\{1,2,3\}$ the integrand will be 
 %
 \begin{align}
-  (\ome^2-1x)(\ome^2+x)^0 &=\ome^2-x\\
-  (\ome^2-3x)(\ome^2+x)^1 &=\ome^4 -2\ome^2x -3x^2 \\
-  (\ome^2-5x)(\ome^2+x)^2 &=\ome^6 -3\ome^4x -9\ome^2x^2-5x^3
+  (\ome^2+x)^0 (1x-\ome^2)&=x-\ome^2\\
+  (\ome^2+x)^1 (3x-\ome^2)&=3x^2+2\ome^2x -\ome^4 \\
+  (\ome^2+x)^2 (5x-\ome^2)&=5x^3 +9\ome^2 x^2 +3\ome^4 x -\ome^6
 %  (x^2-7c)(x^2+c)^3 &=x^8 -4x^6c -18x^4c^2-20x^2c^3-7c^4
 \end{align}
 %
 which yield with the definite integrals to
 %
 \begin{align}
-  0 &= \ome(\frac{\ome^2}{3}-x)\Big|_{\ome=1}\\
-  0 &= \ome(\frac{\ome^4}{5} -\frac{2\ome^2x}{3} - 3x^2)\Big|_{\ome=1}\\ 
-  0 &= \ome(\frac{\ome^6}{7} -\frac{3\ome^4x}{5} - 3\ome^2x^2 -5x^3)\Big|_{\ome=1}\label{eq:ccubic} 
+  0 &= \ome(x-\frac{\ome^2}{3})\Big|_{\ome=1}\label{eq:xfirst}\\
+  0 &= \ome( 3x^2 +\frac{2\ome^2x}{3} -\frac{\ome^4}{5}  )\Big|_{\ome=1}\label{eq:xtwo}\\ 
+  0 &= \ome( 5x^3 + 3\ome^2x^2 +\frac{3\ome^4x}{5}  -\frac{\ome^6}{7}  )\Big|_{\ome=1}\label{eq:ccubic} 
 %  0 &= x(\frac{x^8}{9} -\frac{4x^6c}{7} - \frac{18x^4c^2}{5} -\frac{20x^2c^3}{3} - 7c^4)\Big|_{x=b}
 \end{align}
 %
-Solving the first for $x$  yields to the only feasible solution
+Solving \eqref{eq:xfirst} for $x$  yields to the only feasible solution
 %
 \begin{align}
   x=\frac{1}{3} \quad\RA\quad g(1)=\frac{1}{\sqrt{3}}\approx 0.577.
 \end{align}
 %
-The second yields for $x$ to 
+The solutions of \eqref{eq:xtwo} are 
 %
 \begin{align}
   x_{1,2}= -\frac{1}{9} \pm \sqrt{\frac{1}{81}+\frac{1}{15}} = \frac{\pm \sqrt{32/5} -1}{9}
 \end{align}
 %
-Since only positive roots are allowed we get as only feasible solution
+Since only positive roots are allowed, we get as the only feasible solution
 %
 \begin{align}
   g(3)=\frac{\sqrt{\sqrt{32/5}-1}}{3}\approx 0.412.
 \end{align}
 %
-Finally, for  $\alp=5$ we get the cubic equation \eqref{eq:ccubic}
+Finally, the cubic equation \eqref{eq:ccubic} results in
 %
 \begin{align}
   5x^3 + 3 x^2 + \frac{3}{5} x - \frac{1}{7}=0
 \end{align}
 %
-Then the discriminant is given by, see for example \cite[2.3.2]{Zwi03},
+The solution of a cubic equation can be found in \cite[2.3.2]{Zwi03} by calculating the discriminant
 %
 \begin{align}
   \Del=q^2+4p^3 \quad\text{with}\quad q=\frac{2b^3-9abc+27a^2d}{27a^3},p=\frac{3ac-b^2}{9a^2}
@@ -1562,7 +1570,7 @@ which indicates only one real-valued root, given by
 %
 \begin{align}
   x=\alp_+^{1/3}+\alp_-^{1/3}-\frac{b}{3a} 
-  \quad\text{with}\quad  \alp_{\pm}=\frac{-q\pm\sqrt{\Del}}{2} = \{0, \frac{32}{25\cdot 35} \}
+  \quad\text{with}\quad  \alp_{\pm}=\frac{-q\pm\sqrt{\Del}}{2} = \left\{0, \frac{32}{25\cdot 35} \right\}
 \end{align}
 %
 which computes to
