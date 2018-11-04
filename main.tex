@@ -1020,35 +1020,55 @@ deployments (RD).  Figs. \ref{uniformDistortion} and \ref{nonuniformDistortion},
 outperform the random deployment on both uniform and non-uniform distributed target regions.  From
 \figref{uniformDistortion}, one can also find that the distortion achieved by Lloyd-A and Loyd-B are very close,
 indicating that the optimality of the common height, as proved for the one-dimensional case in \secref{sec:optmize1D},
-might be extended to the two-dimensional case when the density function is uniform.  However, one can find a non-negligible
+might be extended to the two-dimensional case when the density function is uniform. However, one can find a non-negligible
 gap between Lloyd-A and Lloyd-B in \figref{nonuniformDistortion} where the density function is non-uniform. For
 instance, given $16$ UAVs and pass loss exponent $\alpha=6$, Lloyd-A's distortion is $40.17$ while Lloyd-B obtains a smaller
 distortion, $28.25$, by placing UAVs at different heights.  
 %
-Figs. \ref{uniformDistortion_regions} and
-\ref{nonuniformDistortion_regions} illustrate the UAV ground projections and their partitions on a uniform distributed
-square region. As the number of UAVs increases, the UAV partitions approximate to be hexagons which implies the common height
-property (Theorem \ref{thm:commonheight}) might be extended to uniform distributed users in two-dimensions.  However, our
-simulations in \cite{GWJ18b} show that the common height is no longer a necessary condition for the optimal quantizer
-when distribution is non-uniform.
+Figs. \ref{uniformPartitions32} and
+\ref{uniformPartitions100} illustrate the UAV ground projections and their partitions on a uniform distributed
+square region. As the number of UAVs increases, the UAV partitions approximate to be hexagons which implies the optimality of congruent partition (Theorem \ref{thm:commonheight}) might be extended to uniformly distributed users in two-dimensional sources. 
+\ifarxiv However, the UAV projections in Figs. \ref{nonuniformPartitions32} and
+\ref{nonuniformPartitions100} show that congruent partition is no longer a necessary condition for the optimal quantizer
+when distribution is non-uniform. \else   
+However, our
+simulations in \cite{GWJ18b} show that congruent partition is no longer a necessary condition for the optimal quantizer
+when the source distribution is non-uniform.
+\fi
 %
 \begin{figure}[t]
 \centering
 \subfloat[]{\includegraphics[width=2.8in]{HR32.eps}
-\label{uniformDistortion_regions}}
+\label{uniformPartitions32}}
 \hfil
 \subfloat[]{\includegraphics[width=2.8in]{HR100.eps}
-\label{nonuniformDistortion_regions}}
+\label{uniformPartitions100}}
 \captionsetup{justification=justified}
 \vspace{-2ex}
-\caption{\small{The UAV projections on the ground with generalized Voronoi Diagrams where $\alpha=2$. 
+\caption{\small{The UAV projections on the ground with generalized Voronoi Diagrams where $\alpha=2$ and the source distribution is uniform. 
 (a) 32 UAVs. (b) 100 UAVs.}}
-\label{Distortion_region}
+\label{uniformDistortionPartition}
 %\vspace{-4ex}
 \end{figure}
-
+\ifarxiv
+\begin{figure}[t]
+\centering
+\subfloat[]{\includegraphics[width=2.8in]{HR32nonUniform.eps}
+\label{nonuniformPartitions32}}
+\hfil
+\subfloat[]{\includegraphics[width=2.8in]{HR100nonUniform.eps}
+\label{nonuniformPartitions100}}
+\captionsetup{justification=justified}
+\vspace{-2ex}
+\caption{\small{The UAV projections on the ground with generalized Voronoi Diagrams where $\alpha=2$ and the source distribution is non-uniform. 
+(a) 32 UAVs. (b) 100 UAVs.}}
+\label{uniformDistortionPartition}
+%\vspace{-4ex}
+\end{figure}
+\else   \fi
 \section{Conclusion}
 %
+We studied a quantizer with parameterized distortion measure with application in UAV deployment.
 Instead of using the traditional mean
 distance square as the distortion, we introduce a distortion function which models the energy consumption of UAVs in
 dependence of their heights.  We derived the unique parameter optimized quantizer - a uniform scalar quantizer with an
