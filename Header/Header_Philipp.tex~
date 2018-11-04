@@ -158,6 +158,7 @@
 
 \newcommand{\phii}{{ \ensuremath{ \phi_i} }}
 \newcommand{\tphi}{{ \ensuremath{ \tilde{\phi}} }}
+\newcommand{\tome}{{ \ensuremath{ \tilde{\ome}} }}
 \newcommand{\tzeta}{{ \ensuremath{ \tilde{\zeta}} }}
 \newcommand{\tvphi}{{ \ensuremath{ \tilde{\vphi}} }}
 \newcommand{\ttht}{{ \ensuremath{ \tilde{\tht}} }}

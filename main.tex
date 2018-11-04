@@ -59,12 +59,13 @@
 \input{Header/Header_Philipp.tex}
 
 \newif\ifarxiv\arxivfalse
-%\arxivtrue% uncomment for arxiv version 
+\arxivtrue% uncomment for arxiv version 
 
 \usepackage[style=ieee,    
             firstinits=true, % vornamen = erste buchstabe
             url=false,
             backend=bibtex,
+dateabbrev=true,
             doi=false,
             maxbibnames=99,
             isbn=false,
@@ -159,134 +160,119 @@
 \pagenumbering{arabic}
 \fi
 
- 
+\makeatletter
+\def\blfootnote{\xdef\@thefnmark{}\@footnotetext}
+\makeatother 
 \begin{document}
 %
 % squeezing for formulas to save some space
 \ifarxiv
 \else
-\renewcommand{\baselinestretch}{.95}
+\renewcommand{\baselinestretch}{.93}
 \setlength{\belowcaptionskip}{-2ex}
 \fi
 % paper title
-\title{On the Minimal Average Distortion of Parameter Optimized Quantizers}
+\title{On the Minimum Average Distortion of Quantizers with Parameterized Distortion Measures}
 
 
 
 \author{Jun~Guo, Philipp~Walk, and Hamid~Jafarkhani\\
-  {\small\hspace{-0.5cm}\begin{minipage}{\textwidth}
+  {\small\begin{minipage}{\linewidth}\begin{center}
 \begin{tabular}{c}
  %, Department of Electrical Engineering and Compute Science\\
-Center for Pervasive Communications and Computing, Electrical Engineering Hall  \\
+Center for Pervasive Communications and Computing \\
 University of California, Irvine, CA 92697-2625 \\
-{\it\{guoj4,pwalk,hamidj\}@uci.edu}
+{\it\{guoj4,pwalk,hamidj\}@uci.edu}\\
 \end{tabular}
+\end{center}
 \end{minipage}\vspace{0.2cm}}
 }
 
 \maketitle
-\begin{abstract}
-  In many quantization problems, the distortion function is given by the Euclidean norm to measure the distance of a
+\thispagestyle{empty}
+
+\begin{abstract}\blfootnote{This work was supported in part by an NSF grant\dots}
+  In many quantization problems, the distortion function is given by the Euclidean metric to measure the distance of a
   source sample to any given reproduction point of the quantizer. We will in this work regard distortion functions,
   which are additively and multiplicatively weighted for each reproduction point resulting in a heterogeneous
-  quantization problem, as used for example in deployment problems of sensor networks. Whereas, in such problems, the
+  quantization problem, as used for example in deployment problems of sensor networks. Whereas, normally in such problems, the
   average distortion is minimized for given weights (parameters), we will optimize the quantization problem over all
-  weights, i.e., we tune or control the distortion functions in our favour. 
+  weights, i.e., we tune or control the distortion functions in our favor. 
   %
-  For a uniform source distribution in one-dimension we derived the unique minimizer, given as the uniform scalar
+  For a uniform source distribution in one-dimension, we derive the unique minimizer, given as the uniform scalar
   quantizer with an optimal common weight. By numerical simulations, we demonstrate that this result extends to
   two-dimensions where asymptotically the parameter optimized quantizer is the hexagonal lattice with common weights. As
-  an application we will determine the optimal deployment of unmanned aerial vehicles (UAV) to provide a wireless
-  communication to ground terminals under a minimal communication power cost. Here, the optimal weights refer to the
+  an application, we will determine the optimal deployment of unmanned aerial vehicles (UAVs) to provide a wireless
+  communication to ground terminals under a minimal communication power cost. Here, the optimal weights relate to the
   optimal flight heights of the UAVs.
 \end{abstract}
 %
 \section{Introduction}
 
 %
-For a  set $\Omega\in\R^d$ in $d=1,2$ dimensions a quantizer is given by $N$ reproduction or
-quantization points $\vP=\{\vp_1,\dots,\vp_N\}\subset \Ome$ associated with $N$ quantization regions
+For a set $\Omega\subset\R^d$ in $d=1,2$ dimensions, a quantizer is given by $N$ reproduction or quantization points
+$\vP=\{\vp_1,\dots,\vp_N\}\subset \Ome$ associated with $N$ quantization regions
 $\Rset=\{\Rset_1,\dots,\Rset_N\}\subset\Ome$, defining a partition of $\Ome$.
 %
 %Here $N\in\N$ is a positive integer and we refer in the limit $N\to\infty$ to the high-resolution quantizer.  
 %
-To measure the distortion of a given quantizer, the Euclidean distance between the source samples and reproduction
-points is commonly used as the distortion function. We will study in this work quantizers with parameter depending
-distortion functions which minimize the average distortion over $\Ome$ for a given continuous source sample
-distribution $\lam:\Ome\to [0,1]$, as investigated for example in \cite{Erdem16,KJ17,KKSS18}.
+To measure the quality of a given quantizer, the Euclidean distance between the source samples and reproduction points
+is commonly used as the distortion function. We will study quantizers with parameter depending distortion functions
+which minimize the average distortion over $\Ome$ for a given continuous source sample distribution $\lam:\Ome\to
+[0,1]$, as investigated for example in \cite{Erdem16,KJ17,KKSS18} with a fixed set of parameters.
 %
-Contrary to a fixed parameter selection \cite{Erdem16}, we will assign to each quantization point $\vp_n$ variable
-parameters to control the distortion function of the $n$th quantization point.
-Such a controllable distortion function widens the scope of quantization theory and allows to apply quantization
-techniques to many parameter dependent network and locational problems.
+Contrary to a fixed parameter selection, we will assign to each quantization point variable parameters to control the
+distortion function of the each quantization point individually.  Such controllable distortion functions widens the
+scope of quantization theory and allows to apply quantization techniques to many parameter dependent network and
+locational problems.
 %
 %For a fixed exponent $\gam\geq1$, the distortion function is then given by the $\gam-$power of the  multiplicative
 %weighted Euclidean square-distance with $h_n^{-1/\gam}$ and additively weighted with $h_n^{2-1/\gam}$.
 %
-In this work, we will consider for the distortion function of $\vp_n$ the Euclidean square-distance, which is multiplicative weighted
-by some $a_n>0$ and additively weighted by some $b_n>0$. Furthermore, we exponentially weight all distortion functions by
-some fixed exponent $\gam\geq 1$. To minimize the average distortion, the optimal quantization regions are known to be
-generalized Voronoi (Möbius) regions, which can be non-convex and disconnected sets \cite{BWY07}.
+In this work, we will consider for the distortion function of $\vp_n$ a Euclidean square-distance, which is
+multiplicatively weighted by some $a_n>0$ and additively weighted by some $b_n>0$. Furthermore, we exponentially weight
+all distortion functions by some fixed exponent $\gam\geq 1$. To minimize the average distortion, the optimal
+quantization regions are known to be generalized Voronoi (Möbius) regions, which can be non-convex and disconnected sets
+\cite{BWY07}.
 %
 In many applications, as in sensor or vehicle deployments, the optimal weights and parameters are usually unknown, but
-adjustable, and one wishes therefore to optimize the deployment over all admissible parameter values, see for example 
- \cite{KKSS18}.
+adjustable, and one wishes therefore to optimize the deployment over all admissible parameter values, see for example
+\cite{KKSS18}.
 %
-We will in this work characterize such \emph{parameter optimized quantizers}  over one-dimensional convex target
-regions, i.e., over closed intervals. As a motivation we will demonstrate such a parameter driven quantizer for an
-unmanned aerial vehicle (UAV) deployment to provide energy efficiently a communication to ground terminals in a given
-target region.  Here the parameters refer to the UAVs flight heights.  
-\ifarxiv
-\else
-Due to page limitations, all proofs are presented in \cite{GWJ18b}.
-\fi
+We will characterize such \emph{parameter optimized quantizers}  over one-dimensional convex target regions, i.e., over
+closed intervals. As a motivation, we will demonstrate such a parameter driven quantizer for an unmanned aerial vehicle
+(UAV) deployment to provide energy-efficient communication to ground terminals in a given target region $\Ome$.  Here, the
+parameters relate to the UAVs flight heights.  \ifarxiv \else Due to page limitations, all proofs are presented in
+\cite{GWJ18b}.  \fi
 
-\philippstart \paragraph{Notation}  By $[N]=\{1,2,\dots,N\}$ we denote the first $N$ natural numbers of $\N$.  We will
+\paragraph{Notation}  By $[N]=\{1,2,\dots,N\}$ we denote the first $N$ natural numbers, $\N$.  We will
 write real numbers in $\R$ by small letters and row vectors by bold letters. The Euclidean norm of $\vx$ is given by
 $\Norm{\vx}=\sqrt{\sum_n x_n^2}$.  The open ball in $\R^d$ centered at $\vc\in\R^d$ with radius $r\geq 0$ is denoted by
 $\Ball\left(\vc,r\right)=\set{\vome}{\|\vome-\vc\|^2\le r}$.
 %Note that $\Ball\left(\vc,0\right)$ is an empty set.
 We denote by $\Vor^c$ the complement of the set $\Vor\subset\R^d$. The positive real numbers are denoted by
 $\R_+:=\set{a\in\R}{a>0}$.  Moreover, for two points $\va,\vb\in\R^d$, we denote the generated half space between them,
-which contains $\va\in\R^d$ as $\HS(\va, \vb)$.  \philippend
+which contains $\va\in\R^d$, as $\HS(\va, \vb)$.  
 
 \section{System model}\label{sec:model}
 %
-\philippstart
-\if0
-
-%This location optimization problem is equivalent to a distortion minimization problem where the quantizer points
-%correspond to the UAVs location and the quantizer sets to the ground cells. 
-
-Moreover, the associated ground cells will become non-convex and even
-disconnected.  The goal of this paper is to understand the trade-off between directional antenna gains and coverage
-range. For a one-dimensional target area, the optimal deployment could be derived in closed form for arbitrary path-loss
-exponents and is given for a uniform user density by a uniform ground positions of the UAVs at an optimal common flight
-height. For two dimensional user areas, we will demonstrate by numerical simulations a similar result, where the optimal
-ground cells correspond to hexagonal sets in the high-resolution limit (no boundary effects). 
-\philippend
-\fi
-
-To motivate the concept of parameter optimized quantizers we will investigate the deployment of $N$ UAVs positioned at
-$\vQ=\{\vq_1,\dots,\vq_N\}\subset(\Ome\times\R_+)^N$ to provide a wireless communication link to ground terminals in a given
-target region  $\Ome\subset\R^d$. Here, the $n$th UAVs position $\vq_n=(\vp_n,h_n)$ is given by its ground position
-$\vp_n=(x_n,y_n)\in\Ome$, representing the quantization point, and its flight height $h_n$, representing its additional
-parameter.  The optimal UAV deployment (parameter quantizer) is then defined by the minimal average communication
-power (distortion) to serve ground terminals distributed by $\lam$ in $\Ome$ with a minimal given data rate $R_b$. Hereby, each
-ground terminal will select the UAV which requires the smallest communication power, resulting in  so called
-generalized Voronoi (quantization) regions of $\Ome$,  as used in
-\cite{Erdem16,GJ,GJcom18,GJ18,KJ17,ML,MLCS,KKSS18}.  
-\ifarxiv
-We also assume that the communication between all users and UAVs is
-orthogonal, i.e., separated in frequency or time (slotted protocols).
-\fi
+To motivate the concept of parameterized distortion measures, we will investigate the deployment of $N$ UAVs positioned at
+$\vQ=\{\vq_1,\dots,\vq_N\}\subset(\Ome\times\R_+)^N$ to provide a wireless communication link to ground terminals in a
+given target region  $\Ome\subset\R^d$. Here, the $n$th UAVs position $\vq_n=(\vp_n,h_n)$ is given by its ground
+position $\vp_n=(x_n,y_n)\in\Ome$, representing the quantization point, and its flight height $h_n$, representing its
+distortion parameter.  The optimal UAV deployment is then defined by the minimum average
+communication power (distortion) to serve ground terminals distributed by a density function $\lam$ in $\Ome$ with a
+minimum given data rate $R_b$. Hereby, each ground terminal will select the UAV which requires the smallest
+communication power, resulting in  so called generalized Voronoi (quantization) regions of $\Ome$,  as used in
+\cite{Erdem16,GJ,GJcom18,GJ18,KJ17,ML,MLCS,KKSS18}.  \ifarxiv We also assume that the communication between all users
+and UAVs is orthogonal, i.e., separated in frequency or time (slotted protocols).  \fi
 
 In the recent decade, UAVs with directional antennas have been widely studied in the literature
 \cite{BJL,MSF,HA,KMR,HSYR,MWMM}, to increase the efficiency of wireless links. However, in
 \cite{BJL,MSF,HA,KMR,HSYR,MWMM}, the antenna gain was approximated by a constant within a 3dB beamwidth and set to zero
 outside. This ignores the strong angle dependent gain of directional antennas, notably for low-altitude UAVs. To obtain a more
-realistic model we will consider here an antenna gain, which depends on the actual radiation angle
-$\theta_n\in[0,\frac{\pi}{2}]$ from the $n$th UAV at $\vq_n$ to a GT at $\vome$,
+realistic model we will consider an antenna gain which depends on the actual radiation angle
+$\theta_n\in[0,\frac{\pi}{2}]$ from the $n$th UAV at $\vq_n$ to a ground terminal (GT) at $\vome$,
 %Here, the elevation angle is defined as the ratio between the ground distance $\overline{\vome \vp_n}$ and flight
 %height $h_n$, 
 see \figref{fig:uavdirected}.
@@ -302,28 +288,28 @@ see \figref{fig:uavdirected}.
 %communication power for a given GT density in the target area Hereby, each GT is assigned to the UAV which requires the
 %smallest communication power.  The target area is therefore partitioned into ground cells.
 %
-To capture the power falloff versus the line-of-sight distance $d$ along with the random attenuation about the path loss
-from shadowing, we adopt the propagation model \cite[(2.51)]{Gol05} as:
+To capture the power falloff versus the line-of-sight distance $d_n$ along with the random attenuation and the path loss, 
+we adopt the following propagation model \cite[(2.51)]{Gol05} 
 %
 \begin{equation}
-  PL_{dB}=10\log_{10}{K}-10\alpha\log_{10}(d/d_0)-\psi_{dB},
+  PL_{dB}=10\log_{10}{K}-10\alpha\log_{10}(d_n/d_0)-\psi_{dB},
 \end{equation}
 %
 where $K$ is a unitless constant depending on the antenna characteristics, $d_0$ is a reference distance, $\alpha\geq 1$
 is the terrestrial path loss exponent, and $\psi_{dB}$ is a Gaussian random variable following
 $\mathcal{N}\left(0,\sigma^2_{\psi_{dB}}\right)$. This air-to-ground or terrestrial path loss model is widely used for
-UAV basestation path-loss models \cite{MSBD16a}. Practical values are between $2$ and $6$ and depend on the Euclidean
-distance $d$ of GT $\vome$ and UAV $\vq_n$
+UAV basestations path-loss models \cite{MSBD16a}. Practical values of $\alp$ are between $2$ and $6$ and depend on the Euclidean
+distance of GT $\vome$ and UAV $\vq_n$
 %
 \begin{align}
- d_n(\vome)= d(\vq_n,(\vome,0))=\sqrt{\|\vp_n-\vome\|^2+h_n^2}=\sqrt{(x_n-x)^2+(y_n-y)^2+h_n^2}\label{eq:eucd}
+ d_n(\vome)= d(\vq_n,(\vome,0))=\sqrt{\|\vp_n-\vome\|^2+h_n^2}=\sqrt{(x_n-x)^2+(y_n-y)^2+h_n^2}\label{eq:eucd}.
 \end{align}
 %
-and the shadowing due to low altitude.  For common practical measurements see for example \cite{AG18}.  Typically
+For common practical measurements see for example \cite{AG18}.  Typically
 maximal heights for UAVs are $<1000$m, due to flight zone restrictions of aircrafts.  Hence, the received power at
 UAV $n$ can be represented as
 %
-$P_{RX}=P_{TX}G_{TX}G_{RX}PL=P_{TX}G_{TX}G_{RX}Kd^{\alpha}_0 d_n^{-\alpha}(\vome)10^{-\frac{\psi_{dB}}{10}}$,
+$P_{RX}=P_{TX}G_{TX}G_{RX}Kd^{\alpha}_0 d_n^{-\alpha}(\vome)10^{-\frac{\psi_{dB}}{10}}$,
 %
 where $G_{TX}$ and $G_{RX}$ are the antenna gains of the transmitter and the receiver, respectively. Here, we assume
 perfect omnidirectional transmitter (GT) antennas with an isotropic gain and directional receiver (UAV) antennas.  The
@@ -335,7 +321,7 @@ angle dependent antenna gains are %then given by
 \label{eq:Gdirected}
 \end{equation}
 %
-see \cite[pp.52]{Bal05a}. The combined antenna intensity is then proportional to
+see \cite[p.52]{Bal05a}. The combined antenna intensity is then proportional to
 %
 $G=\GUAV \GGT K$, see \figref{fig:uavdirected}.
 %
@@ -353,32 +339,30 @@ Accordingly, the received power can be rewritten as
   P_{RX}=P_{TX}h_n \GGT K d^{\alpha}_0 d_n^{-\alpha-1}(\vome)10^{-\frac{\psi_{dB}}{10}}.
 \end{equation}
 %
-To achieve the reliable communication between GT and UAV with bit-rate at least $\Rb$, we get for a
-channel bandwidth $B$  and noise power density $N_0$ by the Shannon capacity 
-$B\log_2\left(1+\frac{P_{RX}}{BN_0}\right)\ge\Rb$
+To achieve the reliable communication between GT and UAV with bit-rate at least $\Rb$ for a
+channel bandwidth $B$  and noise power density $N_0$ by the Shannon formula provides 
+$B\log_2\left(1+\frac{P_{RX}}{BN_0}\right)\ge\Rb$.
 The minimum transmission power to UAV $\vq_n$ is then given by
-$P_{TX}=\big(2^{\frac{\Rb}{B}}-1\big)B N_0d(\vq_n,(\vome,0))^{\alpha+1}10^{\frac{\psi_{dB}}{10}} (h_n \GGT
-Kd^{\alpha}_0)^{-1}$.
+$P_{TX}=\big(2^{\frac{\Rb}{B}}\!-\!1\big)B N_0d(\vq_n,(\vome,0))^{\alpha+1}10^{\frac{\psi_{dB}}{10}} (h_n \GGT
+Kd^{\alpha}_0)^{-1}$ with expectation
 %
 %We will also assigned a variable SNR $s_n=S_n /N_0$ to the $n$th UAV as an additional free parameter. This defines a
 %heterogeneous UAV network if $s_n\not=s_m$ for any $n\not=m$.  Note, that we could assume different noise powers at the
 %receiver or different transmit powers associated to the $n$th UAV cell. 
 %
-The expectation  % the minimum transmitter power of the $n$th UAV to the GT is then 
+% the minimum transmitter power of the $n$th UAV to the GT is then 
 %
 \begin{align}
- \Dis(\vome,\vp_n,h_n):= \Expect{P_{TX}}& =
+\Expect{P_{TX}}&\! =\!
   \frac{(2^{\frac{\Rb}{B}}-1)N_0 }{ h_n \GGT Kd^{\alpha}_0}
   \frac{d_n^{\alpha+1}(\vome)}{\sqrt{2\pi}\sigma_{\psi_{dB}}} \int_{\R}
-     \exp\left(-\frac{\psi^2_{dB}}{2\sigma^2_{\psi_{dB}}}+ \ln(10) \frac{\psi_{dB}}{10}\right)d\psi_{dB}\notag\\
+     \exp\left(\!-\frac{\psi^2_{dB}}{2\sigma^2_{\psi_{dB}}} \!+\! \ln(10) \frac{\psi_{dB}}{10}\right)\!d\psi_{dB}
   %&=\frac{(2^{\frac{\Rb}{B}}-1)   N_0 \exp\big(-\frac{\sigma^2_{\psi_{dB}}(\ln{10})^2}{200}\big)d(\vq_n,(\vome,0))^{\alpha+1}}
   %{h_n \GGT Kd^{\alpha}_0 } \notag\\
-     &=\bet \cdot
-     d_n^{2\gam}(\vome) h_n^{-1}=\bet\cdot (h_n^{-1/\gam}\Norm{\vp_n-\ome}_2^2+h_n^{2-1/\gam})^\gam
-   \label{eq:Eptx}
+     \!=\!\frac{\bet}{h_n}  d_n^{2\gam}(\vome)\label{eq:expectedTX} %
 \end{align}
 %
-defines then the $n$th \emph{parameter distortion function} $D(\cdot,\vp_n,h_n)$  with the independent and fixed parameters
+where the independent and fixed parameters are given by
 %
 \begin{align}
   \bet=(2^{\frac{\Rb}{B}}-1)B N_0 \exp\big(-\frac{\sig_{\psi_{dB}}^2 (\ln 10)^2}{200}\big)(\GGT K)^{-1}
@@ -386,18 +370,27 @@ defines then the $n$th \emph{parameter distortion function} $D(\cdot,\vp_n,h_n)$
   \gam=\frac{\alp+1}{2}.
 \end{align}
 %
-For simplicity, we will set from here on $\bet=1$, since it will not affect the quantizer. 
-%An optimal deployment of $N-$UAVs is then the minimizer of the average power for all GTs in $\Ome$.
+Since our goal is to minimize the average transmission power \eqref{eq:expectedTX} we define 
+the $n$th \emph{parameter distortion function} as
+%
+\begin{align}
+  D(\vome,\vp_n,a_n,b_n)=\bet\cdot  \left(a_n\Norm{\vp_n-\ome}_2^2+b_n\right)^\gam
+  \label{eq:Eptx}
+\end{align}
+%
+where $a_n=h_n^{-1/\gam}$ and $b_n=h_n^{2-1/\gam}$.  As can be seen from \eqref{eq:Eptx}, the distortion is a function
+of the parameter $h_n$ in addition to the distance between the reproduction point $\vp_n$ and the represented point
+$\vome$. From a quantization point of view, one can start with the distortion function \eqref{eq:Eptx} without knowing the UAV
+power consumption formulas in this section. This is what we will do in the next section.  For simplicity, we will set
+from here on $\bet=1$, since it will not affect the quantizer. 
 
 
-\section{Parameter Optimized Quantizers under Minimal Average Distortion}
+\section{Optimizing Quantizers with parameterized distortion measures}\label{sec:optmize1D}
 
-The communication power cost \eqref{eq:Eptx} defines therefore with $a_n=h_n^{-1/\gam}$ and $b_n=h_n^{2-1/\gam}$ for
-fixed $\gam\geq 1$ a parameter dependent distortion function for $\vp_n$. For a given source sample (GT)
-density $\df$ in $\Omega$ and UAV deployment, the average power is the average distortion for 
-given \emph{parameter and quantization points}
-$(\vP,\vh)$ with quantization sets $\Rset=\{\Rset_n\}$, which is called the \emph{average distortion} of the quantizer
-$(\vP,\vh,\Rset)$
+The communication power cost \eqref{eq:Eptx} defines therefore with $h_n$ and fixed $\gam\geq 1$ a parameter dependent
+distortion function for $\vp_n$. For a given source sample (GT) density $\df$ in $\Omega$ and UAV deployment, the
+average power is the average distortion for given \emph{quantization and parameter points} $(\vP,\vh)$ with quantization
+sets $\Rset=\{\Rset_n\}$, which is called the \emph{average distortion} of the quantizer $(\vP,\vh,\Rset)$
 %
 \begin{equation}
  \AvDis(\vP,\vh,\Rset)
@@ -416,41 +409,39 @@ given quantization and parameter points $(\vP,\vh)$, define a generalized Vorono
   \label{eq:optPbar},
 \end{align}
 %
-where the \emph{generalized Voronoi regions} $\Vor_n(\vP,\vh)$ are defined as the set of sample points $\vome$
-with smallest distortion (distance) to the $n$th quantization point $\vp_n$ with parameter $h_n$.  Minimizing the \emph{average distortion}
-$\AvDis(\vP,\vh,\Vor)$ over all parameter and quantization points defines an \emph{$N-$facility locational-parameter
-optimization problem} \cite{GJ, GJcom18, GJ18,OBSC00}. By the definition of the Voronoi regions \eqref{eq:optPbar} this is
-equivalent to the minimal average distortion over all $N-$level parameter quantizers%
+where the \emph{generalized Voronoi regions} $\Vor_n(\vP,\vh)$ are defined as the set of sample points $\vome$ with
+smallest distortion to the $n$th quantization point $\vp_n$ with parameter $h_n$.  Minimizing the
+\emph{average distortion} $\AvDis(\vP,\vh,\Vor)$ over all parameter and quantization points defines an
+\emph{$N-$facility locational-parameter optimization problem} \cite{GJ, GJcom18, GJ18,OBSC00}. By the definition of the
+Voronoi regions \eqref{eq:optPbar} this is equivalent to the minimal average distortion over all $N-$level parameter
+quantizers%
+%
 \begin{align}
   \AvDis(\vP^*,\vh^*,\Vor^*)
   = \min_{(\vP,\vh)\in\Ome^N\times\R_+^N} \AvDis(\vP,\vh,\Vor)
-  = \min_{(\vP,\vh)\in\Ome^N\times\R_+^N} \min_{\Rset=\{\Rset_n\}\subset\Ome^N} \AvDis(\vP,\vh,\Rset) 
-.\label{eq:optquanteqoptdeploy}
+  = \min_{(\vP,\vh)\in\Ome^N\times\R_+^N} \min_{\Rset=\{\Rset_n\}\subset\Ome^N} \AvDis(\vP,\vh,\Rset), 
+\label{eq:optquanteqoptdeploy}
 \end{align}
-which we call the \emph{$N-$level parameter optimized quantizer}. % $(\vP^*,\vh^*,\Rset^*)$
 %
-%Although $h_n$ is a location parameter in space, the
-%power is not a monotone function of the height, due to the directional antenna effect, rendering the 
-%problem to a possible non-convex optimization problem.
+which we call the \emph{$N-$level parameter optimized quantizer}.
+%
+%Although $h_n$ is a location parameter in space, the power is not a monotone function of the height, due to the
+%directional antenna effect, rendering the problem to a possible non-convex optimization problem.
 %
 %
-To find local extrema of \eqref{eq:optPbar} analytically, we will need that the objective function $\AvDis$ is
-continuously differentiable at any point in $\Omega^N\times \R_+^N$, i.e., the gradient exists and is a
-continuous function, as was shown for piecewise continuous non-decreasing distortion functions in the Euclidean metric
-over $\Ome^N$ \cite[Thm.2.2]{CMB05} and \cite{GJ}. We could extend this result in \cite{WJ18} to continuous \disfunction
-over arbitrary $d-$dimensional parameter sets in $\R^d$, which are analytical
-multivariate functions  if restricted to $\Omega$.  Then the necessary condition for a local extrema is the vanishing of
-the gradient at a critical point\ifarxiv\footnote{Note, if $\nabla \Pbar$ is not continuous in $\Qset^N$ than any jump-point is
-a potential critical point and has to be checked individually.}\fi. 
-%To derive the partial derivatives we will need to
-%rewrite the integral kernel, which is the minimum of $N$ continuous functions, as a sum of $N$ integrals by using
-%generalized Voronoi tessellations of $\Ome$.
+To find local extrema of \eqref{eq:optPbar} analytically, we will need that the objective function $\AvDis$ be
+continuously differentiable at any point in $\Omega^N\times \R_+^N$, i.e., the gradient should exist and be a continuous
+function. Such a property was shown to be true for piecewise continuous non-decreasing distortion functions in the Euclidean metric
+over $\Ome^N$ \cite[Thm.2.2]{CMB05} and weighted Euclidean metric \cite{GJ}. Then the necessary condition for a local
+extremum is the vanishing of the gradient at a critical point\ifarxiv\footnote{Note, if $\nabla \Pbar$ is not continuous
+in $\Qset^N$ than any jump-point is a potential critical point and has to be checked individually.}\fi. 
 %
-  \if0
-  We assume that the GTs  are placed in $\Omega$ according to a time-invariant density (probability) function
-    Thus, the total
-  UAV transmit power to serve all GTs or the total average GT transmit power to all UAVs can then be rewritten with
-  \eqref{eq:eucd} and \eqref{eq:Eptx} as the \emph{distortion function}
+%To derive the partial derivatives we will need to rewrite the integral kernel, which is the minimum of $N$ continuous
+%functions, as a sum of $N$ integrals by using generalized Voronoi tessellations of $\Ome$.
+%
+  \if0 We assume that the GTs  are placed in $\Omega$ according to a time-invariant density (probability) function Thus,
+  the total UAV transmit power to serve all GTs or the total average GT transmit power to all UAVs can then be rewritten
+  with \eqref{eq:eucd} and \eqref{eq:Eptx} as the \emph{distortion function}
   %
   \begin{equation}
     D\left(\bP,\bH\right)=\bet\int_{\Omega}\min_{n} \left\{ f(\Norm{p_n-\ome}^2,h_n) \right\} \df(\omega)d\omega,
@@ -476,7 +467,7 @@ a potential critical point and has to be checked individually.}\fi.
   %
   \fi
 %
-First we will derive the generalized Voronoi regions for convex sets $\Om$ in $d$ dimensions for any parameters
+First, we will derive the generalized Voronoi regions for convex sets $\Om$ in $d$ dimensions for any parameters
 $h_n\in\R_+$  for the quantization points $\vp_n$, which are special cases of \emph{M{\"o}bius diagrams},
 introduced very recently in \cite{BWY07}. 
 %
@@ -495,13 +486,13 @@ introduced very recently in \cite{BWY07}.
   where the dominance regions of quantization point $n$ over $m$ are given by
   \begin{align}
     \Vor_{nm}=\Omega\cap\begin{cases}
-         HS(\gp_n,\gp_m)&, h_m=h_n \\
+         \HS(\gp_n,\gp_m)&, h_m=h_n \\
          B(\vc_{nm},r_{nm}) &, h_n<h_m\\
          B^c(\vc_{nm},r_{nm}) &, h_n>h_m 
         \end{cases}\label{eq:moebius}
   \end{align}
   %
-  with center and radii
+  and center and radii of the balls are given by
   %
   \begin{align}
     \vc_{nm}\!=\!\frac{\gp_n - h_{nm}\gp_m}{1-h_{nm}}
@@ -629,8 +620,8 @@ become ``inactive``.
 
 \subsection{Local optimality conditions}
 %
-To find the optimal $N-$level parameter quantizer \eqref{eq:optPbar}, we have to minimize the average distortion
-\eqref{eq:Pbar} over all possible parameter quantization points in $\Qset^N$, i.e., we have to solve a non-convex
+To find the optimal $N-$level parameter quantizer \eqref{eq:optPbar} we have to minimize the average distortion
+\eqref{eq:Pbar} over all possible parameter quantization points, i.e., we have to solve a non-convex
 \emph{$N-$facility locational-parameter optimization problem},
 %
 \begin{align}
@@ -648,7 +639,7 @@ point of \eqref{eq:phoptlocal} if all partial derivatives of $\AvDis$ are vanish
   0&= \int_{\Vor^*_n} (\vp^*_{n}-\vome) (\Norm{\vp^*_n-\vome}^2 +h_n^{*2})^{\gam-1} \df(\vome)d
   \vome\label{eq:pnopt}\\
   0&= \int_{\Vor^*_n} (\Norm{\vp^*_n-\vome}^2 +h_n^{*2})^{\gam-1}\cdot (\Norm{\vp_n^*-\vome}^2 - (2\gam-1)
-  h_n^{*2} ) \df(\vome)d\vome
+  h_n^{*2} ) \df(\vome)d\vome.
   \label{eq:criticalpoint}
 \end{align}
 %
@@ -692,9 +683,9 @@ Hence, $\vQ^*=(\vP^*,\vh^*)$ is a critical point if and only if all partial deri
 \end{proof}
 %
 \fi
-For $N=1$ the integral regions will not depend on $\vQ$ or $\vh$ and since the integral kernel is continuous differentiable, the
-partial derivatives will only apply to the integral kernel. For $N>1$ the conversation law of mass, can be used to show
-that the derivatives of the integral domains will cancel each other out, see also \cite{WJ18}, \cite{CMB05}. 
+For $N=1$ the integral regions will not depend on $\vP$ or $\vh$ and since the integral kernel is continuous differentiable, the
+partial derivatives will only apply to the integral kernel. For $N>1$ the conservation-of-mass law, can be used to show
+that the derivatives of the integral domains will cancel each other out, see also \cite{CMB05}. 
 %
 \ifarxiv
 \begin{remark}
@@ -807,10 +798,10 @@ Hence we have shown
 
 In this section, we discuss the parameter optimized quantizer for a one-dimensional convex source $\Ome\subset\R$, i.e.,
 for an interval $\Omega = [s,t]$.  Under such circumstances, the quantization points are degenerated to scalars, i.e.,
-$\vp_n=x_n\in[s, t], \forall n\in[N]$.  \philippstart If we shift the interval $\Ome$ by an arbitrary number
+$\vp_n=x_n\in[s, t], \forall n\in[N]$. If we shift the interval $\Ome$ by an arbitrary number
 $a\in\R$, then the average distortion, i.e., the objective function, will not change if we shift all quantization points
 by the same number $a$. Hence, if we set $a=-s$ we can shift any quantizer for $[s,t]$ to $[0,A]$ where $A=t-s$ without
-changing the average distortion.   \philippend
+loss of generality.
 %
 Let us assume a uniform distribution on $\Omega$, i.e.  $\df(\ome)=1/A$. 
 %
@@ -839,8 +830,7 @@ For a proof of the scalar quantization theorem see \cite{GN98} or
   homogeneous special case). 
 \fi
 %
-To derive the unique $N-$level parameter optimized quantizer we need first to derive the optimal $1-$level parameter
-quantizer.
+To derive the unique $N-$level parameter optimized quantizer for any $N$ we will first investigate the case $N=1$.
 %
 \begin{lemma}\label{lem:ggam}
   Let $A>0$ and $\gam\geq 1$. The unique $1-$level parameter optimized quantizer $(x^*,h^*)$ with distortion
@@ -848,7 +838,7 @@ quantizer.
   density in $[0,A]$ by
   %
   \begin{align}
-    x^*=\frac{A}{2},\quad   h^*=\frac{A}{2} g(\gam) \quad\text{and minimal average distortion} \quad
+    x^*=\frac{A}{2},\quad   h^*=\frac{A}{2} g(\gam) \quad\text{and minimum average distortion} \quad
     \AvDis(x^*,h^*)=\left(\frac{A}{2}\right)^{\!2\gam-1}\!\!g(\gam)\notag
   \end{align}
   %
@@ -858,7 +848,7 @@ quantizer.
     F(u,\gam)=\int_0^1  f(\ome,u,\gam) d\ome \quad\text{with}\quad f(\ome,u,\gam)=\frac{(\ome^2+u^2)^{\gam}}{u} 
   \end{align}
   %
-  which is for fixed $\gam$ a continuous and convex function over $\R_+$. The global minimum can be derived in closed form for integer valued $\gam$ as 
+  which is for fixed $\gam$ a continuous and convex function over $\R_+$. The minimizer can be derived in closed form as 
   %
   \begin{align}
     g(1) = \sqrt{1/3},\ \  g(2) = \sqrt{ (\sqrt{32/5}-1)/9}, 
@@ -875,8 +865,9 @@ See \appref{app:proof_lemma_ggam}.
 
 \begin{remark}
   The convexity of $F(\cdot,\gam)$ can be also shown by using extensions of the Hermite-Hadamard inequality \cite{ZC10},
-  which allows to show convexity over any interval. This suggest, that as long as the generalized Voronoi regions remain
-  convex, the objective function might be still convex.
+  which allows to show convexity over any interval.
+ % This suggest, that as long as the generalized Voronoi regions remain
+ % convex, the objective function might be still convex.
   % 
   Let us note here, that for any fixed parameter $h_n>0$, the average distortion $\AvDis(x_n^*\pm \eps,h_n)$ is strictly
   monotone increasing in $\eps>0$. Hence, $x_n^*$ is the unique minimizer for any $h_n>0$. We will use this decoupling
@@ -914,7 +905,7 @@ To derive our main result, we need some general properties of the optimal region
 \fi
 \begin{remark}
   Hence, for an $N-$level parameter optimized quantizer, all quantization points are used, which is intuitively, since
-  each quantization point should reduce the distortion of the quantizer by partitioning the source in non-zero regions. 
+  each additional quantization point should reduce the distortion of the quantizer by partitioning the source in non-zero regions. 
 \end{remark}
 %
 %With these Lemmas, we can derive our main result.
@@ -929,14 +920,14 @@ To derive our main result, we need some general properties of the optimal region
     \label{eq:optimaldeploy} 
   \end{align}
   %
-  with minimal average distortion
+  with minimum average distortion
   %
   \begin{align}
    \AvDis(\vP^*,\vh^*,\Rset^*)=\left(\frac{A}{2N}\right)^{2\gam-1}  \int_0^1 \frac{\big(\ome^2+g^2(\gam)\big)^{\gam}}{g(\gam)}
     d\ome\label{eq:optimumavpow}.
   \end{align}
   %
-  For $\gam\in\{1,2,3\}$ we can derive $g(\gam)$ in closed form  \eqref{eq:ggam}.
+  For $\gam\in\{1,2,3\}$, the closed form $g(\gam)$ is provided in  \eqref{eq:ggam}.
 \end{theorem}
 %
 
@@ -947,14 +938,13 @@ To derive our main result, we need some general properties of the optimal region
 \color{black}
 
 \begin{example}
-We plotted in \figref{fig:goptdopt} the optimal heights and optimal average distortion for a uniform GT density in
-$[0,1]$ over various $\alp$ and $N=2$. Note, that the factor $A/2N=1/4$ will play a crucial role for the height and
+We plotted  the optimal heights and optimal average distortion for a uniform GT density in $[0,1]$ over various $\alp$
+and $N=2$ in \figref{fig:goptdopt}. Note that the factor $A/2N=1/4$ will play a crucial role for the height and
 distortion scaling. Moreover, the distortion decreases exponentially in $\alpha$ if $A/2N<1$.
 
 Let us set $\bet=1=A$. Then the optimal UAV deployment is pictured in \figref{fig:uavonedim} for $N=2$ and $N=4$. The
-maximal evaluation angle $\tht_{\text{max}}$ is hereby constant for each UAV and does not change if the number of UAVs
-$N$ increase.
-Moreover, it is also independent of $A$ and $\bet$, since with \eqref{eq:optimaldeploy} we have
+maximum elevation angle $\tht_{\text{max}}$ is hereby constant for each UAV and does not change if the number of UAVs,
+$N$, increases.  Moreover, it is also independent of $A$ and $\bet$, since with \eqref{eq:optimaldeploy} we have
 $d_n=x^*_n-x^*_{n-1}=A/N$ and
 %
 \begin{align}
@@ -995,18 +985,19 @@ necessary condition for the optimal deployment over the space including but not 
 one-dimensional ground.
 \fi % no space for non-uniform
 
-\section{Numerical Algorithms and Simulation Results over Two-Dimensions}
+\section{Llyod-like Algorithms and Simulation Results}
 %
-In this section, we introduce two Lloyd-like algorithms, Lloyd-A and Lloyd-B, to optimize the quantizer. The proposed
+In this section, we introduce two Lloyd-like algorithms, Lloyd-A and Lloyd-B, to optimize the quantizer for
+two-dimensional scenarios. The proposed
 algorithms iterate between two steps: (1) The reproduction points are optimized through gradient descent while the
 partitioning is fixed; (ii) The partitioning is optimized while the reproduction points are fixed.  In Lloyd-A, all UAVs
-(or reproduction points) share the common flight height while Lloyd-B allows UAVs to flight on different heights.
+(or reproduction points) share the common flight height while Lloyd-B allows UAVs at different flight heights.
 
-In what follows, we provide the simulation results over the two-dimension target region $\Omega=[0,10]\times[0,10]$ with
+In what follows, we provide the simulation results over the two-dimensional target region $\Omega=[0,10]\times[0,10]$ with
 uniform and non-uniform density functions.  The non-uniform density function is a Gaussian mixture of the form
 $\sum_{k=1}^{3}\frac{A_k}{\sqrt{2\pi}\sigma^2_k}\exp{\left(-\frac{\|\ome-c_k\|^2}{2\sigma_k}\right)}$, where the
-weights, $A_k$, are $0.5$, $0.25$, $0.25$, the mean, $c_k$, are $(3,3)$, $(6,7)$, $(7.5,2.5)$, the standard deviations,
-$\sigma_k$, are  $1.5$, $1$, and $2$.
+weights, $A_k$, $k=1,2,3$ are $0.5$, $0.25$, $0.25$, the mean, $c_k$, are $(3,3)$, $(6,7)$, $(7.5,2.5)$, the standard deviations,
+$\sigma_k$, are  $1.5$, $1$, and $2$, respectively.
 
 
 \begin{figure}[!htb]
@@ -1026,17 +1017,20 @@ $\sigma_k$, are  $1.5$, $1$, and $2$.
 
 To evaluate the performance of the proposed algorithms, we compare them with the average distortion of 100 random
 deployments (RD).  Figs. \ref{uniformDistortion} and \ref{nonuniformDistortion}, show that the proposed algorithms
-outperform the random deployment on both uniform and non-uniform distributed target region.  From
-\ref{uniformDistortion}, one can also find that the distortion achieved by Lloyd-A and Loyd-B are very close, indicating
-that the common height property in one-dimension region might be extended to two-dimension region when the density
-function is uniform.  However, one can find an nonnegligible gap between Lloyd-A and Lloyd-B from Fig.
-\ref{nonuniformDistortion} where the density function is non-uniform. For instance, given 16 UAVs and pass loss exponent
-$\alpha=6$, Lloyd-A's distortion is 40.17 while Lloyd-B obtains a smaller one, 28.25, by placing UAVs on different
-heights.  Figs. \ref{uniformDistortion_regions} and \ref{nonuniformDistortion_regions} illustrate the UAV ground
-projections and their partitions on a uniform distributed region. As the number of UAVs increases, the UAV partitions
-approximate to be hexagons which implies the common height property (Theorem \ref{thm:commonheight}) might be extended
-to uniform distributed two-dimension.  However, our simulations in \cite{GWJ18b} show that the common height is no
-longer a necessary condition for the optimal quantizer when distribution is non-uniform.
+outperform the random deployment on both uniform and non-uniform distributed target regions.  From
+\figref{uniformDistortion}, one can also find that the distortion achieved by Lloyd-A and Loyd-B are very close,
+indicating that the optimality of the common height, as proved for the one-dimensional case in \secref{sec:optmize1D},
+might be extended to the two-dimensional case when the density function is uniform.  However, one can find a non-negligible
+gap between Lloyd-A and Lloyd-B in \figref{nonuniformDistortion} where the density function is non-uniform. For
+instance, given $16$ UAVs and pass loss exponent $\alpha=6$, Lloyd-A's distortion is $40.17$ while Lloyd-B obtains a smaller
+distortion, $28.25$, by placing UAVs at different heights.  
+%
+Figs. \ref{uniformDistortion_regions} and
+\ref{nonuniformDistortion_regions} illustrate the UAV ground projections and their partitions on a uniform distributed
+square region. As the number of UAVs increases, the UAV partitions approximate to be hexagons which implies the common height
+property (Theorem \ref{thm:commonheight}) might be extended to uniform distributed users in two-dimensions.  However, our
+simulations in \cite{GWJ18b} show that the common height is no longer a necessary condition for the optimal quantizer
+when distribution is non-uniform.
 %
 \begin{figure}[t]
 \centering
@@ -1055,7 +1049,7 @@ longer a necessary condition for the optimal quantizer when distribution is non-
 
 \section{Conclusion}
 %
-A new parameter weighted quantizer and its applications are studied in this paper. Instead of using the traditional mean
+Instead of using the traditional mean
 distance square as the distortion, we introduce a distortion function which models the energy consumption of UAVs in
 dependence of their heights.  We derived the unique parameter optimized quantizer - a uniform scalar quantizer with an
 optimal common weight - for uniform source density in one-dimensional space.  In addition, two Lloyd-like algorithms are
@@ -1955,10 +1949,12 @@ Hence, a critical point is only attained if all its partial derivatives are vani
 %
 By Corollary \ref{corollary:continuity}, the optimal Voronoi regions are continuous intervals. 
 Without loss of generality, we assume that the Voronoi regions are assigned in ascending order, i.e., 
+%
 \begin{align}
 \Vor(p^*, h^*)=[b^*_{n-1}, b^*_n], \forall n\in\{1,\dots,N\},
 \label{eq:1DoptV}
 \end{align}
+%
 where $b^*_0\le b^*_1\le\dots\le b^*_N$ are the optimal Voronoi region boundaries. In particular, we have $b^*_0=s$ and $b^*_N=t$.
 By Lemma \ref{lemma:allActive}, all UAVs has positive volume indicating $b_n > b_{n-1}, \forall n\in\{0,1,\dots,N\}$.
 In other words, the boundaries are strictly increasing, i.e., $b^*_0< b^*_1<\dots< b^*_N$.
@@ -1983,6 +1979,8 @@ Therefore, the optimal flight heights are $h^*_n=g(\gamma)\mu_n=\frac{g(\gamma)\
 \philippend
 %\input{derivativeminmum}
 %\input{generalizedVoronoi}
+%\vspace{-4ex}
+\section*{References}
 \vspace{-4ex}
 \printbibliography
 \end{document}
