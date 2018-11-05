@@ -1600,7 +1600,7 @@ which computes to
   generalized Voronoi regions as the optimal partition (tessellation\footnote{Since we take here the continuous case,
     the integral will not distinguish between open or closed sets.}). This holds for any density function $\lam(\ome)$
     and target area $\Ome$.  To see this\footnote{We use the same argumentation as in the prove of
-      \cite[Prop.1]{Erdem}.}, let us start with any quantizer $(\vP,\vh,\Rset)$ for $\Ome$ yielding to the average
+      \cite[Prop.1]{KJ17}.}, let us start with any quantizer $(\vP,\vh,\Rset)$ for $\Ome$ yielding to the average
       distortion 
   %
   \begin{align}
@@ -1806,45 +1806,34 @@ which computes to
     % already shown in lemma 3 
   \fi
   % 
-  Let us set $\mu_n=b_n^*-b_{n-1}^*$ for $n\in[N]$, then we get by substituting $\frac{2(x_n^*-\ome)}{\mu_n}=\tome$ and
-  $\hGlob_n=\tilde{h}_n\mu_n/2$  in the minimum average distortion results in 
+  Let us set $\mu_n^*=b_n^*-b_{n-1}^*$ for $n\in[N]$. By substituting $\frac{2(x_n^*-\ome)}{\mu_n}=\tome$ and
+  $\hGlob_n=u^*_n \mu_n^*/2$  in the average distortion, we get 
   %
   \begin{align}
-    \AvDis(\vP^*,\vh^*)&=\sum_{n=1}^N \int_{b_{n-1}^*}^{b_n^*} 
+    \AvDis(\vP^*,\vh^*,\Vor^*)&=\sum_{n=1}^N \int_{b_{n-1}^*}^{b_n^*} 
        \frac{ ((\pGlob_n-\ome)^2+{\hGlob_n}^2)^{\gam}}{\hGlob_n}\frac{d\ome}{A} 
-       = \sum_{n=1}^N \int_{1}^{-1} -\frac{  (\mu_n^2 \tome^2/4 + \tilde{h}_n^2\mu_n^2/4)^{\gam}}{\tilde{h}_n\mu_n/2}
+       = \sum_{n=1}^N \int_{1}^{-1} -\frac{  (\mu_n^{*2} \tome^2/4 + u_n^{*2}\mu_n^{*2}/4)^{\gam}}{u_n^* \mu_n^*/2}
     \frac{\mu_n}{2A}d\tome\notag\\
-    &= \frac{1}{ 2^{2\gam-1}A}\sum_n \mu_n^{2\gam}\cdot\int_0^1 \frac{(\ome^2+\tilde{h}^2_n)^{\gam}}{\tilde{h}_n}d \ome 
+    &= \frac{1}{ 2^{2\gam-1}A}\sum_n \mu_n^{*2\gam}\cdot\int_0^1 \frac{(\ome^2+u^{*2}_n)^{\gam}}{u^*_n}d
+    \ome\label{eq:AvDismutilde} 
   \end{align}
   %
   where we used \eqref{eq:xnoptimal} to get for the integral boundaries
-  $2(\pGlob_n-b_{n-1}^*)/\mu_n=1=-2(\pGlob_n-b_{n}^*)/\mu_n$.  We do not know the value of $\tilde{h}_n$ and $\mu_n$ but
-  we know that $\mu_n>0$ and $\sum_{n=1}^N\mu_n=A$ by \lemref{lemma:allActive}
+  $2(\pGlob_n-b_{n-1}^*)/\mu_n^*=1=-2(\pGlob_n-b_{n}^*)/\mu^*_n$.  We do not know the value of $u^*_n$ and $\mu_n^*$ but
+  we know that $\mu_n^*>0$ and $\sum_{n=1}^N\mu_n^*=A$ by \lemref{lemma:allActive}. Furthermore, \eqref{eq:AvDismutilde} is
+  the minimum over all such  $\mu_n>0$ and $u_n>0$. Hence it must hold
   %
   \begin{align}
-    \min_{\vh>0} \AvDis(\vQ^*,\vh)=\AvDis(\vQ^*,\vh^*,\Vor^*)
-  \end{align}
+    \AvDis(\vP^*,\vh^*,\Vor^*)
+    = \frac{1}{2^{2\gam-1}A} \min_{u_n>0} \min_{\substack{\mu_n>0\\ A\!=\! \sum_{n\!=\!1}^N \mu_n}} 
+    \sum_{n=1}^N \mu_n^{2\gam}\cdot\left(\int_0^1 
+      \frac{(\ome^2+u^2_n)^{\gam}}{u_n}d \ome\right)
+      = \frac{g(\gam)}{2^{2\gam-1}A}  
+\min_{\substack{\mu_n>0\\ A\!=\! \sum_{n\!=\!1}^N \mu_n}} 
+      \sum_{n=1}^N \mu_n^{2\gam}  \end{align}
   %
-  Since we split $h_n$ in $\tilde{h}_n$ and $\mu_n$ where $\sum_{n=1}^N \mu_n=A$ we get
-  %
-  \begin{align}
-    \min_{\vh>0} \AvDis(\vQ^*,\vh)=\min_{\tilde{h}>0}\min_{\mu_n, \sum_n\mu_n=A}
-  \end{align}
-  it
-  is the optimal parameter to achieve the minimal average distortion for $x_n^*$ and $\Vor_n^*$. Hence, by minimizing
-  $\AvDis(\vP^*,\tilde{\vh},\Vor^*)$ over $\tilde{\vh}$ must yield the optimal parameter $\vh^*$ for the optimal
-  quantization point $\vq_n^*$. 
-  %
-  \begin{align}
-    \frac{1}{2^{2\gam-1}A}
-    \sum_{n=1}^N \mu_n^{2\gam}\cdot\left(\min_{\tilde{h}_n>0}\int_0^1 
-      \frac{(\ome^2+\tilde{h}^2_n)^{\gam}}{\tilde{h}_n}d \ome\right)
-      =\frac{1}{2^{2\gam-1}A}\int_0^1 \frac{(\ome^2+g^2(\alp))^{\gam}}{g(\alp)}d\ome \cdot  \sum_{n=1}^N \mu_n^{2\gam}\notag.
-  \end{align}
-  %
-  Since $\mu_n$ also depends on $\tilde{h}_n$ we minimize over all $\{\mu_n\}$ under the constraint $\sum_n\mu_n=A$,
-  which will define a valid parameter-quantizer and must therefore be the optimal parameter-quantizer
-  \eqref{eq:optquanteqoptdeploy}. By the Hölder inequality we get for $p=2\gam, q=2\gam/(2\gam-1)$ 
+  where in the last equality we used \lemref{lem:ggam}. 
+  By the Hölder inequality we get for $p=2\gam, q=2\gam/(2\gam-1)$ 
   %
   \begin{align}
     \sum_{n=1}^N \mu_n^{2\gam}=\sum_{n=1}^N \mu_n^p  = \sum_{n=1}^N \mu_n^p \cdot\Big(\sum_{n=1}^N (1/N)^q \Big)^{p/q} \cdot N
@@ -1852,10 +1841,13 @@ which computes to
     \left(\frac{A}{N}\right)^{2\gam}N\notag
   \end{align}
   %
-  where the equality is achieved if and only if $\mu_n=A/N$. Hence, the optimal parameter-quantizer is the 
+  where the equality is achieved if and only if $\mu_n^*=A/N$. Hence, the optimal parameter-quantizer is the 
   uniform scalar quantizer $x_n^*=(2n-1)A/2N$ with identical parameters $h^*=(A/2N)g(\gam)$ resulting in the
   minimum average distortion \eqref{eq:optimumavpow}.
 
+  Let us note here, that for identical parameters, the Möbius regions are closed intervals and reduce to Euclidean
+  Voronoi regions by \lemref{lem:moebiusdia},
+  for which the optimal tessellation is known to be the uniform scalar quantizer, see for example \cite{GN98}. 
 \fi
 
 
