@@ -423,8 +423,8 @@ given quantization and parameter points $(\vP,\vh)$, define a generalized Vorono
 %
 \begin{align}
   \AvDis(\vP,\vh,\Vor)
-  :=\int_{\Omega}\min_{n} \left\{ \Dis(\vome,\vp_n,h_n) \right\} \df(\vome)d\vome 
-  =\sum_{n=1}^{N}\int_{\Vor_n(\vP,\vh)}\Dis(\vome,\vp_n,h_n) \df(\vome)d\vome 
+  :=\!\int_{\Omega}\min_{n\in[N]} \left\{ \Dis(\vome,\vp_n,h_n) \right\} \df(\vome)d\vome 
+  =\sum_{n=1}^{N}\int_{\Vor_n(\vP,\vh)}\!\!\!\!\!\Dis(\vome,\vp_n,h_n) \df(\vome)d\vome 
 %  =\min_{\substack{\{\Rset_n\}\subset\Omega\\ \bigcup \Rset_n=\Ome}}\AvDis(\vP,\bH,\Rset)
   \label{eq:optPbar},
 \end{align}
