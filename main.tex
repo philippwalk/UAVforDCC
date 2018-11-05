@@ -203,7 +203,7 @@ University of California, Irvine, CA 92697-2625 \\
 \maketitle
 \thispagestyle{empty}
 
-\begin{abstract}\blfootnote{This work was supported in part by an NSF grant\dots}
+\begin{abstract}\blfootnote{This work was supported in part by the NSF Award CCF-1815339.}
   In many quantization problems, the distortion function is given by the Euclidean metric to measure the distance of a
   source sample to any given reproduction point of the quantizer. We will in this work regard distortion functions,
   which are additively and multiplicatively weighted for each reproduction point resulting in a heterogeneous
@@ -416,7 +416,7 @@ given quantization and parameter points $(\vP,\vh)$, define a generalized Vorono
 \begin{align}
   \AvDis(\vP,\vh,\Vor)
   :=\int_{\Omega}\min_{n} \left\{ \Dis(\vome,\vp_n,h_n) \right\} \df(\vome)d\vome 
-  =\sum_n\int_{\Vor_n}\Dis(\vome,\vp_n,h_n) \df(\vome)d\vome 
+  =\sum_{n=1}^{N}\int_{\Vor_n(\vP,\vh)}\Dis(\vome,\vp_n,h_n) \df(\vome)d\vome 
 %  =\min_{\substack{\{\Rset_n\}\subset\Omega\\ \bigcup \Rset_n=\Ome}}\AvDis(\vP,\bH,\Rset)
   \label{eq:optPbar},
 \end{align}
@@ -954,13 +954,13 @@ We plotted  the optimal heights and optimal average distortion for a uniform GT 
 and $N=2$ in \figref{fig:goptdopt}. Note that the factor $A/2N=1/4$ will play a crucial role for the height and
 distortion scaling. Moreover, the distortion decreases exponentially in $\alpha$ if $A/2N<1$.
 
-Let us set $\bet=1=A$. Then the optimal UAV deployment is pictured in \figref{fig:uavonedim} for $N=2$ and $N=4$. The
+Let us set $\bet=1=A$. Then, the optimal UAV deployment is pictured in \figref{fig:uavonedim} for $N=2$ and $N=4$. The
 maximum elevation angle $\tht_{\text{max}}$ is hereby constant for each UAV and does not change if the number of UAVs,
 $N$, increases.  Moreover, it is also independent of $A$ and $\bet$, since with \eqref{eq:optimaldeploy} we have
-$d_n=x^*_n-x^*_{n-1}=A/N$ and
+$\mu_n=x^*_n-x^*_{n-1}=A/N$ and
 %
 \begin{align}
-  \cos(\tht_{\text{max}})=\cos(\tht_n)= \frac{h^*}{d^*_n/2}= \frac{2N}{A}\frac{A}{2N}   g(1)= \frac{1}{\sqrt{3}}.
+  \cos(\tht_{\text{max}})=\cos(\tht_n)= \frac{h^*}{\mu^*_n/2}= \frac{2N}{A}\frac{A}{2N}   g(1)= \frac{1}{\sqrt{3}}.
 \end{align}
 \end{example}
 % 
@@ -1008,7 +1008,7 @@ partitioning is fixed; (ii) The partitioning is optimized while the reproduction
 In what follows, we provide the simulation results over the two-dimensional target region $\Omega=[0,10]\times[0,10]$ with
 uniform and non-uniform density functions.  The non-uniform density function is a Gaussian mixture of the form
 $\sum_{k=1}^{3}\frac{A_k}{\sqrt{2\pi}\sigma^2_k}\exp{\left(-\frac{\|\ome-c_k\|^2}{2\sigma_k}\right)}$, where the
-weights, $A_k$, $k=1,2,3$ are $0.5$, $0.25$, $0.25$, the mean, $c_k$, are $(3,3)$, $(6,7)$, $(7.5,2.5)$, the standard deviations,
+weights, $A_k$, $k=1,2,3$ are $0.5$, $0.25$, $0.25$, the means, $c_k$, are $(3,3)$, $(6,7)$, $(7.5,2.5)$, the standard deviations,
 $\sigma_k$, are  $1.5$, $1$, and $2$, respectively.
 
 
@@ -1028,9 +1028,9 @@ $\sigma_k$, are  $1.5$, $1$, and $2$, respectively.
 \end{figure}
 
 To evaluate the performance of the proposed algorithms, we compare them with the average distortion of 100 random
-deployments (RD).  Figs. \ref{uniformDistortion} and \ref{nonuniformDistortion}, show that the proposed algorithms
+deployments (RDs).  Figs. \ref{uniformDistortion} and \ref{nonuniformDistortion}, show that the proposed algorithms
 outperform the random deployment on both uniform and non-uniform distributed target regions.  From
-\figref{uniformDistortion}, one can also find that the distortion achieved by Lloyd-A and Loyd-B are very close,
+\figref{uniformDistortion}, one can also find that the distortion achieved by Lloyd-A and Lloyd-B are very close,
 indicating that the optimality of the common height, as proved for the one-dimensional case in \secref{sec:optmize1D},
 might be extended to the two-dimensional case when the density function is uniform. However, one can find a non-negligible
 gap between Lloyd-A and Lloyd-B in \figref{nonuniformDistortion} where the density function is non-uniform. For
@@ -1039,7 +1039,7 @@ distortion, $28.25$, by placing UAVs at different heights.
 %
 Figs. \ref{uniformPartitions32} and
 \ref{uniformPartitions100} illustrate the UAV ground projections and their partitions on a uniform distributed
-square region. As the number of UAVs increases, the UAV partitions approximate to be hexagons which implies the optimality of congruent partition (Theorem \ref{thm:commonheight}) might be extended to uniformly distributed users in two-dimensional sources. 
+square region. As the number of UAVs increases, the UAV partitions approximate hexagons which implies the optimality of congruent partition (Theorem \ref{thm:commonheight}) might be extended to uniformly distributed users for two-dimensional sources. 
 \ifarxiv However, the UAV projections in Figs. \ref{nonuniformPartitions32} and
 \ref{nonuniformPartitions100} show that congruent partition is no longer a necessary condition for the optimal quantizer
 when distribution is non-uniform. \else   
@@ -1598,19 +1598,19 @@ which computes to
   $\Rset=\{\Rset_n\}_{n=1}^N\subset \Ome$ of $\Ome$ and assign to each partition region $\Rset_n$ a
   parameter-quantization point
   $(\vp_n,h_n)\in\Ome\times\R_+$. The assignment rule or \emph{quantization rule} can be anything such that the regions
-  are independent of the value of the parameter and quantization points.  Minimizing over all quantizer, that is, over
+  are independent of the value of the parameter and quantization points.  Minimizing over the quantizer, that is, over
   all partitions and possible parameter-quantization points will yield to the parameter optimized quantizer, which is by definition the
   optimal deployment (reproduction points) which generate the generalized Voronoi regions as the optimal partition
   (tessellation\footnote{Since we take here the continuous case, the integral will not distinguish between open or closed
   sets.}). This holds for any density function $\lam(\ome)$ and target area $\Ome$.  To see this\footnote{We use the
-    same argumentation as in the prove of \cite[Prop.1]{Erdem}.} let us start with any quantizer $(\vP,\vh,\Rset)$ for
+    same argumentation as in the prove of \cite[Prop.1]{Erdem}.}, let us start with any quantizer $(\vP,\vh,\Rset)$ for
     $\Ome$ yielding to the average distortion 
   %
   \begin{align}
     \AvDis(\vP,\vh,\Rset) &=\sum_{n=1}^N \int_{\Rset_n} \Dis(\vp_n,h_n,\ome)\lam(\ome) d\ome \geq \sum_{n=1}^N \int_{\Rset_n} 
     \left(\min_{m\in[N]} \Dis(\vp_m,h_n,\ome) \right) \lam(\ome)d\ome\notag\\
     &=\int_{\Ome} \min_{m\in[N]} \Dis(\vp_m,h_n,\ome) \lam(\ome)d\ome
-    =\sum_n \int_{\Vor_n(\vP,\vh)} \Dis(\vp_n,h_n,\ome) \lam(\ome)d\ome
+    =\sum_{n=1}^{N} \int_{\Vor_n(\vP,\vh)} \Dis(\vp_n,h_n,\ome) \lam(\ome)d\ome
   \end{align} 
   %
   where the first inequality is only achieved if for any $\ome\in \Rset_n$ we have chosen $(\vp_n,h_n)$ to be the optimal
@@ -1641,26 +1641,25 @@ which computes to
   $v_{n,k}=[a_{n,k-1},a_{n,k}]$ are intervals for some $0\leq a_{n,k-1}\leq a_{n,k}\leq A$.
 
   Let us assume there are quantization points with disconnected regions, i.e. $K_n>1$ for $n\in\Ind_d$ and some
-  $\Ind_d\subset[N]$. Then we will re-arrange the partition $\Vor^*$ by concatenating the $K_n$ disconnected
-  intervals $v_{n,k}$ to $\Rset_n=[b_{n-1},b_{n}]$ for $n\in\Ind_d$ and move the connected regions appropriate such that
+  $\Ind_d\subset[N]$. Then, we will re-arrange the partition $\Vor^*$ by concatenating the $K_n$ disconnected
+  intervals $v_{n,k}$ to $\Rset_n=[b_{n-1},b_{n}]$ for $n\in\Ind_d$ and move the connected regions appropriatly such that
   for all $n\in[N]$ it holds $\mu(\Rset_n)=\mu(\Vor^*_n)=b_n-b_{n-1}$ and $b_{n-1}\leq b_{n}$, where we set $b_0=0$ and
   $b_N=A$. For the new concatenated regions, we move each $q_n^*$ to the center of the new arranged regions, i.e.,
-  $\tq_n=\frac{b_n+b_{n-1}}{2}$ for $n\in\Ind_d$. If for the connected regions $n\in[N]\setminus\Ind_d$  the
-  quantization points $q^*_n$ are not centroidal, than by placing them in the center of the closed interval,
-  will by \lemref{lem:ggam} obtain a strictly smaller distortion. Hence, for the optimal quantizer, the quantization
+  $\tq_n=\frac{b_n+b_{n-1}}{2}$ for $n\in\Ind_d$. If for the connected regions $n\in[N]\setminus\Ind_d$, the
+  quantization point $q^*_n$ is not centroidal, by placing it at in the center of the corresponding closed interval,
+  we will obtain a strictly smaller distortion by \lemref{lem:ggam}. Hence, for the optimal quantizer, the quantization
   points must be centroidal and we can assume $\tq_n=(b_n+b_{n-1})/2$ for all $n\in[N]$. 
   %
-  In this rearrangement we did not changed the parameters $h_n^*$ at all.  The so rearranged partition
-  $\Rset=\{\Rset_n\}$ and replaced quantization points $\tvp=(\tq_1,\dots,\tq_N)$ has the average distortion 
+  In this rearrangement, we did not change the parameters $h_n^*$ at all.  The rearranged partition
+  $\Rset=\{\Rset_n\}$ and replaced quantization points $\tvp=(\tq_1,\dots,\tq_N)$ provide the average distortion 
   %
   \begin{align}
     \AvDis(\tvp,\vh^*,\Rset)=\sum_{n=1}^N \int_{b_{n-1}}^{b_n} \frac{ ((\tq_n\!-\!\ome)^2+h_n^{*2})^{\gam}}{h_n^{*}} d\ome
       = 2\sum_{n=1}^N \int_{0}^{\frac{b_n-b_{n-1}}{2}} \frac{ (\ome^2+h_n^{*2})^{\gam}}{h_n^{*}} d\ome
   \end{align}
   %
-  where we substituted $\ome$ by $\tq_n\!-\!\ome$. Since the parameters did not changed and the function
-  $(\ome^2+h_n^{*2})^{\gam}$ is strictly monotone increasing in $\ome$ for each $\gam>0$, it holds for the average
-  distortion of regions $n\in\Ind_d$
+  where we substituted $\ome$ by $\tq_n\!-\!\ome$. Since the function
+  $(\ome^2+h_n^{*2})^{\gam}$ is strictly monotone increasing in $\ome$ for each $\gam>0$, for any $n\in\Ind_d$, we have
   %
   \begin{align}
    \AvDis_n(\tq_n,h_n^*,\Rset_n)=    2\int_{0}^{\frac{b_n-b_{n-1}}{2}} \frac{ (\ome^2+h_n^{*2})^{\gam}}{h_n^{*}} d\ome 
@@ -1669,37 +1668,37 @@ which computes to
   \end{align}
   %
   since the non-zero gaps in $\bigcup_k [a_{n,k}-q_n^*,a_{n,k-1}-q_n^*]$ will lead to larger $\ome$ in the RHS integral
-  and therefore to a strictly larger average distortion.  Therefore the points $(\tvp,\vh^*)$ with closed interval
+  and therefore to a strictly larger average distortion.  Therefore, the points $(\tvp,\vh^*)$ with closed interval
   $\Rset=\{\Rset_n\}$ have a strictly smaller average distortion, which contradicts the assumption that $(\vp^*,\vh^*)$ is the
-  parameter optimized quantizer \eqref{eq:optquanteqoptdeploy}. Hence $K_n=1$ for each $n\in[N]$ and every $\gam\geq 1$.
-  Moreover, the optimal quantization points must be centroids of the intervals, i.e. $x_n^*=(b_n^*+b_{n-1})/2$.
+  parameter optimized quantizer \eqref{eq:optquanteqoptdeploy}. Hence, $K_n=1$ for each $n\in[N]$ and every $\gam\geq 1$.
+  Moreover, the optimal quantization points must be centroids of the intervals, i.e. $x_n^*=(b_n^*+b^*_{n-1})/2$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  Now, we have to show that the optimal quantization regions $\Vor_n^*=\{[b^*_{n-1},b^*_n]\}_{n=1}^n$ are not points, i.e.,
+  Now, we have to show that the optimal quantization regions $\Vor_n^*=\{[b^*_{n-1},b^*_n]\}_{n=1}^N$ are not points, i.e.,
   it should hold $b^*_n>b^*_{n-1}$ for each $n\in[N]$. If $b^*_n=b^*_{n-1}$ for some $n$, then the $n$th average distortion $\AvDis_n$
-  would be zero for this quantization point, since the integral is vanishing. But then we only optimize over $N-1$
-  quantization points. So we only need to show, that an additional quantization point strictly decreases the minimal
+  will be zero for this quantization point, since the integral is vanishing. But, then we only optimize over $N-1$
+  quantization points. So we only need to show that an additional quantization point strictly decreases the minimum
   average distortion.  Hence, take any non-zero optimal quantization region $\Vor_n^*=[b^*_{n-1},b^*_n]$. We know by
   \lemref{lem:ggam} that the optimal quantizer $q_n^*$ for some closed interval $\Vor_n^*$  must be its centroidal for
-  any parameter $h_n$.  Hence, if we split  $\Vor_n^*$ with  $A_n=b^*_n-b^*_{n-1}$ by a half and put two quantizers
-  $q_{n_1}$ and $q_{n_2}$ with same parameter $h_n^*$ in the center we will get with \eqref{eq:Avdisn}
+  any parameter $h_n$.  Hence, if we split  $\Vor_n^*$ with  $\mu_n=b^*_n-b^*_{n-1}$ by a half and put two quantizers
+  $q_{n_1}$ and $q_{n_2}$ with the same parameter $h_n^*$ in the center, using \eqref{eq:Avdisn} we will get 
   %
   \begin{align}
    % D_n(q_n^*,h_n^*,\Vor_n^*)=\frac{2}{h_n}\int_{0}^{A_n/2} (\ome^2+h_n^{*2})^{\gam} d\ome
       \AvDis_{n_1}\!+\!\AvDis_{n_2}&=\frac{1}{h_n^*} 
-     \left( \int_{b_{n-1}}^{b_{n-1}+\frac{A_n}{2}} ( (q_{n_1}-\ome)^2 + h_n^{*2})^{\gam}d\ome
-     +\int_{b_{n-1}+\frac{A_n}{2}}^{b_n}((q_{n_2}-\ome)^2+h_n^{*2})^{\gam}d\ome\right)\notag\\
-   \intertext{substituting $q_{n_i}-\ome$ by $\ome$ we get} 
-     & =  \int_{-\frac{A_n}{4}}^{\frac{A_n}{4}} \frac{(\ome^2+h_n^{*2})^{\gam}}{h_n^*}d\ome
-     + \int_{-\frac{A_n}{4}}^{\frac{A_n}{4}} \frac{(\ome^2+h_n^{*2})^{\gam}}{h_n^*}d\ome\\
-     & =  2\int_{0}^{\frac{A_n}{4}} \frac{(\ome^2+h_n^{*2})^{\gam}}{h_n^*}d\ome 
-     + w\int_{0}^{\frac{A_n}{4}}    \frac{ (\ome^2+h_n^{*2})^{\gam}}{h_n^*}d\ome\\
-     & <  2\!\int_{0}^{\frac{A_n}{4}} \frac{(\ome^2\!+\!h_n^{*2})^{\gam}}{h_n^*}d\ome
-     + 2\!\int_{\frac{A_n}{4}}^{\frac{A_n}{2}} \frac{(\ome^2\!+\!h_n^{*2})^{\gam}}{h_n^*}d\ome
-     = 2\!\int_0^{\frac{A_n}{2}} \frac{(\ome^2\!+\!h_n^{*2})^\gam}{h_n^*} d\ome=\AvDis_n\notag
+     \left( \int_{b_{n-1}}^{b_{n-1}+\frac{\mu_n}{2}} ( (q_{n_1}-\ome)^2 + h_n^{*2})^{\gam}d\ome
+     +\int_{b_{n-1}+\frac{\mu_n}{2}}^{b_n}((q_{n_2}-\ome)^2+h_n^{*2})^{\gam}d\ome\right)\notag\\
+   \intertext{Substituting $q_{n_i}-\ome$ by $\ome$, we get} 
+     & =  \int_{-\frac{\mu_n}{4}}^{\frac{\mu_n}{4}} \frac{(\ome^2+h_n^{*2})^{\gam}}{h_n^*}d\ome
+     + \int_{-\frac{\mu_n}{4}}^{\frac{\mu_n}{4}} \frac{(\ome^2+h_n^{*2})^{\gam}}{h_n^*}d\ome\\
+     & =  2\int_{0}^{\frac{\mu_n}{4}} \frac{(\ome^2+h_n^{*2})^{\gam}}{h_n^*}d\ome 
+     + w\int_{0}^{\frac{\mu_n}{4}}    \frac{ (\ome^2+h_n^{*2})^{\gam}}{h_n^*}d\ome\\
+     & <  2\!\int_{0}^{\frac{\mu_n}{4}} \frac{(\ome^2\!+\!h_n^{*2})^{\gam}}{h_n^*}d\ome
+     + 2\!\int_{\frac{\mu_n}{4}}^{\frac{\mu_n}{2}} \frac{(\ome^2\!+\!h_n^{*2})^{\gam}}{h_n^*}d\ome
+     = 2\!\int_0^{\frac{\mu_n}{2}} \frac{(\ome^2\!+\!h_n^{*2})^\gam}{h_n^*} d\ome=\AvDis_n\notag
   \end{align}
-  Hence, the average distortion will strictly decrease if $A_n>0$. Therefore, the $N-$level parameter optimized
+  Hence, the average distortion will strictly decrease if $\mu_n>0$. Therefore, the $N-$level parameter optimized
   quantizer will have
   quantization boundaries $b_n\!>\!b_{n\!-\!1}$ for $n\in[N]$.
   % old version, too complicated
@@ -1766,7 +1765,7 @@ which computes to
   intervals $\Vor_n^*=[b_{n-1}^*,b_n^*]$ for some $b^*_{n-1}<b_n^*$ with quantization points
   %
   \begin{align}
-   \vp_n^*= x_n^*=\frac{b_n+b_{n-1}}{2}\label{eq:xnoptimal}
+   \vp_n^*= x_n^*=\frac{b^*_n+b^*_{n-1}}{2}\label{eq:xnoptimal}
   \end{align}
   %
   for $n\in[N]$.
@@ -1807,31 +1806,31 @@ which computes to
   % already shown in lemma 3 
   \fi
   % 
-  Let us set $\mu_n=b_n^*-b_{n-1}^*$ for $n\in[N]$, then we get by substituting $\frac{2(x_n^*-\ome)}{\mu_n}=\tome$ and
-  $\hGlob_n=\tilde{h}_n\mu_n/2$  in the minimal average distortion 
+  Let us set $\mu_n=b_n^*-b_{n-1}^*$ for $n\in[N]$, then substituting $\frac{2(x_n^*-\ome)}{\mu_n}=\tome$ and
+  $\hGlob_n=\tilde{h}_n\mu_n/2$  in the minimum average distortion results in
   %
   \begin{align}
     \AvDis(\vP^*,\vh^*)&=\sum_{n=1}^N \int_{b_{n-1}^*}^{b_n^*} 
        \frac{ ((\pGlob_n-\ome)^2+{\hGlob_n}^2)^{\gam}}{\hGlob_n}\frac{d\ome}{A} 
-       = \sum_n \int_{1}^{-1} -\frac{  (\mu_n^2 \tome^2/4 + \tilde{h}_n^2\mu_n^2/4)^{\gam}}{\tilde{h}_n\mu_n/2}
+       = \sum_{n=1}^N \int_{1}^{-1} -\frac{  (\mu_n^2 \tome^2/4 + \tilde{h}_n^2\mu_n^2/4)^{\gam}}{\tilde{h}_n\mu_n/2}
     \frac{\mu_n}{2A}d\tome\notag\\
-    &= \frac{1}{ 2^{2\gam-1}A}\sum_n \mu_n^{2\gam}\cdot\int_0^1 \frac{(\ome^2+\tilde{h}^2_n)^{\gam}}{\tilde{h}_n}d \ome 
+    &= \frac{1}{ 2^{2\gam-1}A}\sum_{n=1}^N \mu_n^{2\gam}\cdot\int_0^1 \frac{(\ome^2+\tilde{h}^2_n)^{\gam}}{\tilde{h}_n}d \ome 
   \end{align}
   %
   where we used \eqref{eq:xnoptimal} to get for the integral boundaries $2(\pGlob_n-b_{n-1}^*)/\mu_n=1=-2(\pGlob_n-b_{n}^*)/\mu_n$.
-  We do not know the value of $\tilde{h}_n$ but we know it is the optimal parameter to achieve the minimal average
+  We do not know the value of $\tilde{h}_n$ but we know it is the optimal parameter to achieve the minimum average
   distortion for $x_n^*$ and $\Vor_n^*$. Hence, by minimizing $\AvDis(\vP^*,\tilde{\vh},\Vor^*)$ over
-  $\tilde{\vh}$, i.e., minimizing over each $\tilde{h}_n$ gives by \lemref{lem:ggam} 
+  $\tilde{\vh}$, i.e., minimizing over each $\tilde{h}_n$ provided by \lemref{lem:ggam} 
   %
   \begin{align}
     \frac{1}{2^{2\gam-1}A}
-    \sum_n \mu_n^{2\gam}\cdot\left(\min_{\tilde{h}_n>0}\int_0^1 \frac{(\ome^2+\tilde{h}^2_n)^{\gam}}{\tilde{h}_n}d \ome\right)
-    =\frac{1}{2^{2\gam-1}A}\int_0^1 \frac{(\ome^2+g^2(\alp))^{\gam}}{g(\alp)}d\ome \cdot  \sum_n\mu_n^{2\gam}\notag.
+    \sum_{n=1}^N \min_{\tilde{h}_n>0}\left(\mu_n^{2\gam}\cdot\int_0^1 \frac{(\ome^2+\tilde{h}^2_n)^{\gam}}{\tilde{h}_n}d \ome\right)
+    =\frac{1}{2^{2\gam-1}A}\int_0^1 \frac{(\ome^2+g^2(\alp))^{\gam}}{g(\alp)}d\ome \cdot  \sum_{n=1}^N\mu_n^{2\gam}\notag.
   \end{align}
   %
-  Since $\mu_n$ also depends on $\tilde{h}_n$ we minimize over all $\{\mu_n\}$ under the constraint $\sum_n\mu_n=A$,
+  Since $\mu_n$ also depends on $\tilde{h}_n$, we minimize over all $\{\mu_n\}$ under the constraint $\sum_n\mu_n=A$,
   which will define a valid parameter-quantizer and must therefore be the optimal parameter-quantizer
-  \eqref{eq:optquanteqoptdeploy}. By the Hölder inequality we get for $p=2\gam, q=2\gam/(2\gam-1)$ 
+  \eqref{eq:optquanteqoptdeploy}. By the Hölder inequality, we get for $p=2\gam, q=2\gam/(2\gam-1)$ 
   %
   \begin{align}
     \sum_n \mu_n^{2\gam}=\sum_n \mu_n^p  = \sum_n \mu_n^p \cdot\Big(\sum_n (1/N)^q \Big)^{p/q} \cdot N
@@ -1839,9 +1838,9 @@ which computes to
     \left(\frac{A}{N}\right)^{2\gam}N\notag
   \end{align}
   %
-  which is achieved if and only if $\mu_n=A/N$. Hence, the optimal parameter-quantizer is the 
+  where the equality is achieved if and only if $\mu_n=A/N$. Hence, the optimal parameter-quantizer is the 
   uniform scalar quantizer $x_n^*=(2n-1)A/2N$ with identical parameters $h^*=(A/2N)g(\gam)$ resulting in the
-  minimal average distortion \eqref{eq:optimumavpow}.
+  minimum average distortion \eqref{eq:optimumavpow}.
 
 \fi
 
