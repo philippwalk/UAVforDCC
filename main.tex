@@ -1,5 +1,5 @@
-\documentclass[smallabstract,smallcaptions]{dccpaper}
-%\documentclass[12pt,onecolumn,journal,draftclsnofoot,letterpaper]{IEEEtran}
+%\documentclass[smallabstract,smallcaptions]{dccpaper}
+\documentclass[12pt,onecolumn,journal,draftclsnofoot,letterpaper]{IEEEtran}
 %
 \usepackage{amssymb,amsthm}
 \usepackage{thmtools}
@@ -14,6 +14,7 @@
 \newtheorem{Def}{Definition}
 \newtheorem{lemma}{Lemma}
 \newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
 \newcounter{MYtempeqncnt}
 \usepackage{algorithm}
 \usepackage{algorithmic}
@@ -59,18 +60,13 @@
 %\arxivtrue% uncomment for arxiv version 
 
 \ifarxiv
-%\usepackage{appendix}
-%\renewcommand{\appendixname}{Appendix}
-\usepackage{graphicx}
+\usepackage[pdftex]{graphicx}
 \fi
 
-%\graphicspath{{../jpg/}{../pdf/}{../jpeg/}{../eps/}}
 \DeclareGraphicsExtensions{.jpg,.pdf,.jpeg,.png,.eps}
 \newenvironment{proofnoqed}{\par\vspace{1.5ex}\noindent{\em Proof\/}.}{\par\vspace{1.5ex}}
-%\usepackage[shortlabels]{enumitem}
 
 \usepackage[style=ieee,    
-            firstinits=true, % vornamen = erste buchstabe
             url=false,
             backend=bibtex,
             dateabbrev=true,
@@ -102,9 +98,6 @@
 \fi
 %
 \newif\ifproof\prooffalse % no proofs
-
-
-
 
 \renewcommand{\vq}{\mathbf p}
 \renewcommand{\vp}{\mathbf q}
@@ -164,13 +157,7 @@
 %\newcommand{\junstart}{\color{Red}}
 \newcommand{\junstart}{\color{black}}
 \newcommand{\junend}{\color{black}}
-%\renewcommand{\thepage}{\arabic{page}}
 
-\newtheorem{corollary}{Corollary}
-\ifarxiv
-%\pagestyle{plain}
-%\pagenumbering{arabic}
-\fi
 
 \makeatletter
 \def\blfootnote{\xdef\@thefnmark{}\@footnotetext}
@@ -190,26 +177,26 @@
 
 \author{Jun~Guo, Philipp~Walk, and Hamid~Jafarkhani\\
   {\small\begin{minipage}{\linewidth}\begin{center}
-\begin{tabular}{c}
- %, Department of Electrical Engineering and Compute Science\\
-Center for Pervasive Communications and Computing \\
-University of California, Irvine, CA 92697-2625 \\
-{\it\{guoj4,pwalk,hamidj\}@uci.edu}\\
-\end{tabular}
-\end{center}
-\end{minipage}\vspace{0.2cm}}
+    \begin{tabular}{c}
+    Center for Pervasive Communications and Computing \\
+    University of California, Irvine, CA 92697-2625 \\
+    {\it\{guoj4,pwalk,hamidj\}@uci.edu}\\
+    \end{tabular}
+    \end{center}
+  \end{minipage}\vspace{0.2cm}}
 }
 
 \maketitle
 \thispagestyle{empty}
 
-\begin{abstract}\blfootnote{This work was supported in part by the NSF Award CCF-1815339.}
+\begin{abstract}\blfootnote{This work was supported in part by the NSF Award CCF-1815339.}%
+  %
   In many quantization problems, the distortion function is given by the Euclidean metric to measure the distance of a
   source sample to any given reproduction point of the quantizer. We will in this work regard distortion functions,
   which are additively and multiplicatively weighted for each reproduction point resulting in a heterogeneous
-  quantization problem, as used for example in deployment problems of sensor networks. Whereas, normally in such problems, the
-  average distortion is minimized for given weights (parameters), we will optimize the quantization problem over all
-  weights, i.e., we tune or control the distortion functions in our favor. 
+  quantization problem, as used for example in deployment problems of sensor networks. Whereas, normally in such
+  problems, the average distortion is minimized for given weights (parameters), we will optimize the quantization
+  problem over all weights, i.e., we tune or control the distortion functions in our favor. 
   %
   For a uniform source distribution in one-dimension, we derive the unique minimizer, given as the uniform scalar
   quantizer with an optimal common weight. By numerical simulations, we demonstrate that this result extends to
@@ -226,8 +213,6 @@ For a set $\Omega\subset\R^d$ in $d=1,2$ dimensions, a quantizer is given by $N$
 $\vP=\{\vp_1,\dots,\vp_N\}\subset \Ome$ associated with $N$ quantization regions
 $\Rset=\{\Rset_1,\dots,\Rset_N\}\subset\Ome$, defining a partition of $\Ome$.
 %
-%Here $N\in\N$ is a positive integer and we refer in the limit $N\to\infty$ to the high-resolution quantizer.  
-%
 To measure the quality of a given quantizer, the Euclidean distance between the source samples and reproduction points
 is commonly used as the distortion function. We will study quantizers with parameter depending distortion functions
 which minimize the average distortion over $\Ome$ for a given continuous source sample distribution $\lam:\Ome\to
@@ -237,9 +222,6 @@ Contrary to a fixed parameter selection, we will assign to each quantization poi
 distortion function of the each quantization point individually.  Such controllable distortion functions widens the
 scope of quantization theory and allows one to apply quantization techniques to many parameter dependent network and
 locational problems.
-%
-%For a fixed exponent $\gam\geq1$, the distortion function is then given by the $\gam-$power of the  multiplicative
-%weighted Euclidean square-distance with $h_n^{-1/\gam}$ and additively weighted with $h_n^{2-1/\gam}$.
 %
 In this work, we will consider for the distortion function of $\vp_n$ a Euclidean square-distance, which is
 multiplicatively weighted by some $a_n>0$ and additively weighted by some $b_n>0$. Furthermore, we exponentially weight
