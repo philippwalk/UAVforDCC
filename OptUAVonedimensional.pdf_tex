@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{259.44375451bp}%
+    \setlength{\unitlength}{280.53003251bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,31 +48,31 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.42344814)%
+  \begin{picture}(1,0.3916193)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{OptUAVonedimensional.pdf}}%
-    \put(0.71233154,0.35168525){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\hq^{(2)}_2$}}}%
-    \put(0.84797457,0.00918095){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(0.69087069,0.32525053){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\vq^{*(2)}_2$}}}%
+    \put(0.816318,0.00849085){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\Omega$}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{OptUAVonedimensional.pdf}}%
-    \put(0.27824248,0.35168525){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\hq^{(2)}_1$}}}%
+    \put(0.28941031,0.32525053){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\vq^{*(2)}_1$}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{OptUAVonedimensional.pdf}}%
-    \put(0.47714459,0.00509842){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x$}}}%
-    \put(0.85619889,0.04980231){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$A=1$}}}%
-    \put(0.05717879,0.04876985){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$0$}}}%
+    \put(0.47336177,0.0047152){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x$}}}%
+    \put(0.87739424,0.04605888){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$1$}}}%
+    \put(0.08496305,0.04510402){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$0$}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{OptUAVonedimensional.pdf}}%
-    \put(0.0510967,0.21863446){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
-    \put(0.02255582,0.37817732){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h$}}}%
-    \put(0.48705965,0.04876985){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.5$}}}%
+    \put(0.07933813,0.20220062){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(0.02086039,0.3497513){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h$}}}%
+    \put(0.48253155,0.04510402){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.5$}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{OptUAVonedimensional.pdf}}%
-    \put(0.25594322,0.44621744){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
-    \put(-0.00225003,0.28261957){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.144$}}}%
+    \put(0.26878719,0.41267713){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(-0.00208091,0.26137623){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.144$}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{OptUAVonedimensional.pdf}}%
-    \put(0.25883786,0.04980231){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.25$}}}%
-    \put(0.69148036,0.04876985){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.75$}}}%
+    \put(0.27146425,0.04605888){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.25$}}}%
+    \put(0.67158681,0.04510402){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.75$}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=7]{OptUAVonedimensional.pdf}}%
-    \put(-0.00287951,0.17737158){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.072$}}}%
+    \put(-0.00266307,0.16403929){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$.072$}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=8]{OptUAVonedimensional.pdf}}%
-    \put(0.2589684,0.24307827){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\tht_{\text{max}}$}}}%
+    \put(0.27158497,0.22480709){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\tht_{\text{max}}$}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=9]{OptUAVonedimensional.pdf}}%
-    \put(0.15809155,0.23021835){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\hq^{(4)}_1$}}}%
+    \put(0.17829063,0.21291379){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\vq^{*(4)}_1$}}}%
   \end{picture}%
 \endgroup%

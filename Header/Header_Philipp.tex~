@@ -524,8 +524,8 @@
 \newcommand{\hg}{\ensuremath{\hat{g}}}
 \newcommand{\hh}{\ensuremath{\hat{h}}}
 \newcommand{\hn}{\ensuremath{\hat{n}}}
-\newcommand{\hp}{\ensuremath{\hat{p}}}
-\newcommand{\hq}{\ensuremath{\hat{q}}}
+\newcommand{\hp}{\ensuremath{p^*}}
+\newcommand{\hq}{\ensuremath{q^*}}
 \newcommand{\hs}{\ensuremath{\hat{s}}}
 \newcommand{\hu}{\ensuremath{\hat{u}}}
 \newcommand{\hv}{\ensuremath{\hat{v}}}
@@ -1225,7 +1225,7 @@
 \newcommand{\appref}[1]{Appendix~\ref{#1}}
 \newcommand{\secref}[1]{Section~\ref{#1}}
 \newcommand{\equref}[1]{(\ref{#1})}
-\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\figref}[1]{Fig.~\ref{#1}}
 \newcommand{\tabref}[1]{Table~\ref{#1}}
 
 \newcommand{\Sb}{{\mathbf S}}

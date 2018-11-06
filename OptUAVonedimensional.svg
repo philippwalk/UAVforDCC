@@ -24,14 +24,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6"
-     inkscape:cx="149.0442"
-     inkscape:cy="626.32693"
+     inkscape:zoom="2.8"
+     inkscape:cx="166.12332"
+     inkscape:cy="615.99024"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="2560"
-     inkscape:window-height="1380"
+     inkscape:window-width="2048"
+     inkscape:window-height="1092"
      inkscape:window-x="0"
      inkscape:window-y="31"
      inkscape:window-maximized="1" />
@@ -167,7 +167,7 @@
          x="85.135872"
          y="118.22939"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332"
-         id="tspan78818">$\hq^{(2)}_2$</tspan></text>
+         id="tspan78818">$\vq^{*(2)}_2$</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -200,7 +200,7 @@
          x="45.405441"
          y="118.22939"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332"
-         id="tspan78818-1">$\hq^{(2)}_1$</tspan></text>
+         id="tspan78818-1">$\vq^{*(2)}_1$</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.215;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1Mstart);marker-end:url(#marker950)"
        d="m 109.69143,141.85298 c -33.553139,0.004 -49.359715,0.41672 -82.912852,0.4257 l -0.09572,-30.29242"
@@ -490,7 +490,7 @@
          x="34.408508"
          y="129.34677"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.11666656px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332"
-         id="tspan78818-1-6">$\hq^{(4)}_1$</tspan></text>
+         id="tspan78818-1-6">$\vq^{*(4)}_1$</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
