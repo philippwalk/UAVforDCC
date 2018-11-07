@@ -70,7 +70,7 @@
 %\usepackage[shortlabels]{enumitem}
 
 \usepackage[style=ieee,    
-            firstinits=true, % vornamen = erste buchstabe
+      %      firstinits=true, % vornamen = erste buchstabe
             url=false,
             backend=bibtex,
             dateabbrev=true,
@@ -148,7 +148,7 @@
 \addbibresource{jabref_philipp_utf2.bib} % Philipps bibliography
 \addbibresource{jun_biblatex.bib}        % Juns bibliography
 \def \qed {\hfill \vrule height6pt width 6pt depth 0pt}
-\usepackage{caption}
+%\usepackage{caption}
 
 % for DCC version
 \newcommand{\Dis}{\ensuremath{D}}                    %  Distortion
@@ -201,9 +201,10 @@ University of California, Irvine, CA 92697-2625 \\
 }
 
 \maketitle
-\thispagestyle{empty}
 
-\begin{abstract}\blfootnote{This work was supported in part by the NSF Award CCF-1815339.}
+%\thispagestyle{empty}
+
+\begin{abstract}
   In many quantization problems, the distortion function is given by the Euclidean metric to measure the distance of a
   source sample to any given reproduction point of the quantizer. We will in this work regard distortion functions,
   which are additively and multiplicatively weighted for each reproduction point resulting in a heterogeneous
@@ -219,7 +220,7 @@ University of California, Irvine, CA 92697-2625 \\
   optimal flight heights of the UAVs.
 \end{abstract}
 %
-\section{Introduction}
+\section{Introduction}\blfootnote{This work was supported in part by the NSF Award CCF-1815339.}
 
 %
 For a set $\Omega\subset\R^d$ in $d=1,2$ dimensions, a quantizer is given by $N$ reproduction or quantization points
@@ -814,7 +815,7 @@ Hence we have shown
  
 \fi % no space for Corrolary
 
-\subsection{The optimal $N-$level parameter quantizer in one-dimension for uniform density}
+\subsection{The optimal parameter quantizer in one-dimension for uniform density}
 
 In this section, we discuss the parameter optimized quantizer for a one-dimensional convex source $\Ome\subset\R$, i.e.,
 for an interval $\Omega = [s,t]$ given by some real numbers $s<t$.  Under such circumstances, the quantization points are degenerated to scalars, i.e.,
