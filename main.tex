@@ -1,5 +1,5 @@
-%\documentclass[smallabstract,smallcaptions]{dccpaper}
-\documentclass[12pt,onecolumn,journal,draftclsnofoot,letterpaper]{IEEEtran}
+\documentclass[smallabstract,smallcaptions]{dccpaper}
+%\documentclass[12pt,onecolumn,journal,draftclsnofoot,letterpaper]{IEEEtran}
 %
 \usepackage{amssymb,amsthm}
 \usepackage{thmtools}
@@ -231,13 +231,13 @@ quantization regions are known to be generalized Voronoi (Möbius) regions, whic
 %
 In many applications, as in sensor or vehicle deployments, the optimal weights and parameters are usually unknown, but
 adjustable, and one wishes therefore to optimize the deployment over all admissible parameter values, see for example
-\cite{KKSS18}.
+\cite{ML}.
 %
-We will characterize such \emph{parameter optimized quantizers}  over one-dimensional convex target regions, i.e., over
-closed intervals. As a motivation, we will demonstrate such a parameter driven quantizer for an unmanned aerial vehicle
-(UAV) deployment to provide energy-efficient communication to ground terminals in a given target region $\Ome$.  Here, the
-parameters relate to the UAVs flight heights.  \ifarxiv \else Due to page limitations, all proofs are presented in
-\cite{GWJ18b}.  \fi
+We will characterize such \emph{quantizers with parameterized distortion measures}  over one-dimensional convex target
+regions, i.e., over closed intervals. As a motivation, we will demonstrate such a parameter driven quantizer for an
+unmanned aerial vehicle (UAV) deployment to provide energy-efficient communication to ground terminals in a given target
+region $\Ome$.  Here, the parameters relate to the UAVs flight heights.  \ifarxiv \else Due to page limitations, all
+proofs are presented in \cite{GWJ18b}.  \fi
 
 \paragraph{Notation}  By $[N]=\{1,2,\dots,N\}$ we denote the first $N$ natural numbers, $\N$.  We will
 write real numbers in $\R$ by small letters and row vectors by bold letters. The Euclidean norm of $\vx$ is given by
@@ -486,11 +486,12 @@ introduced in \cite{BWY07}.
   %
   has generalized Voronoi regions $\Vor_n= \Vor_{n}(\gP,\fH)= \bigcap_{m\not=n} \Vor_{nm}$, 
   where the dominance regions of quantization point $n$ over $m$ are given by
+  %
   \begin{align}
     \Vor_{nm}=\Omega\cap\begin{cases}
          \HS(\gp_n,\gp_m)&, h_m=h_n \\
-         B(\vc_{nm},r_{nm}) &, h_n<h_m\\
-         B^c(\vc_{nm},r_{nm}) &, h_n>h_m 
+         \Ball(\vc_{nm},r_{nm}) &, h_n<h_m\\
+         \Ball^c(\vc_{nm},r_{nm}) &, h_n>h_m 
         \end{cases}\label{eq:moebius}
   \end{align}
   %
