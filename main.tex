@@ -37,7 +37,9 @@
 
 \usepackage[utf8]{inputenc}                                         % -> damit man sie auch gleich im Code eingeben kann
 \usepackage[T1]{fontenc}
-\usepackage[pdfborder={0 0 0},colorlinks,citecolor=blue,hyperindex=true,hypertexnames=false,extension=pdf]{hyperref} 
+%\usepackage[pdfborder={0 0 0},colorlinks,citecolor=blue,hyperindex=true,hypertexnames=false,extension=pdf]{hyperref} 
+\usepackage[draft]{hyperref}
+
 \newenvironment{shrinkeq}[1]
 { \bgroup
   \addtolength\abovedisplayshortskip{#1}
@@ -241,12 +243,10 @@ proofs are presented in \cite{GWJ18b}.  \fi
 
 \paragraph{Notation}  By $[N]=\{1,2,\dots,N\}$ we denote the first $N$ natural numbers, $\N$.  We will
 write real numbers in $\R$ by small letters and row vectors by bold letters. The Euclidean norm of $\vx$ is given by
-$\Norm{\vx}=\sqrt{\sum_n x_n^2}$.  The open ball in $\R^d$ centered at $\vc\in\R^d$ with radius $r\geq 0$ is denoted by
-$\Ball\left(\vc,r\right)=\set{\vome}{\|\vome-\vc\|^2\le r}$.
+$\Norm{\vx}=\sqrt{\sum_n x_n^2}$.  
 %Note that $\Ball\left(\vc,0\right)$ is an empty set.
 We denote by $\Vor^c$ the complement of the set $\Vor\subset\R^d$. The positive real numbers are denoted by
-$\R_+:=\set{a\in\R}{a>0}$.  Moreover, for two points $\va,\vb\in\R^d$, we denote the generated half space between them,
-which contains $\va\in\R^d$, as $\HS(\va, \vb)$.  
+$\R_+:=\set{a\in\R}{a>0}$.  
 
 \section{System model}\label{sec:model}
 %
@@ -488,14 +488,14 @@ introduced in \cite{BWY07}.
   where the dominance regions of quantization point $n$ over $m$ are given by
   %
   \begin{align}
-    \Vor_{nm}=\Omega\cap\begin{cases}
-         \HS(\gp_n,\gp_m)&, h_m=h_n \\
-         \Ball(\vc_{nm},r_{nm}) &, h_n<h_m\\
-         \Ball^c(\vc_{nm},r_{nm}) &, h_n>h_m 
+    \Vor_{nm}=\begin{cases}
+         \set{\vome\in\Omega}{\|\gp_n-\vome\|\le \|\gp_m-\vome\|}&, h_m=h_n \\
+         \set{\vome\in\Omega}{\|\vome-\vc_{nm}\|\le r_{nm}} &, h_n<h_m\\
+         \set{\vome\in\Omega}{\|\vome-\vc_{nm}\|\ge r_{nm}} &, h_n>h_m 
         \end{cases}\label{eq:moebius}
   \end{align}
   %
-  and center and radii of the balls are given by
+where $\vc_{nm}$ and $r_{nm}$ are given by
   %
   \begin{align}
     \vc_{nm}\!=\!\frac{\gp_n - h_{nm}\gp_m}{1-h_{nm}}
@@ -512,6 +512,9 @@ introduced in \cite{BWY07}.
   \end{align}
   %
 \end{lemma}
+%\begin{remark}
+%    Note, if $r_{nm}=0$ and $h_n>h_m$ then the $n$th quantization point is not used.
+%\end{remark}
 \ifarxiv
 \begin{remark}
   It is also possible that two quantization points are equal, but have different parameters. If the parameter
@@ -577,9 +580,9 @@ introduced in \cite{BWY07}.
   %
   \begin{align}
     \Vor_{nm}=\begin{cases}
-      B(\vc_{nm},r_{nm})=\set{\vome\in\Omega}{\Norm{\vome-\vc_{nm}}    <  r_{nm}},&  h_n<h_m\\
-      \HS(\vp_n,\vp_m) = \set{\vome\in\Omega}{ \Norm{\vome- \vp_n}\leq \Norm{\vome- \vp_m}}, &h_n=h_m\\
-      B^c(\vc_{nm},r_{nm})=\set{\vome\in\Omega}{\Norm{\vome-\vc_{nm}}    >  r_{nm}},&  h_n >h_m
+      \set{\vome\in\Omega}{\Norm{\vome-\vc_{nm}}   \le r_{nm}},&  h_n<h_m\\
+       \set{\vome\in\Omega}{ \Norm{\vome- \vp_n}\leq \Norm{\vome- \vp_m}}, &h_n=h_m\\
+      \set{\vome\in\Omega}{\Norm{\vome-\vc_{nm}}    \ge  r_{nm}},&  h_n >h_m
     \end{cases}
   \end{align}
   %
